@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StatusListItem } from '../shared/models/status-list-item.model';
+import { StatusListItem } from '../../shared/models/status-list-item.model';
 
 @Component({
   selector: 'app-status',
