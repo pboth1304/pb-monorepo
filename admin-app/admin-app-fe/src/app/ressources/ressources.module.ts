@@ -4,6 +4,8 @@ import { RessourcesViewComponent } from './components/ressources-view/ressources
 import { RouterModule } from '@angular/router';
 import { ressourcesRoutes } from './ressources.routes';
 import { SharedModule } from '../shared/shared.module';
+import { RessourceListItemsComponent } from './components/ressource-list-items/ressource-list-items.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   imports: [
@@ -12,7 +14,9 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule.forChild(ressourcesRoutes)
   ],
   declarations: [
-    RessourcesViewComponent
+    RessourcesViewComponent,
+    RessourceListItemsComponent,
+    SearchComponent
   ]
 })
 export class RessourcesModule { }
