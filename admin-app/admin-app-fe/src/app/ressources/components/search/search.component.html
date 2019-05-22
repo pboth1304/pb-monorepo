@@ -1,11 +1,35 @@
-<form>
-  <div class="form-group d-flex justify-content-end">
-    <input
-      type="email"
-      class="form-control"
-      id="searchRessources"
-      aria-describedby="emailHelp"
-      placeholder="Search..."
-    />
+<div class="d-flex justify-content-between">
+  <div class="input-container d-flex w-50">
+    <form [formGroup]="searchForm" class="form mr-3">
+      <input
+        type="email"
+        class="form-control "
+        placeholder="Search..."
+        formControlName="search"
+        (keyup)="onSearchKeyup()"
+      />
+    </form>
+    <div class="dropdown">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Filter
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <!-- TODO ngfor foreach tag as filter ability -->
+        <a class="dropdown-item" href="#">JavaScript</a>
+        <a class="dropdown-item" href="#">C#</a>
+        <a class="dropdown-item" href="#">Java</a>
+        <a class="dropdown-item" href="#">Kubernetes</a>
+      </div>
+    </div>
   </div>
-</form>
+  <button class="btn btn-outline-primary">
+    New Ressource
+  </button>
+</div>

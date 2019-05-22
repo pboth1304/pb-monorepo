@@ -4,19 +4,11 @@ import { RessourcesViewComponent } from './components/ressources-view/ressources
 import { RouterModule } from '@angular/router';
 import { ressourcesRoutes } from './ressources.routes';
 import { SharedModule } from '../shared/shared.module';
-import { RessourceListItemsComponent } from './components/ressource-list-items/ressource-list-items.component';
 import { SearchComponent } from './components/search/search.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule.forChild(ressourcesRoutes)
-  ],
-  declarations: [
-    RessourcesViewComponent,
-    RessourceListItemsComponent,
-    SearchComponent
-  ]
+  imports: [CommonModule, SharedModule, ReactiveFormsModule, RouterModule.forChild(ressourcesRoutes)],
+  declarations: [RessourcesViewComponent, SearchComponent],
 })
-export class RessourcesModule { }
+export class RessourcesModule {}

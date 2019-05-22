@@ -4,8 +4,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { TitleComponent } from './components/title/title.component';
 import { StatusListItemComponent } from './components/status-list-item/status-list-item.component';
+import { RessourceListItemsComponent } from './components/ressource-list-items/ressource-list-items.component';
 
-const EXPORTED_COMPONENTS = [NavbarComponent, TitleComponent, StatusListItemComponent];
+const EXPORTED_COMPONENTS = [NavbarComponent, TitleComponent, StatusListItemComponent, RessourceListItemsComponent];
 
 @NgModule({
   imports: [
