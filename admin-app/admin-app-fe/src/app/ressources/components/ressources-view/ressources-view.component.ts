@@ -9,6 +9,12 @@ import { RessourceListItem } from 'src/app/shared/models/ressource-list-item.mod
 export class RessourcesViewComponent implements OnInit {
   public ressourceItems: RessourceListItem[] = [
     {
+      title: 'Was sind eigentlich Microservices?',
+      description: 'Artikel über Microservices.',
+      link: 'https://jaxenter.de/was-sind-microservices-40571',
+      tags: [{ name: 'Microservices', type: 'ARCHITECTURE' }],
+    },
+    {
       title: 'JavaScript Reference',
       description: 'MDN Javascript Reference.',
       link:
@@ -40,17 +46,20 @@ export class RessourcesViewComponent implements OnInit {
 
   public sortedRessourceItems: RessourceListItem[];
 
-  constructor() {}
-
   ngOnInit() {
     this.sortedRessourceItems = this.ressourceItems;
   }
 
-  onSearch(searchValue: string): void {
-    this.sortedRessourceItems = this.ressourceItems.filter(ressourceItems => {
-      console.log('ressourceItems', ressourceItems);
-      console.log('ressourceItems', ressourceItems.title === searchValue);
-      return ressourceItems.title === searchValue;
-    });
+  /**
+   * Filters the `ressourceItems` Array with the given `searchValue`.
+   */
+  public onSearch(searchValue: { search: string }): void {
+    if (searchValue.search.length > 0) {
+      this.sortedRessourceItems = this.ressourceItems.filter(ressourceItem =>
+        ressourceItem.title.toLowerCase().includes(searchValue.search.toLowerCase()),
+      );
+    } else {
+      this.sortedRessourceItems = this.ressourceItems;
+    }
   }
 }

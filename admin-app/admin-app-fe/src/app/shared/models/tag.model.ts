@@ -3,4 +3,4 @@ export interface Tag {
   type: TagType;
 }
 
-export type TagType = 'FRONTEND' | 'BACKEND' | 'INFRASTRUCTURE' | 'DESIGN';
+export type TagType = 'FRONTEND' | 'BACKEND' | 'INFRASTRUCTURE' | 'DESIGN' | 'ARCHITECTURE';

@@ -6,5 +6,3 @@ export interface RessourceListItem {
   link: string;
   tags?: Tag[];
 }
-
-export type StatusType = 'Online' | 'Offline' | 'Crashed';

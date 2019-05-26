@@ -11,17 +11,13 @@ export class SearchComponent implements OnInit {
   @Output()
   public submitSearchValue: EventEmitter<string> = new EventEmitter<string>();
 
-  public searchForm: FormGroup = this.fb.group({ search: ['', Validators.required] });
+  public searchForm: FormGroup = this.fb.group({ search: [''] });
 
   constructor(private readonly fb: FormBuilder) {}
 
   ngOnInit() {}
 
-  onSearchKeyup(): void {
-    if (this.searchForm.valid) {
-      console.log('searchvalue', this.searchForm.value);
-
-      this.submitSearchValue.emit(this.searchForm.value);
-    }
+  public onSearchKeyup(): void {
+    this.submitSearchValue.emit(this.searchForm.value);
   }
 }
