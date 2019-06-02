@@ -21,11 +21,14 @@
         Filter
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <!-- TODO ngfor foreach tag as filter ability -->
-        <a class="dropdown-item" href="#">JavaScript</a>
-        <a class="dropdown-item" href="#">C#</a>
-        <a class="dropdown-item" href="#">Java</a>
-        <a class="dropdown-item" href="#">Kubernetes</a>
+        <a
+          class="dropdown-item"
+          [ngClass]="{ active: isSelected }"
+          role="button"
+          *ngFor="let filter of filters"
+          (click)="selectFilter(filter)"
+          >{{ filter.name }}</a
+        >
       </div>
     </div>
   </div>
