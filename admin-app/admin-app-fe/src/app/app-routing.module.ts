@@ -7,10 +7,10 @@ const routes: Routes = [
     path: '', component: HomeComponent
   },
   {
-    path: 'status', loadChildren: './status/status.module#StatusModule'
+    path: 'status', loadChildren: () => import('./status/status.module').then(m => m.StatusModule)
   },
   {
-    path: 'ressources', loadChildren: './ressources/ressources.module#RessourcesModule'
+    path: 'ressources', loadChildren: () => import('./ressources/ressources.module').then(m => m.RessourcesModule)
   }
 ];
 
