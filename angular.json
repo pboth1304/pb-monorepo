@@ -27,9 +27,14 @@
               "apps/admin-app/src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "apps/admin-app/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -82,9 +87,7 @@
               "apps/admin-app/tsconfig.app.json",
               "apps/admin-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -136,9 +139,7 @@
             "outputPath": "dist/apps/admin-app-api",
             "main": "apps/admin-app-api/src/main.ts",
             "tsConfig": "apps/admin-app-api/tsconfig.app.json",
-            "assets": [
-              "apps/admin-app-api/src/assets"
-            ]
+            "assets": ["apps/admin-app-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -167,9 +168,7 @@
               "apps/admin-app-api/tsconfig.app.json",
               "apps/admin-app-api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {

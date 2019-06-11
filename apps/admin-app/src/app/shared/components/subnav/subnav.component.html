@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-between">
+  <div class="input-container d-flex w-50">
+    <form [formGroup]="searchForm" class="form mr-3" *ngIf="subnavConfig.textInput">
+      <input
+        type="email"
+        class="form-control "
+        placeholder="Search..."
+        formControlName="search"
+        (keyup)="onSearchKeyup()"
+      />
+    </form>
+    <div class="dropdown" *ngIf="subnavConfig.dropdown">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Filter
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a
+          class="dropdown-item"
+          [ngClass]="{ active: isSelected }"
+          role="button"
+          *ngFor="let filter of filters"
+          (click)="selectFilter(filter)"
+          >{{ filter.name }}</a
+        >
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-outline-primary" *ngIf="subnavConfig.cta">
+    New Ressource
+  </button>
+</div>

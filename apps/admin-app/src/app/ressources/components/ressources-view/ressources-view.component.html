@@ -1,0 +1,17 @@
+<div class="container mt-5">
+  <pb-title [title]="'Ressources'" [subtitle]="'Knowledge Database'"></pb-title>
+  <div class="wrapper mt-4">
+    <pb-subnav
+      (submitSearchValue)="onSearch($event)"
+      (selectedFilterValue)="onFilterSelect($event)"
+      [subnavConfig]="{ textInput: true, dropdown: true, cta: true }"
+      [filters]="tags"
+    ></pb-subnav>
+  </div>
+  <div class="list-group mt-5">
+    <pb-ressource-list-items
+      *ngFor="let ressourceItem of sortedRessourceItems"
+      [ressourceListItem]="ressourceItem"
+    ></pb-ressource-list-items>
+  </div>
+</div>

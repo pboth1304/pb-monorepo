@@ -1,0 +1,21 @@
+<a
+  [routerLink]="['/status']"
+  class="list-group-item list-group-item-action flex-column align-items-start"
+>
+  <div class="d-flex w-100 justify-content-between">
+    <h5 class="mb-1 text-primary">{{ statusListItem.serviceTitle }}</h5>
+    <small
+      >{{ statusListItem.status
+      }}<span
+        class="d-inline-block ml-2 badge badge-success badge-pill text-success"
+        >1</span
+      >
+    </small>
+  </div>
+  <p class="mb-1">
+    {{ statusListItem.serviceDescription }}
+  </p>
+  <small class="text-muted"
+    >Last checked: {{ statusListItem.lastStatusCheck }}</small
+  >
+</a>

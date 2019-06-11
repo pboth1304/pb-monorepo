@@ -2,6 +2,10 @@
   "name": "pb-monorepo",
   "version": "0.0.0",
   "license": "MIT",
+  "author": {
+    "email": "pascal.bothner@outlook.de",
+    "name": "pascalbothner"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -29,10 +33,6 @@
   },
   "private": true,
   "dependencies": {
-    "@nestjs/common": "^6.2.4",
-    "@nestjs/core": "^6.2.4",
-    "@nestjs/platform-express": "^6.2.4",
-    "reflect-metadata": "^0.1.12",
     "@angular/animations": "^8.0.0",
     "@angular/common": "^8.0.0",
     "@angular/compiler": "^8.0.0",
@@ -41,10 +41,17 @@
     "@angular/platform-browser": "^8.0.0",
     "@angular/platform-browser-dynamic": "^8.0.0",
     "@angular/router": "^8.0.0",
+    "@nestjs/common": "^6.2.4",
+    "@nestjs/core": "^6.2.4",
+    "@nestjs/platform-express": "^6.2.4",
+    "@nrwl/angular": "^8.1.0",
+    "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
+    "reflect-metadata": "^0.1.12",
     "rxjs": "~6.4.0",
-    "zone.js": "^0.9.1",
-    "@nrwl/angular": "^8.1.0"
+    "zone.js": "^0.9.1"
   },
   "devDependencies": {
     "@nrwl/node": "8.1.0",

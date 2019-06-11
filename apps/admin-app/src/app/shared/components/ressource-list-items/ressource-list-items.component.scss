@@ -1,0 +1,33 @@
+.badge {
+  background-color: var(--white) !important;
+
+  &-primary {
+    border: 1px solid var(--primary);
+    color: var(--primary) !important;
+  }
+
+  &-secondary {
+    border: 1px solid var(--secondary);
+    color: var(--secondary) !important;
+  }
+
+  &-warning {
+    border: 1px solid var(--orange);
+    color: var(--orange) !important;
+  }
+
+  &-info {
+    border: 1px solid var(--info);
+    color: var(--info) !important;
+  }
+
+  &-dark {
+    border: 1px solid var(--dark);
+    color: var(--dark) !important;
+  }
+
+  &-success {
+    border: 1px solid var(--success);
+    color: var(--success) !important;
+  }
+}
