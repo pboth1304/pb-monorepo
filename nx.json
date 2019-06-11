@@ -9,10 +9,13 @@
   },
   "projects": {
     "admin-app-e2e": {
-      "tags": ["scope:admin"]
+      "tags": ["scope:admin", "scope:e2e"]
     },
     "admin-app": {
-      "tags": ["scope:admin"]
+      "tags": ["scope:admin", "scope:angular"]
+    },
+    "admin-app-api": {
+      "tags": ["scope:admin", "scope:nest"]
     }
   }
 }
