@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StatusListItem } from '../../shared/models/status-list-item.model';
+import { StatusListItem } from '@pb-monorepo/models';
 
 @Component({
   selector: 'pb-status',
@@ -14,9 +14,7 @@ export class StatusComponent implements OnInit {
     status: 'Online'
   };
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

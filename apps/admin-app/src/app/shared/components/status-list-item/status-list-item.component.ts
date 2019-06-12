@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { StatusListItem } from '../../models/status-list-item.model';
+import { StatusListItem } from '@pb-monorepo/models';
 
 @Component({
   selector: 'pb-status-list-item',

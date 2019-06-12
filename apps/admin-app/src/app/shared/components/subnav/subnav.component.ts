@@ -1,13 +1,18 @@
-import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { FilterTag } from '../../models/tag.model';
-import { SubnavConfig } from '../../models/subnav-config.model';
+import { FilterTag, SubnavConfig } from '@pb-monorepo/models';
 
 @Component({
   selector: 'pb-subnav',
   templateUrl: './subnav.component.html',
   styleUrls: ['./subnav.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubnavComponent {
   /**
@@ -20,7 +25,9 @@ export class SubnavComponent {
    * Event Emitter for selected dropdown value.
    */
   @Output()
-  public selectedFilterValue: EventEmitter<FilterTag> = new EventEmitter<FilterTag>();
+  public selectedFilterValue: EventEmitter<FilterTag> = new EventEmitter<
+    FilterTag
+  >();
 
   /**
    * Config Object of Subnav.

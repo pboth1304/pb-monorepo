@@ -16,6 +16,9 @@
     },
     "admin-app-api": {
       "tags": ["scope:admin", "scope:nest"]
+    },
+    "models": {
+      "tags": []
     }
   }
 }
