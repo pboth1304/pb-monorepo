@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StatusListItem } from '@pb-monorepo/models';
+import { StatusListItem } from '@pb-monorepo/shared/models';
 
 @Component({
   selector: 'pb-status',

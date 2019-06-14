@@ -180,18 +180,18 @@
         }
       }
     },
-    "models": {
+    "shared-models": {
+      "root": "libs/shared/models",
+      "sourceRoot": "libs\\shared\\models\\src",
       "projectType": "library",
-      "root": "libs/models",
-      "sourceRoot": "libs/models/src",
-      "prefix": "pb-monorepo",
+      "schematics": {},
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/models/tsconfig.lib.json",
-              "libs/models/tsconfig.spec.json"
+              "libs\\shared\\models\\tsconfig.lib.json",
+              "libs/shared/models/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -199,15 +199,9 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/models/jest.config.js",
-            "tsConfig": "libs/models/tsconfig.spec.json",
-            "setupFile": "libs/models/src/test-setup.ts"
+            "jestConfig": "libs/shared/models/jest.config.js",
+            "tsConfig": "libs/shared/models/tsconfig.spec.json"
           }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
         }
       }
     }

@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { FilterTag, SubnavConfig } from '@pb-monorepo/models';
+import { FilterTag, SubnavConfig } from '@pb-monorepo/shared/models';
 
 @Component({
   selector: 'pb-subnav',

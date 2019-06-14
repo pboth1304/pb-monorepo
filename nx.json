@@ -17,7 +17,7 @@
     "admin-app-api": {
       "tags": ["scope:admin", "scope:nest"]
     },
-    "models": {
+    "shared-models": {
       "tags": []
     }
   }

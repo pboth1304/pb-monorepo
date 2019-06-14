@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RessourceListItem, FilterTag, Tag } from '@pb-monorepo/models';
+import { RessourceListItem, FilterTag, Tag } from '@pb-monorepo/shared/models';
 
 @Component({
   selector: 'pb-ressources-view',

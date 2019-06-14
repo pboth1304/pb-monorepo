@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core';
-import { RessourceListItem } from '@pb-monorepo/models';
+import { RessourceListItem } from '@pb-monorepo/shared/models';
 
 @Component({
   selector: 'pb-ressource-list-items',
