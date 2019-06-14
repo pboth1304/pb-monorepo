@@ -7,7 +7,12 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, ReactiveFormsModule, RouterModule.forChild(ressourcesRoutes)],
-  declarations: [RessourcesViewComponent],
+  imports: [
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(ressourcesRoutes)
+  ],
+  declarations: [RessourcesViewComponent]
 })
 export class RessourcesModule {}
