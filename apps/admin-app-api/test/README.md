@@ -1,1 +1,0 @@
-Test example: https://github.com/beeman/nest-angular-nx/tree/master/apps/api/test
