@@ -1,6 +1,10 @@
 <div class="d-flex justify-content-between">
   <div class="input-container d-flex w-50">
-    <form [formGroup]="searchForm" class="form mr-3" *ngIf="subnavConfig.textInput">
+    <form
+      [formGroup]="searchForm"
+      class="form mr-3"
+      *ngIf="subnavConfig.textInput"
+    >
       <input
         type="email"
         class="form-control "
@@ -32,7 +36,11 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-outline-primary" *ngIf="subnavConfig.cta">
+  <button
+    class="btn btn-outline-primary"
+    *ngIf="subnavConfig.cta"
+    (click)="doOpenModal()"
+  >
     New Ressource
   </button>
 </div>

@@ -18,7 +18,10 @@
       "tags": ["scope:admin", "scope:nest"]
     },
     "shared-models": {
-      "tags": []
+      "tags": ["scope:shared"]
+    },
+    "shared-angular-material": {
+      "tags": ["scope:shared"]
     }
   }
 }

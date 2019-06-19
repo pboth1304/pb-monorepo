@@ -7,15 +7,13 @@ import { StatusListItemComponent } from './components/status-list-item/status-li
 import { RessourceListItemsComponent } from './components/ressource-list-items/ressource-list-items.component';
 import { SubnavComponent } from './components/subnav/subnav.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModalComponent } from './components/modal/modal.component';
 
 const EXPORTED_COMPONENTS = [
   NavbarComponent,
   TitleComponent,
   StatusListItemComponent,
   RessourceListItemsComponent,
-  SubnavComponent,
-  ModalComponent
+  SubnavComponent
 ];
 
 @NgModule({

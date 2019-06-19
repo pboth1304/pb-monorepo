@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RessourceListItem, FilterTag, Tag } from '@pb-monorepo/shared/models';
 import { RessourcesService } from '../../services/ressources.service';
-import { Observable } from 'rxjs';
+import { DialogService } from '@pb-monorepo/shared/angular-material';
+import { RessourceCreateComponent } from '../ressource-create/ressource-create.component';
 
 @Component({
   selector: 'pb-ressources-view',
@@ -15,7 +16,10 @@ export class RessourcesViewComponent implements OnInit {
 
   public tags: Tag[];
 
-  constructor(private readonly ressourcesService: RessourcesService) {}
+  constructor(
+    private readonly ressourcesService: RessourcesService,
+    private readonly dialogService: DialogService
+  ) {}
 
   ngOnInit() {
     // get ressource items
@@ -45,6 +49,12 @@ export class RessourcesViewComponent implements OnInit {
 
   public onFilterSelect(filter: FilterTag) {
     console.log('filter', filter);
+  }
+
+  public onOpenModal(event: boolean) {
+    if (event) {
+      this.dialogService.openDialog(RessourceCreateComponent);
+    }
   }
 
   /**

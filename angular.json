@@ -27,6 +27,7 @@
               "apps/admin-app/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "apps/admin-app/src/styles.scss"
             ],
@@ -202,6 +203,37 @@
             "jestConfig": "libs/shared/models/jest.config.js",
             "tsConfig": "libs/shared/models/tsconfig.spec.json"
           }
+        }
+      }
+    },
+    "shared-angular-material": {
+      "projectType": "library",
+      "root": "libs/shared/angular-material",
+      "sourceRoot": "libs/shared/angular-material/src",
+      "prefix": "pb-mat",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/angular-material/tsconfig.lib.json",
+              "libs/shared/angular-material/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/angular-material/jest.config.js",
+            "tsConfig": "libs/shared/angular-material/tsconfig.spec.json",
+            "setupFile": "libs/shared/angular-material/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     }

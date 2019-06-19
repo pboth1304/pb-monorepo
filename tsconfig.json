@@ -16,7 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pb-monorepo/shared/models": ["libs/shared/models/src/index.ts"]
+      "@pb-monorepo/shared/models": ["libs/shared/models/src/index.ts"],
+      "@pb-monorepo/shared/angular-material": [
+        "libs/shared/angular-material/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

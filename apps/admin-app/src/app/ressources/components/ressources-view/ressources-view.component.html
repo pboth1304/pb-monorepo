@@ -4,6 +4,7 @@
     <pb-subnav
       (submitSearchValue)="onSearch($event)"
       (selectedFilterValue)="onFilterSelect($event)"
+      (openModal)="onOpenModal($event)"
       [subnavConfig]="{ textInput: true, dropdown: true, cta: true }"
       [filters]="tags"
     ></pb-subnav>

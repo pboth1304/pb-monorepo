@@ -30,6 +30,12 @@ export class SubnavComponent {
   >();
 
   /**
+   * Event Emitter to open modal.
+   */
+  @Output()
+  public openModal: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  /**
    * Config Object of Subnav.
    */
   @Input()
@@ -57,5 +63,12 @@ export class SubnavComponent {
    */
   public selectFilter(filter: FilterTag): void {
     this.selectedFilterValue.emit({ ...filter, isSelected: true });
+  }
+
+  /**
+   * Emit's value to open modal.
+   */
+  public doOpenModal(): void {
+    this.openModal.emit(true);
   }
 }
