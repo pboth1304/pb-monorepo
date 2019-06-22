@@ -1,5 +1,5 @@
-<form [formGroup]="form">
-  <h3 mat-dialog-title>Create a new Ressource!</h3>
+<form [formGroup]="form" class="p-3" (ngSubmit)="submitForm()">
+  <h3 mat-dialog-title class="text-primary">Create a new Ressource!</h3>
   <div class="form-group">
     <label for="title">Title</label>
     <input
@@ -38,7 +38,18 @@
       formControlName="tags"
     />
   </div>
-  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+  <button
+    type="submit"
+    class="btn btn-primary btn-sm mr-2"
+    [disabled]="form.invalid"
+  >
     Create
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-dark btn-sm"
+    (click)="closeDialog()"
+  >
+    Cancel
   </button>
 </form>

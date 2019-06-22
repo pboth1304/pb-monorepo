@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './ressource-create.component.html',
   styleUrls: ['./ressource-create.component.scss']
 })
-export class RessourceCreateComponent implements OnInit {
+export class RessourceCreateComponent {
   public form: FormGroup = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
@@ -17,5 +17,20 @@ export class RessourceCreateComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<RessourceCreateComponent>) {}
 
-  ngOnInit() {}
+  /**
+   * Submit's form values and calls `closeDialog()`.
+   */
+  public submitForm(): void {
+    if (this.form.valid) {
+      console.log('formval', this.form.value);
+      this.closeDialog();
+    }
+  }
+
+  /**
+   * Closes dialog.
+   */
+  public closeDialog(): void {
+    this.dialogRef.close();
+  }
 }
