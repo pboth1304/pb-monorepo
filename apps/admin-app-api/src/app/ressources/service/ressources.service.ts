@@ -62,4 +62,11 @@ export class RessourcesService {
       (ressourceListItem: RessourceListItem) => ressourceListItem.id === id
     );
   }
+
+  public createRessource(ressource: RessourceListItem): string {
+    const id = '4';
+    const newRessource: RessourceListItem = { ...ressource, id };
+    this.ressourceListItems = [...this.ressourceListItems, newRessource];
+    return newRessource.id;
+  }
 }

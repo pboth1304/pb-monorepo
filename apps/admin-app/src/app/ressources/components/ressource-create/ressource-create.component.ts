@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { RessourcesService } from '../../services/ressources.service';
 
 @Component({
   selector: 'pb-ressource-create',
@@ -15,14 +16,19 @@ export class RessourceCreateComponent {
     tags: new FormControl('')
   });
 
-  constructor(public dialogRef: MatDialogRef<RessourceCreateComponent>) {}
+  constructor(
+    private readonly dialogRef: MatDialogRef<RessourceCreateComponent>,
+    private readonly ressourcesService: RessourcesService
+  ) {}
 
   /**
    * Submit's form values and calls `closeDialog()`.
    */
   public submitForm(): void {
     if (this.form.valid) {
-      console.log('formval', this.form.value);
+      this.ressourcesService
+        .createRessource(this.form.value)
+        .subscribe(id => this.ressourcesService.getRessourceById(id));
       this.closeDialog();
     }
   }

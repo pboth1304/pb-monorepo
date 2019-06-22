@@ -15,4 +15,17 @@ export class RessourcesService {
       `${environment.API_BASE_URL}/ressources`
     );
   }
+
+  public getRessourceById(id: string): Observable<RessourceListItem> {
+    return this.httpClient.get<RessourceListItem>(
+      `${environment.API_BASE_URL}/ressources/${id}`
+    );
+  }
+
+  public createRessource(ressource: RessourceListItem): Observable<string> {
+    return this.httpClient.post<string>(
+      `${environment.API_BASE_URL}/ressources`,
+      ressource
+    );
+  }
 }

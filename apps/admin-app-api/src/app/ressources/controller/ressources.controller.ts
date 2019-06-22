@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { RessourcesService } from '../service/ressources.service';
 import { RessourceListItem } from '@pb-monorepo/shared/models';
 
@@ -14,5 +14,10 @@ export class RessourcesController {
   @Get(':id')
   public getRessourcesById(@Param('id') id: string): RessourceListItem[] {
     return this.ressourcesService.getRessourceListItemById(id);
+  }
+
+  @Post()
+  public createRessource(@Body() ressource: RessourceListItem): string {
+    return this.ressourcesService.createRessource(ressource);
   }
 }
