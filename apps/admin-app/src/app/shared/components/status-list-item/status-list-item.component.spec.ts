@@ -1,9 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
 import { StatusListItemComponent } from './status-list-item.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('StatusListItemComponent', () => {
   let component: StatusListItemComponent;
@@ -11,14 +9,20 @@ describe('StatusListItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StatusListItemComponent ]
-    })
-    .compileComponents();
+      declarations: [StatusListItemComponent],
+      imports: [RouterTestingModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StatusListItemComponent);
     component = fixture.componentInstance;
+    component.statusListItem = {
+      status: 'Online',
+      serviceTitle: 'Test',
+      serviceDescription: 'Test description',
+      lastStatusCheck: new Date()
+    };
     fixture.detectChanges();
   });
 

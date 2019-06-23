@@ -3,22 +3,26 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { RessourceListItemsComponent } from './ressource-list-items.component';
+import { RessourceListItemComponent } from './ressource-list-item.component';
 
 describe('RessourceListItemsComponent', () => {
-  let component: RessourceListItemsComponent;
-  let fixture: ComponentFixture<RessourceListItemsComponent>;
+  let component: RessourceListItemComponent;
+  let fixture: ComponentFixture<RessourceListItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RessourceListItemsComponent ]
-    })
-    .compileComponents();
+      declarations: [RessourceListItemComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RessourceListItemsComponent);
+    fixture = TestBed.createComponent(RessourceListItemComponent);
     component = fixture.componentInstance;
+    component.ressourceListItem = {
+      title: 'Test',
+      description: 'Test description',
+      link: 'www.google.de'
+    };
     fixture.detectChanges();
   });
 

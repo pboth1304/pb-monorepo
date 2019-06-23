@@ -8,12 +8,12 @@ import {
 import { RessourceListItem } from '@pb-monorepo/shared/models';
 
 @Component({
-  selector: 'pb-ressource-list-items',
-  templateUrl: './ressource-list-items.component.html',
-  styleUrls: ['./ressource-list-items.component.scss'],
+  selector: 'pb-ressource-list-item',
+  templateUrl: './ressource-list-item.component.html',
+  styleUrls: ['./ressource-list-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RessourceListItemsComponent implements OnChanges {
+export class RessourceListItemComponent implements OnChanges {
   @Input()
   public ressourceListItem: RessourceListItem;
 

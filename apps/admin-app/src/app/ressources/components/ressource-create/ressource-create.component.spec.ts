@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
 import { RessourceCreateComponent } from './ressource-create.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('RessourceCreateComponent', () => {
   let component: RessourceCreateComponent;
@@ -11,9 +11,10 @@ describe('RessourceCreateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RessourceCreateComponent ]
-    })
-    .compileComponents();
+      declarations: [RessourceCreateComponent],
+      imports: [ReactiveFormsModule, HttpClientTestingModule],
+      providers: [{ provide: MatDialogRef, useValue: {} }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
