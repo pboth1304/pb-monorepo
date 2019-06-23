@@ -1,0 +1,17 @@
+<div class="container mt-5" *ngIf="(ressource$ | async) as ressource">
+  <div class="d-flex mb-3">
+    <a [routerLink]="['/ressources']" class="btn btn-outline-primary btn-sm"
+      >Go back to overview page</a
+    >
+  </div>
+  <pb-title
+    [title]="ressource.title"
+    [subtitle]="'Detailed informations'"
+  ></pb-title>
+  <p>{{ ressource.description }}</p>
+  <small class="text-primary"
+    ><a [href]="ressource.link" target="_blank" rel="noopener noreferrer">{{
+      ressource.link
+    }}</a></small
+  >
+</div>
