@@ -41,6 +41,6 @@
     *ngIf="subnavConfig.cta"
     (click)="doOpenModal()"
   >
-    New Ressource
+    {{ subnavConfig.ctaText ? subnavConfig.ctaText : 'Create new' }}
   </button>
 </div>

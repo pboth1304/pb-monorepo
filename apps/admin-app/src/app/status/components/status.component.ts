@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { StatusListItem } from '@pb-monorepo/shared/models';
 
 @Component({
@@ -6,15 +6,11 @@ import { StatusListItem } from '@pb-monorepo/shared/models';
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.scss']
 })
-export class StatusComponent implements OnInit {
+export class StatusComponent {
   public statusListItem: StatusListItem = {
     serviceTitle: 'Website',
     serviceDescription: 'Portfolio Page of me.',
     lastStatusCheck: new Date(),
     status: 'Online'
   };
-
-  constructor() {}
-
-  ngOnInit() {}
 }
