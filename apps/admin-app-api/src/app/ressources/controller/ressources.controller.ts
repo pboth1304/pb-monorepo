@@ -12,7 +12,7 @@ export class RessourcesController {
   }
 
   @Get(':id')
-  public getRessourcesById(@Param('id') id: string): RessourceListItem[] {
+  public getRessourcesById(@Param('id') id: string): RessourceListItem {
     return this.ressourcesService.getRessourceListItemById(id);
   }
 

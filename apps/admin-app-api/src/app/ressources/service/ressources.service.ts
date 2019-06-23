@@ -57,10 +57,9 @@ export class RessourcesService {
   /**
    * Returns Ressource List Item by Id.
    */
-  public getRessourceListItemById(id: string): RessourceListItem[] {
-    return this.ressourceListItems.filter(
-      (ressourceListItem: RessourceListItem) => ressourceListItem.id === id
-    );
+  public getRessourceListItemById(id: string): RessourceListItem {
+    const i = this.ressourceListItems.findIndex(item => item.id === id);
+    return this.ressourceListItems[i];
   }
 
   public createRessource(ressource: RessourceListItem): string {
