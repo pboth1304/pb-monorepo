@@ -5,14 +5,26 @@
       (submitSearchValue)="onSearch($event)"
       (selectedFilterValue)="onFilterSelect($event)"
       (openModal)="onOpenModal($event)"
-      [subnavConfig]="{ textInput: true, dropdown: true, cta: true, ctaText: 'New Ressource' }"
+      [subnavConfig]="{
+        textInput: true,
+        dropdown: true,
+        cta: true,
+        ctaText: 'New Ressource'
+      }"
       [filters]="tags"
     ></pb-subnav>
   </div>
   <div class="list-group mt-5">
-    <pb-ressource-list-item
+    <a
       *ngFor="let ressourceItem of sortedRessourceItems"
-      [ressourceListItem]="ressourceItem"
-    ></pb-ressource-list-item>
+      [href]="ressourceItem.link"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="list-group-item list-group-item-action flex-column align-items-start"
+    >
+      <pb-ressource-list-item
+        [ressourceListItem]="ressourceItem"
+      ></pb-ressource-list-item>
+    </a>
   </div>
 </div>
