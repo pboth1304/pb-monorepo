@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <pb-title [title]="'Ressources'" [subtitle]="'Knowledge Database'"></pb-title>
+  <div class="wrapper mt-4">
+    <pb-subnav
+      (submitSearchValue)="onSearch($event)"
+      (selectedFilterValue)="onFilterSelect($event)"
+      (openModal)="onOpenModal($event)"
+      [subnavConfig]="{
+        textInput: true,
+        dropdown: true,
+        cta: true,
+        ctaText: 'New Ressource'
+      }"
+      [filters]="tags"
+    ></pb-subnav>
+  </div>
+  <div class="list-group mt-5">
+    <a
+      *ngFor="let ressourceItem of sortedRessourceItems"
+      [href]="ressourceItem.link"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="list-group-item list-group-item-action flex-column align-items-start"
+    >
+      <pb-ressource-list-item
+        [ressourceListItem]="ressourceItem"
+      ></pb-ressource-list-item>
+    </a>
+  </div>
+</div>

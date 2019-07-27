@@ -1,0 +1,55 @@
+<form [formGroup]="form" class="p-3" (ngSubmit)="submitForm()">
+  <h3 mat-dialog-title class="text-primary">Create a new Ressource!</h3>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      aria-describedby="Title of Ressource"
+      placeholder="Enter ressource title ..."
+      formControlName="title"
+    />
+    <label for="description">Description</label>
+    <input
+      type="text"
+      class="form-control"
+      id="description"
+      aria-describedby="Description of Ressource"
+      placeholder="Enter description of ressource ..."
+      formControlName="description"
+    />
+    <label for="link">Link</label>
+    <input
+      type="text"
+      class="form-control"
+      id="link"
+      aria-describedby="Link of Ressource"
+      placeholder="Enter ressource link ..."
+      formControlName="link"
+    />
+    <label for="tags">Tags</label>
+    <input
+      type="text"
+      class="form-control"
+      id="tags"
+      aria-describedby="Tags of Ressource"
+      placeholder="Enter ressource tags (comma seperated)..."
+      formControlName="tags"
+    />
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary btn-sm mr-2"
+    [disabled]="form.invalid"
+  >
+    Create
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-dark btn-sm"
+    (click)="closeDialog()"
+  >
+    Cancel
+  </button>
+</form>

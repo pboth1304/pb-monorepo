@@ -1,0 +1,258 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "admin-app": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/workspace:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/admin-app",
+      "sourceRoot": "apps/admin-app/src",
+      "prefix": "pb",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/admin-app",
+            "index": "apps/admin-app/src/index.html",
+            "main": "apps/admin-app/src/main.ts",
+            "polyfills": "apps/admin-app/src/polyfills.ts",
+            "tsConfig": "apps/admin-app/tsconfig.app.json",
+            "assets": [
+              "apps/admin-app/src/favicon.ico",
+              "apps/admin-app/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "apps/admin-app/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/admin-app/src/environments/environment.ts",
+                  "with": "apps/admin-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "admin-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "admin-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "admin-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/admin-app/tsconfig.app.json",
+              "apps/admin-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/admin-app/jest.config.js",
+            "tsConfig": "apps/admin-app/tsconfig.spec.json",
+            "setupFile": "apps/admin-app/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "admin-app-e2e": {
+      "root": "apps/admin-app-e2e",
+      "sourceRoot": "apps/admin-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/admin-app-e2e/cypress.json",
+            "tsConfig": "apps/admin-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "admin-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "admin-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/admin-app-e2e/tsconfig.e2e.json"
+          }
+        }
+      }
+    },
+    "admin-app-api": {
+      "root": "apps/admin-app-api",
+      "sourceRoot": "apps/admin-app-api/src",
+      "projectType": "application",
+      "prefix": "admin-app-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/admin-app-api",
+            "main": "apps/admin-app-api/src/main.ts",
+            "tsConfig": "apps/admin-app-api/tsconfig.app.json",
+            "assets": ["apps/admin-app-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/admin-app-api/src/environments/environment.ts",
+                  "with": "apps/admin-app-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "admin-app-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/admin-app-api/tsconfig.app.json",
+              "apps/admin-app-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/admin-app-api/jest.config.js",
+            "tsConfig": "apps/admin-app-api/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "shared-models": {
+      "root": "libs/shared/models",
+      "sourceRoot": "libs\\shared\\models\\src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs\\shared\\models\\tsconfig.lib.json",
+              "libs/shared/models/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/models/jest.config.js",
+            "tsConfig": "libs/shared/models/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "shared-angular-material": {
+      "projectType": "library",
+      "root": "libs/shared/angular-material",
+      "sourceRoot": "libs/shared/angular-material/src",
+      "prefix": "pb-mat",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/angular-material/tsconfig.lib.json",
+              "libs/shared/angular-material/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/angular-material/jest.config.js",
+            "tsConfig": "libs/shared/angular-material/tsconfig.spec.json",
+            "setupFile": "libs/shared/angular-material/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "admin-app"
+}
