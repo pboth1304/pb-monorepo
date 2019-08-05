@@ -14,6 +14,7 @@
     "lint": "nx lint && ng lint",
     "e2e": "ng e2e",
     "start:admin": "npm start -- admin-app-api",
+    "start:crawler": "npm start -- crawler",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
