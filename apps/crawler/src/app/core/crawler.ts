@@ -1,7 +1,8 @@
 import nodeFetch from 'node-fetch';
 import * as cheerio from 'cheerio';
 import { Website } from '../models/website.model';
-
+import DbConnection from './dbConnection';
+import { environment } from '../../environments/environment';
 /**
  * 1) pass in urls to crawl (constructor?)
  * 2) check if meta tag robots is noindex
@@ -14,9 +15,16 @@ import { Website } from '../models/website.model';
  */
 export class Crawler {
   private urls: string[];
+  private db: DbConnection;
 
   constructor(...urls: string[]) {
     this.urls = urls;
+    // TODO extract connection string to config and outsource to main.ts
+    this.db = new DbConnection(
+      `mongodb+srv://${environment.DB_USER}:${
+        environment.DB_PASSWORD
+      }@cluster-se-01-5keod.mongodb.net/test?retryWrites=true&w=majority`
+    );
     this.fetchWebsitesByUrl();
   }
 
@@ -30,6 +38,8 @@ export class Crawler {
       const html = await res.text();
 
       const $ = cheerio.load(html);
+
+      // TODO check if meta tag is norobots
 
       // 4) get website properties
       const title = this.getTitle($);
