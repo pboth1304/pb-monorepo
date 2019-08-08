@@ -4,7 +4,7 @@ export default class DocumentParser {
    * @param $
    */
   public getTitle($: CheerioStatic): string {
-    return $(`title`).text();
+    return $('title').text();
   }
 
   /**

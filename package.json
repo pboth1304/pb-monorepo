@@ -88,7 +88,7 @@
     "@types/node": "~8.9.4",
     "@types/node-fetch": "^2.5.0",
     "codelyzer": "~5.0.1",
-    "cypress": "~3.3.1",
+    "cypress": "^3.4.1",
     "dotenv": "6.2.0",
     "husky": "^2.4.1",
     "jest": "24.1.0",

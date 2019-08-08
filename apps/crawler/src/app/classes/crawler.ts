@@ -70,9 +70,12 @@ export class Crawler {
 
   private async writeToDb(sites: IWebsite[]) {
     sites.forEach(async site => {
-      // TODO allow only unique websites
-      const websiteDoc = await Website.create(site);
-      console.log('website', websiteDoc);
+      try {
+        const websiteDoc = await Website.create(site);
+      } catch (err) {
+        console.log('Skip: Document already exists');
+        return;
+      }
     });
   }
 }

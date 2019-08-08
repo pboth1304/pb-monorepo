@@ -20,4 +20,10 @@ process.on('unhandledRejection', err => {
 console.log('DB Connection Status: ', dbStatus);
 
 console.log('Start Crawling...');
-const crawler = new Crawler('https://www.spiegel.de', 'https://www.ww-ag.com');
+const crawler = new Crawler(
+  'https://www.focus.de',
+  'https://www.ww-ag.com',
+  'https://www.spiegel.de',
+  'https://www.wuestenrot.de',
+  'https://www.wuerttembergische.de'
+);
