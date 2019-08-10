@@ -1,4 +1,9 @@
 export default class DocumentParser {
+  public getNoRobotsMetatag($: CheerioStatic): string {
+    const robots = $('meta[name=robots]').attr('content');
+    return robots;
+  }
+
   /**
    * Returns title of the given page.
    * @param $

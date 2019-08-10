@@ -33,6 +33,8 @@ export default class DbConnection {
         useCreateIndex: true,
         useFindAndModify: false
       }
-    ).then(() => this.setConnectionStatus('Success'));
+    ).then(() => {
+      this.setConnectionStatus('Success');
+    });
   }
 }

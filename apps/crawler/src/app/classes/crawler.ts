@@ -21,7 +21,6 @@ export class Crawler {
   constructor(...urls: string[]) {
     this.DocumentParser = new DocumentParser();
     this.urls = urls;
-    this.crawlSites();
   }
 
   // public async crawlSites(): Promise<IWebsite[]> {
@@ -36,7 +35,12 @@ export class Crawler {
 
       const $ = cheerio.load(html);
 
-      // TODO check if meta tag is norobots
+      const robotsMetatag = this.DocumentParser.getNoRobotsMetatag($);
+
+      // if robots meta tag is noindex, skip website
+      if (robotsMetatag && robotsMetatag.includes('noindex')) {
+        return;
+      }
 
       // 4) get website properties
       const title = this.DocumentParser.getTitle($);
@@ -56,6 +60,7 @@ export class Crawler {
       // 5) return website obj
       const websiteObj: IWebsite = {
         title,
+        url,
         description,
         keywords: keywordsArr,
         links
@@ -71,7 +76,7 @@ export class Crawler {
   private async writeToDb(sites: IWebsite[]) {
     sites.forEach(async site => {
       try {
-        const websiteDoc = await Website.create(site);
+        await Website.create(site);
       } catch (err) {
         console.log('Skip: Document already exists');
         return;

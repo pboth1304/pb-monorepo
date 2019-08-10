@@ -21,9 +21,14 @@ console.log('DB Connection Status: ', dbStatus);
 
 console.log('Start Crawling...');
 const crawler = new Crawler(
-  'https://www.focus.de',
-  'https://www.ww-ag.com',
-  'https://www.spiegel.de',
   'https://www.wuestenrot.de',
-  'https://www.wuerttembergische.de'
+  'https://www.focus.de',
+  'https://www.spiegel.de',
+  'https://www.cnn.com',
+  'https://www.stackoverflow.com',
+  'https://www.udemy.com',
+  'https://www.dell.com/de-de?c=de&l=de&s=gen&mp=dell.de/&redirect=1',
+  'https://www.wuerttembergische.de',
+  'https://www.sparkasse.de'
 );
+crawler.crawlSites();
