@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
   imports: [
     RessourcesModule,
     MongooseModule.forRoot(
-      `mongodb+srv://admin:${
+      `mongodb+srv://${environment.DB_USER}:${
         environment.DB_PASSWORD
       }@cluster0-tnoqw.mongodb.net/adminapp?retryWrites=true&w=majority`,
       { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false }

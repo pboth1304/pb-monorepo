@@ -5,5 +5,6 @@
 export const environment = {
   production: false,
   DB_USER: 'admin',
-  DB_PASSWORD: 'Ixgf8BcZyklawWJx'
+  DB_PASSWORD: 'WFBBj9jrqvmM2GAs',
+  DB_CONNECTION: `mongodb+srv://admin:<PASSWORD>@cluster-se-01-5keod.mongodb.net/searchengine?retryWrites=true&w=majority`
 };
