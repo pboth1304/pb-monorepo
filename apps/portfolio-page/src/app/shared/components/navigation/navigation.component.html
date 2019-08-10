@@ -1,0 +1,21 @@
+<div class="navigation">
+  <input type="checkbox" class="navigation--checkbox" id="navi-toggle">
+  <label for="navi-toggle" class="navigation--button">
+    <span class="navigation--icon" [ngClass]="{'navigation--icon-dark' : backgroundIsDark }"></span>
+  </label>
+  <div class="navigation--background">&nbsp;</div>
+
+  <nav class="navigation--nav">
+    <ul class="navigation--list">
+      <li class="navigation--item" (click)="closeNav()">
+        <a href="#about" class="navigation--link">About</a>
+      </li>
+      <li class="navigation--item" (click)="closeNav()">
+        <a href="#tech-stack-section" class="navigation--link">My Tech Stack</a>
+      </li>
+      <li class="navigation--item" (click)="closeNav()">
+        <a href="#section--recent-work" class="navigation--link">My Recent Work</a>
+      </li>
+    </ul>
+  </nav>
+</div>

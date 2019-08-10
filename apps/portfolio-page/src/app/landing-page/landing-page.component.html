@@ -1,0 +1,12 @@
+<div (scroll)="onScroll($event)">
+  <pb-navigation
+    [backgroundIsDark]="scrollPositionBelowHeaderEl"
+  ></pb-navigation>
+  <pb-header> </pb-header>
+  <main #main>
+    <pb-about></pb-about>
+    <pb-tech-stack></pb-tech-stack>
+    <pb-recent-work></pb-recent-work>
+  </main>
+  <pb-footer></pb-footer>
+</div>

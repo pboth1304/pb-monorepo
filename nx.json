@@ -38,6 +38,15 @@
     },
     "crawler": {
       "tags": []
+    },
+    "portfolio-page-e2e": {
+      "tags": []
+    },
+    "portfolio-page": {
+      "tags": []
+    },
+    "portfolio-page-api": {
+      "tags": []
     }
   }
 }

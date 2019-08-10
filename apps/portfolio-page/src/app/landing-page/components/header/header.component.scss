@@ -1,0 +1,64 @@
+header {
+  background-image: linear-gradient(to top, rgba(64, 64, 64, .75) 60%, rgba(0, 212, 218, .6) 120%), url('/assets/img/header-background.jpg');
+  background-size: cover;
+  background-position: center center;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white)
+  }
+
+  &--primary {
+    font-weight: 300;
+    font-size: 9rem;
+    line-height: 1;
+    animation-name: fade-in-left;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    /* Fix animations bug for Chrome */
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    transform: translateZ(0);
+
+    &-highlight {
+      font-weight: 400;
+      color: var(--color-primary);
+    }
+
+    @media only screen and (max-width: 630px) {
+      font-size: 7.5rem;
+    }
+
+    @media only screen and (max-width: 500px) {
+      font-size: 6.5rem;
+    }
+  }
+
+  &--secondary {
+    font-size: 2.5rem;
+    font-weight: 200;
+    animation-name: fade-in;
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+
+    @media only screen and (max-width: 630px) {
+      font-size: 2.3rem;
+    }
+
+    @media only screen and (max-width: 500px) {
+      font-size: 2rem;
+    }
+  }
+
+}
