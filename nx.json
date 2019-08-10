@@ -9,19 +9,32 @@
   },
   "projects": {
     "admin-app-e2e": {
-      "tags": ["scope:admin", "scope:e2e"]
+      "tags": [
+        "scope:admin",
+        "scope:e2e"
+      ]
     },
     "admin-app": {
-      "tags": ["scope:admin", "scope:angular"]
+      "tags": [
+        "scope:admin",
+        "scope:angular"
+      ]
     },
     "admin-app-api": {
-      "tags": ["scope:admin", "scope:nest"]
+      "tags": [
+        "scope:admin",
+        "scope:nest"
+      ]
     },
     "shared-models": {
-      "tags": ["scope:shared"]
+      "tags": [
+        "scope:shared"
+      ]
     },
     "shared-angular-material": {
-      "tags": ["scope:shared"]
+      "tags": [
+        "scope:shared"
+      ]
     },
     "crawler": {
       "tags": []
@@ -30,6 +43,9 @@
       "tags": []
     },
     "portfolio-page": {
+      "tags": []
+    },
+    "portfolio-page-api": {
       "tags": []
     }
   }
