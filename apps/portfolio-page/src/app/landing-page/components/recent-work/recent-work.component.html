@@ -1,0 +1,9 @@
+<section id="section--recent-work">
+  <h2>My Recent Work</h2>
+  <div class="projects mb-lg" *ngIf="projects$ | async as projects">
+    <pb-project-card *ngFor="let project of projects; let i = index" class="project-card project-card--{{i}}"
+      [projectTitle]="project.name" [projectType]="project.type" [backImgName]="'card-img-1.jpg'">
+    </pb-project-card>
+  </div>
+  <a [routerLink]="['']" class="btn btn-primary my-lg">Discover all projects</a>
+</section>
