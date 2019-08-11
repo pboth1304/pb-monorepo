@@ -3,5 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  DB_USER: 'admin',
+  DB_PASSWORD: 'WFBBj9jrqvmM2GAs',
+  DB_CONNECTION: `mongodb+srv://admin:<PASSWORD>@cluster-se-01-5keod.mongodb.net/searchengine?retryWrites=true&w=majority`
 };
