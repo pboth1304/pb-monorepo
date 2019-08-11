@@ -88,7 +88,9 @@
               "apps/admin-app/tsconfig.app.json",
               "apps/admin-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -140,7 +142,9 @@
             "outputPath": "dist/apps/admin-app-api",
             "main": "apps/admin-app-api/src/main.ts",
             "tsConfig": "apps/admin-app-api/tsconfig.app.json",
-            "assets": ["apps/admin-app-api/src/assets"]
+            "assets": [
+              "apps/admin-app-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -169,7 +173,9 @@
               "apps/admin-app-api/tsconfig.app.json",
               "apps/admin-app-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -194,7 +200,9 @@
               "libs\\shared\\models\\tsconfig.lib.json",
               "libs/shared/models/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -219,7 +227,9 @@
               "libs/shared/angular-material/tsconfig.lib.json",
               "libs/shared/angular-material/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -250,7 +260,9 @@
             "outputPath": "dist/apps/crawler",
             "main": "apps/crawler/src/main.ts",
             "tsConfig": "apps/crawler/tsconfig.app.json",
-            "assets": ["apps/crawler/src/assets"]
+            "assets": [
+              "apps/crawler/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -279,7 +291,9 @@
               "apps/crawler/tsconfig.app.json",
               "apps/crawler/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -333,7 +347,9 @@
               "apps/portfolio-page/src/favicon.ico",
               "apps/portfolio-page/src/assets"
             ],
-            "styles": ["apps/portfolio-page/src/styles.scss"],
+            "styles": [
+              "apps/portfolio-page/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -388,7 +404,9 @@
               "apps/portfolio-page/tsconfig.app.json",
               "apps/portfolio-page/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -440,7 +458,9 @@
             "outputPath": "dist/apps/portfolio-page-api",
             "main": "apps/portfolio-page-api/src/main.ts",
             "tsConfig": "apps/portfolio-page-api/tsconfig.app.json",
-            "assets": ["apps/portfolio-page-api/src/assets"]
+            "assets": [
+              "apps/portfolio-page-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -469,7 +489,9 @@
               "apps/portfolio-page-api/tsconfig.app.json",
               "apps/portfolio-page-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -494,7 +516,9 @@
               "libs\\shared\\terminus\\tsconfig.lib.json",
               "libs/shared/terminus/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -502,6 +526,185 @@
           "options": {
             "jestConfig": "libs/shared/terminus/jest.config.js",
             "tsConfig": "libs/shared/terminus/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "search-engine": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/workspace:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/search-engine",
+      "sourceRoot": "apps/search-engine/src",
+      "prefix": "pb",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/search-engine",
+            "index": "apps/search-engine/src/index.html",
+            "main": "apps/search-engine/src/main.ts",
+            "polyfills": "apps/search-engine/src/polyfills.ts",
+            "tsConfig": "apps/search-engine/tsconfig.app.json",
+            "assets": [
+              "apps/search-engine/src/favicon.ico",
+              "apps/search-engine/src/assets"
+            ],
+            "styles": [
+              "apps/search-engine/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/search-engine/src/environments/environment.ts",
+                  "with": "apps/search-engine/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "search-engine:build",
+            "proxyConfig": "apps/search-engine/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "search-engine:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "search-engine:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/search-engine/tsconfig.app.json",
+              "apps/search-engine/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/search-engine/jest.config.js",
+            "tsConfig": "apps/search-engine/tsconfig.spec.json",
+            "setupFile": "apps/search-engine/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "search-engine-e2e": {
+      "root": "apps/search-engine-e2e",
+      "sourceRoot": "apps/search-engine-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/search-engine-e2e/cypress.json",
+            "tsConfig": "apps/search-engine-e2e/tsconfig.e2e.json",
+            "devServerTarget": "search-engine:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "search-engine:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/search-engine-e2e/tsconfig.e2e.json"
+          }
+        }
+      }
+    },
+    "search-engine-api": {
+      "root": "apps/search-engine-api",
+      "sourceRoot": "apps/search-engine-api/src",
+      "projectType": "application",
+      "prefix": "search-engine-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/search-engine-api",
+            "main": "apps/search-engine-api/src/main.ts",
+            "tsConfig": "apps/search-engine-api/tsconfig.app.json",
+            "assets": [
+              "apps/search-engine-api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/search-engine-api/src/environments/environment.ts",
+                  "with": "apps/search-engine-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "search-engine-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/search-engine-api/tsconfig.app.json",
+              "apps/search-engine-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/search-engine-api/jest.config.js",
+            "tsConfig": "apps/search-engine-api/tsconfig.spec.json"
           }
         }
       }
