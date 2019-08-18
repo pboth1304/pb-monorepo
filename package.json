@@ -16,6 +16,7 @@
     "start:admin": "npm start -- admin-app-api",
     "start:crawler": "npm start -- crawler",
     "start:portfolioapi": "npm start -- portfolio-page-api",
+    "start:travelency-api": "npm start -- travelency-api",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
