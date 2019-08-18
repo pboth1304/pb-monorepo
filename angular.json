@@ -88,7 +88,9 @@
               "apps/admin-app/tsconfig.app.json",
               "apps/admin-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -140,7 +142,9 @@
             "outputPath": "dist/apps/admin-app-api",
             "main": "apps/admin-app-api/src/main.ts",
             "tsConfig": "apps/admin-app-api/tsconfig.app.json",
-            "assets": ["apps/admin-app-api/src/assets"]
+            "assets": [
+              "apps/admin-app-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -169,7 +173,9 @@
               "apps/admin-app-api/tsconfig.app.json",
               "apps/admin-app-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -194,7 +200,9 @@
               "libs\\shared\\models\\tsconfig.lib.json",
               "libs/shared/models/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -219,7 +227,9 @@
               "libs/shared/angular-material/tsconfig.lib.json",
               "libs/shared/angular-material/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -250,7 +260,9 @@
             "outputPath": "dist/apps/crawler",
             "main": "apps/crawler/src/main.ts",
             "tsConfig": "apps/crawler/tsconfig.app.json",
-            "assets": ["apps/crawler/src/assets"]
+            "assets": [
+              "apps/crawler/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -279,7 +291,9 @@
               "apps/crawler/tsconfig.app.json",
               "apps/crawler/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -333,7 +347,9 @@
               "apps/portfolio-page/src/favicon.ico",
               "apps/portfolio-page/src/assets"
             ],
-            "styles": ["apps/portfolio-page/src/styles.scss"],
+            "styles": [
+              "apps/portfolio-page/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -388,7 +404,9 @@
               "apps/portfolio-page/tsconfig.app.json",
               "apps/portfolio-page/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -440,7 +458,9 @@
             "outputPath": "dist/apps/portfolio-page-api",
             "main": "apps/portfolio-page-api/src/main.ts",
             "tsConfig": "apps/portfolio-page-api/tsconfig.app.json",
-            "assets": ["apps/portfolio-page-api/src/assets"]
+            "assets": [
+              "apps/portfolio-page-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -469,7 +489,9 @@
               "apps/portfolio-page-api/tsconfig.app.json",
               "apps/portfolio-page-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -494,7 +516,9 @@
               "libs\\shared\\terminus\\tsconfig.lib.json",
               "libs/shared/terminus/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -502,6 +526,64 @@
           "options": {
             "jestConfig": "libs/shared/terminus/jest.config.js",
             "tsConfig": "libs/shared/terminus/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "travelency-api": {
+      "root": "apps/travelency-api",
+      "sourceRoot": "apps/travelency-api/src",
+      "projectType": "application",
+      "prefix": "travelency-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/travelency-api",
+            "main": "apps/travelency-api/src/main.ts",
+            "tsConfig": "apps/travelency-api/tsconfig.app.json",
+            "assets": [
+              "apps/travelency-api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/travelency-api/src/environments/environment.ts",
+                  "with": "apps/travelency-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "travelency-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/travelency-api/tsconfig.app.json",
+              "apps/travelency-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/travelency-api/jest.config.js",
+            "tsConfig": "apps/travelency-api/tsconfig.spec.json"
           }
         }
       }
