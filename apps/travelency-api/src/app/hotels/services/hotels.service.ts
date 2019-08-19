@@ -1,32 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { Hotel } from '../../app.model';
+import { Model } from 'mongoose';
+import { CreateHotelDto } from '../dto/create-hotel.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { HotelDoc } from '@pb-monorepo/travelency/models';
 
 @Injectable()
 export class HotelsService {
-  private hotels = [...hotels];
+  constructor(
+    @InjectModel('Hotel') private readonly hotelModel: Model<HotelDoc>
+  ) {}
+
+  async create(createHotelDto: CreateHotelDto): Promise<HotelDoc> {
+    const createdHotel = new this.hotelModel(createHotelDto);
+    return await createdHotel.save();
+  }
 
   public async getHotels() {
-    return this.hotels;
+    return await this.hotelModel.find().exec();
   }
 }
-
-const hotels = [
-  {
-    id: '1234',
-    name: 'City Hotel',
-    description: 'Testdescription 1234',
-    location: { city: 'Amsterdam', country: 'Netherlands' }
-  },
-  {
-    id: '2345',
-    name: 'Park Hotel',
-    description: 'Testdescription 1234',
-    location: { city: 'Berlin', country: 'Germnany' }
-  },
-  {
-    id: '3456',
-    name: 'Garden Hotel',
-    description: 'Testdescription 1234',
-    location: { city: 'London', country: 'United Kingdom' }
-  }
-];

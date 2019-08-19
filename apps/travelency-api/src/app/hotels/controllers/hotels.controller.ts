@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Patch, Param } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Param, Body } from '@nestjs/common';
 import { HotelsService } from '../services/hotels.service';
+import { CreateHotelDto } from '../dto/create-hotel.dto';
 
 @Controller('hotels')
 export class HotelsController {
@@ -24,8 +25,10 @@ export class HotelsController {
   }
 
   @Post()
-  public async createNewHotel() {
-    return { message: 'test' };
+  public async createNewHotel(
+    @Body() createRessourceDto: CreateHotelDto
+  ): Promise<void> {
+    this.hotelsService.create(createRessourceDto);
   }
 
   @Patch(':id')
