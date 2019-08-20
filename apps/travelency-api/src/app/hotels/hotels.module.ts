@@ -3,7 +3,7 @@ import { HotelsController } from './controllers/hotels.controller';
 import { HotelsService } from './services/hotels.service';
 import { UtilsModule } from '../utils/utils.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { HotelSchema } from '@pb-monorepo/travelency/models';
+import { HotelSchema } from './schemas';
 
 @Module({
   imports: [

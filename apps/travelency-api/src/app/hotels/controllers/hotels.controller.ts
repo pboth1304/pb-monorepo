@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Patch, Param, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Param,
+  Body,
+  Query
+} from '@nestjs/common';
 import { HotelsService } from '../services/hotels.service';
 import { CreateHotelDto } from '../dto/create-hotel.dto';
 
@@ -7,10 +15,10 @@ export class HotelsController {
   constructor(private readonly hotelsService: HotelsService) {}
 
   @Get()
-  public async getHotels() {
+  public async getHotels(@Query() query) {
     // add filtering, sorting, paginating, limiting
     // add db connection
-    const hotels = await this.hotelsService.getHotels();
+    const hotels = await this.hotelsService.getHotels(query);
 
     return {
       status: 'Success',
@@ -28,7 +36,7 @@ export class HotelsController {
   public async createNewHotel(
     @Body() createRessourceDto: CreateHotelDto
   ): Promise<void> {
-    this.hotelsService.create(createRessourceDto);
+    this.hotelsService.createHotel(createRessourceDto);
   }
 
   @Patch(':id')
