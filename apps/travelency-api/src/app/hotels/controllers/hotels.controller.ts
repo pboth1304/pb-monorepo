@@ -9,34 +9,45 @@ import {
 } from '@nestjs/common';
 import { HotelsService } from '../services/hotels.service';
 import { CreateHotelDto } from '../dto/create-hotel.dto';
+import { JSendResponse } from '@pb-monorepo/travelency/models';
 
 @Controller('hotels')
 export class HotelsController {
   constructor(private readonly hotelsService: HotelsService) {}
 
   @Get()
-  public async getHotels(@Query() query) {
-    // add filtering, sorting, paginating, limiting
-    // add db connection
+  public async getHotels(@Query() query): Promise<JSendResponse> {
     const hotels = await this.hotelsService.getHotels(query);
 
     return {
-      status: 'Success',
+      status: 'success',
       results: hotels.length,
       data: { hotels }
     };
   }
 
   @Get(':id')
-  public async getHotel(@Param() id: string) {
-    return { message: 'test', id };
+  public async getHotel(@Param() idParam: { id: string }): Promise<
+    JSendResponse
+  > {
+    const hotel = await this.hotelsService.getHotel(idParam.id);
+
+    return {
+      status: 'success',
+      data: { hotel }
+    };
   }
 
   @Post()
   public async createNewHotel(
     @Body() createRessourceDto: CreateHotelDto
-  ): Promise<void> {
-    this.hotelsService.createHotel(createRessourceDto);
+  ): Promise<JSendResponse> {
+    const createdHotel = this.hotelsService.createHotel(createRessourceDto);
+
+    return {
+      status: 'success',
+      data: { createdHotel }
+    };
   }
 
   @Patch(':id')
