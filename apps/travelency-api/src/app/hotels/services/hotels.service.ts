@@ -11,9 +11,16 @@ export class HotelsService {
     @InjectModel('Hotel') private readonly hotelModel: Model<HotelDoc>
   ) {}
 
-  async createHotel(createHotelDto: CreateHotelDto): Promise<HotelDoc> {
-    const createdHotel = new this.hotelModel(createHotelDto);
-    return await createdHotel.save();
+  /**
+   * Updates Hotel.
+   */
+  public async updateHotel() {}
+
+  /**
+   * Creates new Hotel.
+   */
+  public async createHotel(createHotelDto: CreateHotelDto): Promise<HotelDoc> {
+    return await this.hotelModel.create(createHotelDto);
   }
 
   /**

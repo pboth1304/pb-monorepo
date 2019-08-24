@@ -42,11 +42,13 @@ export class HotelsController {
   public async createNewHotel(
     @Body() createRessourceDto: CreateHotelDto
   ): Promise<JSendResponse> {
-    const createdHotel = this.hotelsService.createHotel(createRessourceDto);
+    const createdHotel = await this.hotelsService.createHotel(
+      createRessourceDto
+    );
 
     return {
       status: 'success',
-      data: { createdHotel }
+      data: { hotel: createdHotel }
     };
   }
 
