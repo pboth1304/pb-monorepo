@@ -24,7 +24,8 @@
             "tsConfig": "apps/admin-app/tsconfig.app.json",
             "assets": [
               "apps/admin-app/src/favicon.ico",
-              "apps/admin-app/src/assets"
+              "apps/admin-app/src/assets",
+              "apps/admin-app/src/_redirects"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
