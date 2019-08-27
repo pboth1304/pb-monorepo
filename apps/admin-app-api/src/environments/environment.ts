@@ -4,5 +4,6 @@
 
 export const environment = {
   production: false,
+  DB_USER: 'admin',
   DB_PASSWORD: 'Ixgf8BcZyklawWJx'
 };

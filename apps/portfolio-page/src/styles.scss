@@ -1,0 +1,126 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600');
+
+:root {
+  --color-white: #fff;
+  --color-primary: #00d4da;
+  --color-secondary: #404040;
+  --font-primary: 'Montserrat', sans-serif;
+}
+
+*,
+::before,
+::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-primary);
+  color: var(--color-secondary);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h2 {
+  font-size: 4rem;
+  font-weight: 400;
+}
+
+.btn {
+  padding: 0.6rem 6rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  border-radius: 10rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  align-self: center;
+  justify-self: center;
+
+  &:hover,
+  &:active {
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  }
+
+  &-primary {
+    color: var(--color-white);
+    background-image: linear-gradient(
+      135deg,
+      var(--color-secondary) 35%,
+      var(--color-primary) 180%
+    );
+  }
+}
+
+/* Utility Classes */
+
+.my-lg,
+.mt-lg {
+  margin-top: 3rem;
+}
+
+.my-md,
+.mt-md {
+  margin-top: 2rem;
+}
+
+.my-xs,
+.mt-xs {
+  margin-top: 1rem;
+}
+
+.my-lg,
+.mb-lg {
+  margin-bottom: 3rem;
+}
+
+.my-md,
+.mb-md {
+  margin-bottom: 2rem;
+}
+
+.my-xs,
+.mb-xs {
+  margin-bottom: 1rem;
+}
+
+/* Animations */
+
+@keyframes fade-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

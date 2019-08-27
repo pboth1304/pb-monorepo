@@ -22,6 +22,21 @@
     },
     "shared-angular-material": {
       "tags": ["scope:shared"]
+    },
+    "crawler": {
+      "tags": []
+    },
+    "portfolio-page-e2e": {
+      "tags": []
+    },
+    "portfolio-page": {
+      "tags": []
+    },
+    "portfolio-page-api": {
+      "tags": []
+    },
+    "shared-terminus": {
+      "tags": ["scope:shared"]
     }
   }
 }
