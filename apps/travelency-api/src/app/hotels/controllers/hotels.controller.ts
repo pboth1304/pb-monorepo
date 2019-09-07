@@ -40,11 +40,9 @@ export class HotelsController {
 
   @Post()
   public async createNewHotel(
-    @Body() createRessourceDto: CreateHotelDto
+    @Body() createHotelDto: CreateHotelDto
   ): Promise<JSendResponse> {
-    const createdHotel = await this.hotelsService.createHotel(
-      createRessourceDto
-    );
+    const createdHotel = await this.hotelsService.createHotel(createHotelDto);
 
     return {
       status: 'success',

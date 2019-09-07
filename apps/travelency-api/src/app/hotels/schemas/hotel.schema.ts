@@ -1,5 +1,5 @@
-import { Schema } from 'mongoose';
 import { HotelDoc } from '@pb-monorepo/travelency/models';
+import { Schema } from 'mongoose';
 import slugify from 'slugify';
 
 const HotelSchema = new Schema<HotelDoc>(
