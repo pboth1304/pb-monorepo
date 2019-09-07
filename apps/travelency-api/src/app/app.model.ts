@@ -1,17 +1,17 @@
 export interface Hotel {
-  id: string;
   name: string; // Name of the hotel
-  // slug: string; // Url slug of the hotel name
+  slug: string; // Url slug of the hotel name
   description: string; // Description of the hotel
-  // amenities: Amenity[]; // Amenities of the hotel
+  amenities: Amenity[]; // Amenities of the hotel
   // pricePerNight: number; // Price per night of the hotel
   // rooms: Room[]; // Rooms of the hotel
   // reviews: Review[]; // Reviews of the hotel
-  // coverImage: string; // Cover image to display
+  coverImage: string; // Cover image to display
   // ratingsAverage: number; // Average of all ratings (min: 1, max 5)
   // ratingsQuantity: number; // Quantity of the ratings
   // location: Location; // Location of the hotel
   // stars: number; // Stars of the hotel (1-5)
+  images: string[];
 }
 export interface Amenity {
   id: string;
