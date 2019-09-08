@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { Optional } from '@nestjs/common';
+import { Amenity } from '@pb-monorepo/travelency/models';
 
 export class CreateHotelDto {
   @IsNotEmpty()
@@ -16,5 +16,5 @@ export class CreateHotelDto {
 
   readonly images: string[];
 
-  readonly amenities: string[];
+  readonly amenities: Amenity[];
 }

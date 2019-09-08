@@ -9,16 +9,15 @@ import {
 } from '@nestjs/common';
 import { HotelsService } from '../services/hotels.service';
 import { CreateHotelDto } from '../dto/create-hotel.dto';
-import { JSendResponse } from '@pb-monorepo/travelency/models';
-import { UpdateHotelDto } from '../dto/update-hotel.dto';
+import { JSendResponse, Hotel } from '@pb-monorepo/travelency/models';
 
 @Controller('hotels')
 export class HotelsController {
   constructor(private readonly hotelsService: HotelsService) {}
 
   @Get()
-  public async getHotels(@Query() query): Promise<JSendResponse> {
-    const hotels = await this.hotelsService.getHotels(query);
+  public async getAllHotels(@Query() query): Promise<JSendResponse> {
+    const hotels = await this.hotelsService.getAllHotels(query);
 
     return {
       status: 'success',
@@ -54,12 +53,9 @@ export class HotelsController {
   @Patch(':id')
   public async updateHotelData(
     @Param() hotelId: string,
-    @Body() updateHotelDto: UpdateHotelDto
+    @Body() hotel: Hotel
   ): Promise<JSendResponse> {
-    const updatedHotel = await this.hotelsService.updateHotel(
-      hotelId,
-      updateHotelDto
-    );
+    const updatedHotel = await this.hotelsService.updateHotel(hotelId, hotel);
 
     return {
       status: 'success',

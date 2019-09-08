@@ -1,3 +1,5 @@
+import { Amenity } from './amenity.model';
+
 export interface Hotel {
   name: string;
   description: string;
@@ -5,5 +7,5 @@ export interface Hotel {
   createdAt: Date;
   imageCover: string;
   images: string[];
-  amenities: string[];
+  amenities: Amenity[];
 }
