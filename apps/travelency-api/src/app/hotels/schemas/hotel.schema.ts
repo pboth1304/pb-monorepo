@@ -34,6 +34,19 @@ const HotelSchema = new Schema<HotelDoc>(
   }
 );
 
+/**
+ * Virtual populate of the hotel rooms.
+ */
+HotelSchema.virtual('rooms', {
+  ref: 'Room',
+  foreignField: 'hotel',
+  localField: '_id'
+});
+
+/**
+ * All pre middlewares.
+ * 1) add slug to new hotel
+ */
 HotelSchema.pre('save', function(next) {
   const hotel = this as any; // set this as any because of tslint errors
 
