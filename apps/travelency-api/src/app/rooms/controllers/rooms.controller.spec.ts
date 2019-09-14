@@ -1,14 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RoomsController } from './rooms.controller';
+import { CreateRoomDto } from '../dto/create-room.dto';
+import { RoomsService } from '../services/rooms.service';
+import { getModelToken } from '@nestjs/mongoose';
 
 describe('Rooms Controller', () => {
   let controller: RoomsController;
+  let roomsService: RoomsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [RoomsController]
+      controllers: [RoomsController],
+      providers: [
+        RoomsService,
+        {
+          provide: getModelToken('Room'),
+          useValue: {}
+        }
+      ]
     }).compile();
 
+    roomsService = module.get<RoomsService>(RoomsService);
     controller = module.get<RoomsController>(RoomsController);
   });
 
@@ -26,7 +38,9 @@ describe('Rooms Controller', () => {
   });
 
   it('should create new room', () => {
-    controller.createNewRoom({});
+    const newRoom: CreateRoomDto = new CreateRoomDto();
+
+    controller.createNewRoom(newRoom);
   });
 
   it('should update room', () => {

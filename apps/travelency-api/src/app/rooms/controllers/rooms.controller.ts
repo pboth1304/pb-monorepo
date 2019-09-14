@@ -8,15 +8,21 @@ import {
   Patch
 } from '@nestjs/common';
 import { JSendResponse } from '@pb-monorepo/travelency/models';
+import { CreateRoomDto } from '../dto/create-room.dto';
+import { RoomsService } from '../services/rooms.service';
 
 @Controller('rooms')
 export class RoomsController {
+  constructor(private readonly roomsService: RoomsService) {}
+
   @Get()
   public async getAllRooms(@Query() query): Promise<JSendResponse> {
+    const rooms = await this.roomsService.getAllRooms(query);
+
     return {
       status: 'success',
-      results: null,
-      data: { res: 'get all rooms' }
+      results: rooms.length,
+      data: { rooms }
     };
   }
 
@@ -29,10 +35,14 @@ export class RoomsController {
   }
 
   @Post()
-  public async createNewRoom(@Body() createRoomDto): Promise<JSendResponse> {
+  public async createNewRoom(
+    @Body() createRoomDto: CreateRoomDto
+  ): Promise<JSendResponse> {
+    const newRoom = await this.roomsService.createRoom(createRoomDto);
+
     return {
       status: 'success',
-      data: { res: 'create new Room' }
+      data: { newRoom }
     };
   }
 
