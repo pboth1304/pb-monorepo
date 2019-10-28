@@ -13,22 +13,22 @@
 //   // stars: number; // Stars of the hotel (1-5)
 //   images: string[];
 // }
-export interface Amenity {
-  id: string;
-  icon: string; // Path to icon
-  type: string; // type of amenity (e.g. Safe, Minibar)
-}
-export interface Room {
-  id: string;
-  name: string; // Room name
-  type: RoomType; // Room type
-  size: number; // size of the room
-  description: string; // Description of the Room
-  amenities: Amenity[]; // Amenities of the Room
-  isAvailable: boolean; // Status of the availabilty
-  coverImage: string; // Cover Image of the Room
-  images: string[]; // Images from the room
-}
+// export interface Amenity {
+//   id: string;
+//   icon: string; // Path to icon
+//   type: string; // type of amenity (e.g. Safe, Minibar)
+// }
+// export interface Room {
+//   id: string;
+//   name: string; // Room name
+//   type: RoomType; // Room type
+//   size: number; // size of the room
+//   description: string; // Description of the Room
+//   amenities: Amenity[]; // Amenities of the Room
+//   isAvailable: boolean; // Status of the availabilty
+//   coverImage: string; // Cover Image of the Room
+//   images: string[]; // Images from the room
+// }
 export interface Review {
   id: string;
   userId: User; // Id of the User which provided the review
