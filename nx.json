@@ -24,16 +24,16 @@
       "tags": ["scope:shared"]
     },
     "crawler": {
-      "tags": []
+      "tags": ["scope:crawler", "scope:search-engine"]
     },
     "portfolio-page-e2e": {
-      "tags": []
+      "tags": ["scope:portfolio-page"]
     },
     "portfolio-page": {
-      "tags": []
+      "tags": ["scope:portfolio-page"]
     },
     "portfolio-page-api": {
-      "tags": []
+      "tags": ["scope:portfolio-page"]
     },
     "shared-terminus": {
       "tags": ["scope:shared"]
