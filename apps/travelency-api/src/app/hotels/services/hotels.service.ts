@@ -52,6 +52,6 @@ export class HotelsService {
    * @param id hotelId
    */
   public async getHotel(id: string): Promise<Hotel> {
-    return this.hotelModel.findById(id);
+    return this.hotelModel.findById(id).populate('rooms');
   }
 }

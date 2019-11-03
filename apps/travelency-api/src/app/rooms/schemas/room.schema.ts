@@ -1,7 +1,8 @@
 import { Schema } from 'mongoose';
+import { RoomDoc } from '@pb-monorepo/travelency/models';
 import slugify from 'slugify';
 
-const RoomSchema = new Schema<any>(
+const RoomSchema = new Schema<RoomDoc>(
   {
     hotel: {
       type: Schema.Types.ObjectId,
