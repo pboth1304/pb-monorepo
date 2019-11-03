@@ -6,6 +6,8 @@ import { UtilsModule } from './utils/utils.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { environment } from '../environments/environment';
 import { RoomsModule } from './rooms/rooms.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -17,7 +19,9 @@ import { RoomsModule } from './rooms/rooms.module';
       }@travelency-cluster-9wswh.mongodb.net/travelency?retryWrites=true&w=majority`,
       { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false }
     ),
-    RoomsModule
+    RoomsModule,
+    AuthModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService]
