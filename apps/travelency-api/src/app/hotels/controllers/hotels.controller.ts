@@ -15,6 +15,9 @@ import { JSendResponse, Hotel } from '@pb-monorepo/travelency/models';
 export class HotelsController {
   constructor(private readonly hotelsService: HotelsService) {}
 
+  /**
+   * GET all Hotels
+   */
   @Get()
   public async getAllHotels(@Query() query): Promise<JSendResponse> {
     const hotels = await this.hotelsService.getAllHotels(query);
@@ -26,11 +29,15 @@ export class HotelsController {
     };
   }
 
+  /**
+   * GET one Hotel by its ID.
+   * @param params Object of url params
+   */
   @Get(':id')
-  public async getHotel(@Param() idParam: { id: string }): Promise<
+  public async getHotel(@Param() params: { hotelId: string }): Promise<
     JSendResponse
   > {
-    const hotel = await this.hotelsService.getHotel(idParam.id);
+    const hotel = await this.hotelsService.getHotel(params.hotelId);
 
     return {
       status: 'success',
@@ -38,6 +45,10 @@ export class HotelsController {
     };
   }
 
+  /**
+   * POST to create one new Hotel.
+   * @param createHotelDto
+   */
   @Post()
   public async createNewHotel(
     @Body() createHotelDto: CreateHotelDto
@@ -50,6 +61,9 @@ export class HotelsController {
     };
   }
 
+  /**
+   * PATCH to update the data of one Hotel.
+   */
   @Patch(':id')
   public async updateHotelData(
     @Param() hotelId: string,
