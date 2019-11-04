@@ -1,6 +1,7 @@
 import { Schema } from 'mongoose';
 import { isEmail } from 'validator';
 import { UserDoc } from '@pb-monorepo/travelency/models';
+import * as bcrypt from 'bcryptjs';
 
 const UserSchema = new Schema<UserDoc>({
   name: { type: String, required: [true, 'Please tell us your name!'] },
@@ -41,5 +42,28 @@ const UserSchema = new Schema<UserDoc>({
     select: false
   }
 });
+
+UserSchema.pre('save', async function(next) {
+  const user = this as any; // set this as any because of tslint errors
+
+  // Only run this function if password has been modified
+  if (!user.isModified('password')) {
+    return next();
+  }
+
+  // Hash password with cost of 12
+  user.password = await bcrypt.hash(user.password, 12);
+
+  // password confirm is not needed anymore
+  user.passwordConfirm = undefined;
+
+  next();
+});
+
+// UserSchema.pre('/^find/', function(next) {
+//   // this points to the current query
+//   this.find({ active: { $ne: false } });
+//   next();
+// });
 
 export default UserSchema;
