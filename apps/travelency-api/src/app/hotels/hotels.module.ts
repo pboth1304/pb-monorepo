@@ -4,6 +4,7 @@ import { HotelsService } from './services/hotels.service';
 import { UtilsModule } from '../utils/utils.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import HotelSchema from './schemas/hotel.schema';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [

@@ -5,11 +5,13 @@ import {
   Patch,
   Param,
   Body,
-  Query
+  Query,
+  UseGuards
 } from '@nestjs/common';
 import { HotelsService } from '../services/hotels.service';
 import { CreateHotelDto } from '../dto/create-hotel.dto';
 import { JSendResponse, Hotel } from '@pb-monorepo/travelency/models';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('hotels')
 export class HotelsController {
@@ -18,6 +20,7 @@ export class HotelsController {
   /**
    * GET all Hotels
    */
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   public async getAllHotels(@Query() query): Promise<JSendResponse> {
     const hotels = await this.hotelsService.getAllHotels(query);

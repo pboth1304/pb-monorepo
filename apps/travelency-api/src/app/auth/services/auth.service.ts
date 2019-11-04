@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../../users/services/users.service';
-import { User } from '@pb-monorepo/travelency/models';
+import { User, JSendResponse } from '@pb-monorepo/travelency/models';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -10,31 +11,41 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  private async validate(userData: User): Promise<User> {
+  /**
+   * Validates the existance of the given User.
+   * @param userData
+   */
+  private async validateUser(userData: User): Promise<User> {
     return await this.userService.findUserByEmail(userData.email);
   }
 
-  public async login(user: User): Promise<any | { status: number }> {
-    const userData = await this.validate(user);
+  public async login(user: User): Promise<JSendResponse> {
+    const userData = await this.validateUser(user);
 
     if (!userData) {
-      return { status: 404 };
+      return {
+        status: 'fail',
+        data: null
+      };
     }
 
-    const payload = `${userData.name}${userData['_id']}`;
-    const accessToken = this.jwtService.sign(payload);
-    console.log('payload', payload);
-    console.log('accessToken', accessToken);
+    const token = this.signToken(userData['_id']); // TODO: _id into interface
 
     return {
-      expires_in: 3600,
-      access_token: accessToken,
-      user_id: payload,
-      status: 200
+      status: 'success',
+      data: {
+        token,
+        expires_in: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+        user
+      }
     };
   }
 
-  public async signUp(user: User): Promise<any> {
+  public async signUp(user: User): Promise<User> {
     return this.userService.createNewUser(user);
+  }
+
+  private signToken(id): string {
+    return this.jwtService.sign({ id });
   }
 }

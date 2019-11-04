@@ -6,5 +6,6 @@ export const environment = {
   production: false,
   DB_USER: 'admin',
   DB_PASSWORD: 'peMWXy1HHUnzZcr0a',
-  JWT_SECRET_KEY: 'wgj82363135nrcoxjj32'
+  JWT_SECRET_KEY: 'wgj82363135nrcoxjj32',
+  JWT_EXPIRES_IN: '90d'
 };
