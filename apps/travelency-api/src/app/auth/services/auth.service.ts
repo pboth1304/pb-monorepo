@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../../users/services/users.service';
-import { User, JSendResponse } from '@pb-monorepo/travelency/models';
+import { User, JSendResponse, UserDoc } from '@pb-monorepo/travelency/models';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -15,17 +15,36 @@ export class AuthService {
    * Validates the existance of the given User.
    * @param userData
    */
-  private async validateUser(userData: User): Promise<User> {
-    return await this.userService.findUserByEmail(userData.email);
+  private async validateUser({ email }: { email: string }): Promise<UserDoc> {
+    return await this.userService
+      .getUserModel()
+      .findOne({ email })
+      .select('+password');
   }
 
   public async login(user: User): Promise<JSendResponse> {
+    if (!user.email || !user.password) {
+      return {
+        status: 'fail',
+        data: { msg: 'Please provide your email and password.' }
+      };
+    }
+
     const userData = await this.validateUser(user);
 
     if (!userData) {
       return {
         status: 'fail',
-        data: null
+        data: { msg: 'This user does not exist.' }
+      };
+    }
+
+    if (
+      !(await userData.checkPasswordIsCorrect(user.password, userData.password))
+    ) {
+      return {
+        status: 'fail',
+        data: { msg: 'Provided password is not correct.' }
       };
     }
 
@@ -43,6 +62,46 @@ export class AuthService {
 
   public async signUp(user: User): Promise<User> {
     return this.userService.createNewUser(user);
+  }
+
+  public async updateUsersPassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string,
+    newPasswordConfirm: string
+  ): Promise<JSendResponse> {
+    const user = await this.userService
+      .getUserModel()
+      .findById(userId)
+      .select('password');
+
+    if (!newPasswordConfirm) {
+      return {
+        status: 'fail',
+        data: { msg: 'Please confirm your new Password.' }
+      };
+    }
+
+    if (!(await user.checkPasswordIsCorrect(currentPassword, user.password))) {
+      return {
+        status: 'fail',
+        data: { msg: 'Provided password is not correct.' }
+      };
+    }
+
+    user.password = newPassword;
+    user.passwordConfirm = newPasswordConfirm;
+    await user.save();
+
+    const token = this.signToken(user.id);
+
+    return {
+      status: 'success',
+      data: {
+        token,
+        user
+      }
+    };
   }
 
   private signToken(id): string {

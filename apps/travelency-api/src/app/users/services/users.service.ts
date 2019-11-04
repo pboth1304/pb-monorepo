@@ -9,6 +9,10 @@ export class UserService {
     @InjectModel('User') private readonly userModel: Model<UserDoc>
   ) {}
 
+  public getUserModel() {
+    return this.userModel;
+  }
+
   public async findUserById(userId: string): Promise<User> {
     return await this.userModel.findById(userId);
   }
