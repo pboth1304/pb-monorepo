@@ -6,7 +6,8 @@ import {
   Param,
   Body,
   Query,
-  UseGuards
+  UseGuards,
+  Req
 } from '@nestjs/common';
 import { HotelsService } from '../services/hotels.service';
 import { CreateHotelDto } from '../dto/create-hotel.dto';
@@ -22,7 +23,10 @@ export class HotelsController {
    */
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  public async getAllHotels(@Query() query): Promise<JSendResponse> {
+  public async getAllHotels(
+    @Query() query,
+    @Req() req: Request
+  ): Promise<JSendResponse> {
     const hotels = await this.hotelsService.getAllHotels(query);
 
     return {

@@ -8,8 +8,9 @@ import {
   Req
 } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
-import { User } from '@pb-monorepo/travelency/models';
+import { User, JSendResponse } from '@pb-monorepo/travelency/models';
 import { AuthGuard } from '@nestjs/passport';
+import { CreateUserDto } from '../../users/dto/create-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -23,12 +24,12 @@ export class AuthController {
   // updatePassword
 
   @Post('login')
-  async login(@Body() user: User): Promise<any> {
+  async login(@Body() user: User): Promise<JSendResponse> {
     return this.authService.login(user);
   }
 
   @Post('signup')
-  async register(@Body() user: User): Promise<any> {
+  async register(@Body() user: CreateUserDto): Promise<JSendResponse> {
     return this.authService.signUp(user);
   }
 

@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../../users/services/users.service';
 import { User, JSendResponse, UserDoc } from '@pb-monorepo/travelency/models';
 import { environment } from '../../../environments/environment';
+import { CreateUserDto } from '../../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -60,8 +61,19 @@ export class AuthService {
     };
   }
 
-  public async signUp(user: User): Promise<User> {
-    return this.userService.createNewUser(user);
+  public async signUp(user: CreateUserDto): Promise<JSendResponse> {
+    const newUser = await this.userService.createNewUser(user);
+
+    const token = this.signToken(newUser['_id']);
+
+    return {
+      status: 'success',
+      data: {
+        token,
+        expires_in: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+        user: newUser
+      }
+    };
   }
 
   public async updateUsersPassword(
