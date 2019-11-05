@@ -4,6 +4,8 @@ import { CreateHotelDto } from '../dto/create-hotel.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { HotelDoc, Hotel } from '@pb-monorepo/travelency/models';
 import { QueryUtils } from '../../utils/classes/QueryUtils';
+import { UpdateHotelDto } from '../dto/update-hotel.dto';
+import slugify from 'slugify';
 
 @Injectable()
 export class HotelsService {
@@ -16,9 +18,16 @@ export class HotelsService {
    */
   public async updateHotel(
     hotelId: string,
-    updatedHotel: Hotel
+    updatedHotel: UpdateHotelDto
   ): Promise<HotelDoc> {
-    return await this.hotelModel.findByIdAndUpdate(hotelId, updatedHotel, {
+    let hotelToUpdate = { ...updatedHotel };
+
+    if (updatedHotel.name) {
+      const newSlug = slugify(updatedHotel.name, { lower: true });
+      hotelToUpdate = { ...hotelToUpdate, slug: newSlug };
+    }
+
+    return await this.hotelModel.findByIdAndUpdate(hotelId, hotelToUpdate, {
       new: true,
       runValidators: true
     });

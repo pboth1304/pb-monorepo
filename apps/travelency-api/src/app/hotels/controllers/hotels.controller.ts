@@ -13,6 +13,7 @@ import { HotelsService } from '../services/hotels.service';
 import { CreateHotelDto } from '../dto/create-hotel.dto';
 import { JSendResponse, Hotel } from '@pb-monorepo/travelency/models';
 import { AuthGuard } from '@nestjs/passport';
+import { UpdateHotelDto } from '../dto/update-hotel.dto';
 
 @Controller('hotels')
 export class HotelsController {
@@ -23,10 +24,7 @@ export class HotelsController {
    */
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  public async getAllHotels(
-    @Query() query,
-    @Req() req: Request
-  ): Promise<JSendResponse> {
+  public async getAllHotels(@Query() query): Promise<JSendResponse> {
     const hotels = await this.hotelsService.getAllHotels(query);
 
     return {
@@ -73,10 +71,13 @@ export class HotelsController {
    */
   @Patch(':id')
   public async updateHotelData(
-    @Param() hotelId: string,
-    @Body() hotel: Hotel
+    @Param() params: string,
+    @Body() hotel: UpdateHotelDto
   ): Promise<JSendResponse> {
-    const updatedHotel = await this.hotelsService.updateHotel(hotelId, hotel);
+    const updatedHotel = await this.hotelsService.updateHotel(
+      params['id'],
+      hotel
+    );
 
     return {
       status: 'success',
