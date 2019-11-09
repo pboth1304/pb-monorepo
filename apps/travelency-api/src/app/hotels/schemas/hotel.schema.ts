@@ -49,12 +49,6 @@ HotelSchema.virtual('rooms', {
   localField: '_id'
 });
 
-HotelSchema.pre('findOneAndUpdate', function(next) {
-  const hotel = this as any;
-  console.log('hotel', hotel.getQuery());
-  next();
-});
-
 /**
  * All pre middlewares.
  * 1) add slug to new hotel

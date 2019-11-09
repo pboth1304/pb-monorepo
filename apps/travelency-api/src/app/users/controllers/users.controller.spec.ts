@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersController } from './users.controller';
 import { getModelToken } from '@nestjs/mongoose';
-import { UsersService } from '../services/users.service';
+import { UserController } from './users.controller';
+import { UserService } from '../services/users.service';
 
-describe('Users Controller', () => {
-  let controller: UsersController;
-  let usersService: UsersService;
+describe('User Controller', () => {
+  let controller: UserController;
+  let userService: UserService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [UsersController],
+      controllers: [UserController],
       providers: [
-        UsersService,
+        UserService,
         {
           provide: getModelToken('User'),
           useValue: {}
@@ -19,8 +19,8 @@ describe('Users Controller', () => {
       ]
     }).compile();
 
-    usersService = module.get<UsersService>(UsersService);
-    controller = module.get<UsersController>(UsersController);
+    userService = module.get<UserService>(UserService);
+    controller = module.get<UserController>(UserController);
   });
 
   it('should be defined', () => {

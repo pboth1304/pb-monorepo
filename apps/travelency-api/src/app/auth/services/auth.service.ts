@@ -4,6 +4,7 @@ import { UserService } from '../../users/services/users.service';
 import { User, JSendResponse, UserDoc } from '@pb-monorepo/travelency/models';
 import { environment } from '../../../environments/environment';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
+import { UpdatePasswordDto } from '../dto/update-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -78,31 +79,34 @@ export class AuthService {
 
   public async updateUsersPassword(
     userId: string,
-    currentPassword: string,
-    newPassword: string,
-    newPasswordConfirm: string
+    updatePasswordDto: UpdatePasswordDto
   ): Promise<JSendResponse> {
     const user = await this.userService
       .getUserModel()
       .findById(userId)
       .select('password');
 
-    if (!newPasswordConfirm) {
+    if (!updatePasswordDto.newPasswordConfirm) {
       return {
         status: 'fail',
         data: { msg: 'Please confirm your new Password.' }
       };
     }
 
-    if (!(await user.checkPasswordIsCorrect(currentPassword, user.password))) {
+    if (
+      !(await user.checkPasswordIsCorrect(
+        updatePasswordDto.currentPassword,
+        user.password
+      ))
+    ) {
       return {
         status: 'fail',
         data: { msg: 'Provided password is not correct.' }
       };
     }
 
-    user.password = newPassword;
-    user.passwordConfirm = newPasswordConfirm;
+    user.password = updatePasswordDto.newPassword;
+    user.passwordConfirm = updatePasswordDto.newPasswordConfirm;
     await user.save();
 
     const token = this.signToken(user.id);

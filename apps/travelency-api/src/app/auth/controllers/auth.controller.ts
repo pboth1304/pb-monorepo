@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 import { User, JSendResponse } from '@pb-monorepo/travelency/models';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
+import { UpdatePasswordDto } from '../dto/update-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -43,15 +44,10 @@ export class AuthController {
   @Patch('updatePassword')
   async updatePassword(
     @Req() req: Request,
-    @Body() { currentPassword, newPassword, newPasswordConfirm }
+    @Body() updatePasswordDto: UpdatePasswordDto
   ) {
     const { userId } = req['user'];
 
-    return this.authService.updateUsersPassword(
-      userId,
-      currentPassword,
-      newPassword,
-      newPasswordConfirm
-    );
+    return this.authService.updateUsersPassword(userId, updatePasswordDto);
   }
 }
