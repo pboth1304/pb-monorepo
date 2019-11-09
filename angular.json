@@ -586,7 +586,7 @@
           "builder": "@nrwl/node:build",
           "options": {
             "outputPath": "dist/apps/travelency-api",
-            "main": "apps/travelency-api/src/main.ts",
+            "main": "apps/travelency-api/src/server.ts",
             "tsConfig": "apps/travelency-api/tsconfig.app.json",
             "assets": ["apps/travelency-api/src/assets"]
           },
