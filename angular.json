@@ -574,6 +574,60 @@
           }
         }
       }
+    },
+    "travelency-api": {
+      "root": "apps/travelency-api",
+      "sourceRoot": "apps/travelency-api/src",
+      "projectType": "application",
+      "prefix": "travelency-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/travelency-api",
+            "main": "apps/travelency-api/src/main.ts",
+            "tsConfig": "apps/travelency-api/tsconfig.app.json",
+            "assets": ["apps/travelency-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/travelency-api/src/environments/environment.ts",
+                  "with": "apps/travelency-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "travelency-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/travelency-api/tsconfig.app.json",
+              "apps/travelency-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/travelency-api/jest.config.js",
+            "tsConfig": "apps/travelency-api/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {
