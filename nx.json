@@ -9,40 +9,73 @@
   },
   "projects": {
     "admin-app-e2e": {
-      "tags": ["scope:admin", "scope:e2e"]
+      "tags": [
+        "scope:admin",
+        "scope:e2e"
+      ]
     },
     "admin-app": {
-      "tags": ["scope:admin", "scope:angular"]
+      "tags": [
+        "scope:admin",
+        "scope:angular"
+      ]
     },
     "admin-app-api": {
-      "tags": ["scope:admin", "scope:nest"]
+      "tags": [
+        "scope:admin",
+        "scope:nest"
+      ]
     },
     "shared-models": {
-      "tags": ["scope:shared"]
+      "tags": [
+        "scope:shared"
+      ]
     },
     "shared-angular-material": {
-      "tags": ["scope:shared"]
+      "tags": [
+        "scope:shared"
+      ]
     },
     "crawler": {
-      "tags": ["scope:crawler", "scope:search-engine"]
+      "tags": [
+        "scope:crawler",
+        "scope:search-engine"
+      ]
     },
     "portfolio-page-e2e": {
-      "tags": ["scope:portfolio-page"]
+      "tags": [
+        "scope:portfolio-page"
+      ]
     },
     "portfolio-page": {
-      "tags": ["scope:portfolio-page"]
+      "tags": [
+        "scope:portfolio-page"
+      ]
     },
     "portfolio-page-api": {
-      "tags": ["scope:portfolio-page"]
+      "tags": [
+        "scope:portfolio-page"
+      ]
     },
     "shared-terminus": {
-      "tags": ["scope:shared"]
+      "tags": [
+        "scope:shared"
+      ]
     },
     "travelency-api": {
-      "tags": ["scope:travelency"]
+      "tags": [
+        "scope:travelency"
+      ]
+    },
+    "travelency-api-nest": {
+      "tags": [
+        "scope:travelency"
+      ]
     },
     "travelency-models": {
-      "tags": ["scope:travelency"]
+      "tags": [
+        "scope:travelency"
+      ]
     }
   }
 }

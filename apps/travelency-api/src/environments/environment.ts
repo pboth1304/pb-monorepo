@@ -4,5 +4,5 @@
 
 export const environment = {
   production: false,
-  basePath: '/api/v1'
+  basePath: '/api/v1/travelency'
 };

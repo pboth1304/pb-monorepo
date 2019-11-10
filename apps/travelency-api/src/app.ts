@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 import { environment } from './environments/environment';
 import HotelRouter from './app/routes/hotels.routes';
+import HotelsController from './app/controllers/hotel.controller';
 
 export const app = express();
 
@@ -33,7 +34,10 @@ app.use(cors(options));
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
+const hotelsController: HotelsController = new HotelsController();
+
 /**
  * Setting app routes.
  */
-app.use(`${environment.basePath}/hotels`, HotelRouter);
+console.log('`${environment.basePath}/${hotelsController.path}`', `${environment.basePath}${hotelsController.path}`)
+app.use(`${environment.basePath}/hotels`, hotelsController.router);
