@@ -1,5 +1,6 @@
-import { app } from './app';
+import App from './app';
 import * as mongoose from 'mongoose';
+import HotelsController from './app/controllers/hotels.controller';
 
 /**
  * If an `uncaughtException` appears shut down the server.
@@ -33,26 +34,30 @@ mongoose
  * Initialize the server.
  */
 const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api/v1`);
-});
 
-server.on('error', console.error);
+const server = new App(
+  [
+    new HotelsController(),
+  ],
+  port,
+);
+
+server.listen();
 
 /**
  * If an `unhandledRejection` appears close the server with exit code 1.
  */
-process.on('unhandledRejection', err => {
-  console.log('Unhandled Rejection! Shutting down...');
-  console.log(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
-});
-
-process.on('SIGTERM', () => {
-  console.log('SIGTERM RECIEVED. Shutting down gracefully!');
-  server.close(() => {
-    console.log('Process terminated!');
-  });
-});
+// process.on('unhandledRejection', err => {
+//   console.log('Unhandled Rejection! Shutting down...');
+//   console.log(err.name, err.message);
+//   server.getApp().close(() => {
+//     process.exit(1);
+//   });
+// });
+//
+// process.on('SIGTERM', () => {
+//   console.log('SIGTERM RECIEVED. Shutting down gracefully!');
+//   server.close(() => {
+//     console.log('Process terminated!');
+//   });
+// });

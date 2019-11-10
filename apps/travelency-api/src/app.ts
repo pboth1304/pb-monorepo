@@ -1,43 +1,61 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import { environment } from './environments/environment';
-import HotelRouter from './app/routes/hotels.routes';
-import HotelsController from './app/controllers/hotel.controller';
+import { Application } from 'express';
+import { corsOptions } from './app/config/cors.config';
 
-export const app = express();
+class App {
+  private readonly app: Application;
+  private readonly port: string | number;
 
-/**
- * Set CORS with the following options.
- */
-const options: cors.CorsOptions = {
-  allowedHeaders: [
-    'Origin',
-    'X-Requested-With',
-    'Content-Type',
-    'Accept',
-    'X-Access-Token'
-  ],
-  credentials: true,
-  methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-  origin:
-    process.env.NODE_ENV === 'development'
-      ? ['localhost:8080', 'localhost:4200']
-      : false,
-  preflightContinue: false
-};
+  constructor(controllers: any[], port: number | string) {
+    this.app = express();
+    this.port = port;
 
-app.use(cors(options));
+    this.initMiddleware();
+    this.initControllers(controllers);
+  }
 
-/**
- * Setting max. payload to 10kb.
- */
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+  /**
+   * Getter / Setter
+   */
+  public getApp(): Application {
+    return this.app;
+  }
 
-const hotelsController: HotelsController = new HotelsController();
+  /**
+   * Initialize all Middleware functions.
+   */
+  private initMiddleware(): void {
+    // Enable CORS
+    this.app.use(cors(corsOptions));
 
-/**
- * Setting app routes.
- */
-console.log('`${environment.basePath}/${hotelsController.path}`', `${environment.basePath}${hotelsController.path}`)
-app.use(`${environment.basePath}/hotels`, hotelsController.router);
+    /**
+     * Setting max. payload to 10kb.
+     */
+    this.app.use(express.json({ limit: '10kb' }));
+    this.app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+  }
+
+  /**
+   * Initialize all given Controllers.
+   * @param controllers
+   */
+  private initControllers(controllers: any[]): void {
+    // TODO add interface for controller type
+    controllers.forEach((controller) => {
+      this.app.use(`${environment.basePath}${controller.path}`, controller.router);
+    });
+  }
+
+  /**
+   * Initialize the Server to listen on the given port.
+   */
+  public listen(): void {
+    this.app.listen(this.port, () => {
+      console.log(`App listening on the port ${this.port}`);
+    });
+  }
+}
+
+export default App;
