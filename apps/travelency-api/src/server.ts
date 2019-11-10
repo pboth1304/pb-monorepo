@@ -1,4 +1,5 @@
 import { app } from './app';
+import * as mongoose from 'mongoose';
 
 /**
  * If an `uncaughtException` appears shut down the server.
@@ -13,6 +14,20 @@ process.on('uncaughtException', err => {
  * Get the `dotenv` config file.
  */
 // dotenv.config({ path: './config.env' });
+
+/**
+ * Initialize DB connection.
+ */
+mongoose
+  .connect(
+    `mongodb+srv://admin:peMWXy1HHUnzZcr0a@travelency-cluster-9wswh.mongodb.net/travelency?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false
+    }
+  )
+  .then(() => console.log('DB Connection successful!'));
 
 /**
  * Initialize the server.

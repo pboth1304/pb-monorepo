@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import { environment } from './environments/environment';
-import hotelRouter from './app/hotels/hotels.routes';
+import HotelRouter from './app/routes/hotels.routes';
 
 export const app = express();
 
@@ -36,4 +36,4 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 /**
  * Setting app routes.
  */
-app.use(`${environment.basePath}/hotels`, hotelRouter);
+app.use(`${environment.basePath}/hotels`, HotelRouter);
