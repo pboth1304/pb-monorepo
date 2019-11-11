@@ -1,5 +1,5 @@
 import { HotelDoc } from '@pb-monorepo/travelency/models';
-import { Schema, model, Model } from 'mongoose';
+import { Schema } from 'mongoose';
 import slugify from 'slugify';
 
 const HotelSchema = new Schema<HotelDoc>(
@@ -55,6 +55,4 @@ HotelSchema.pre('save', function(next) {
   next();
 });
 
-const Hotel: Model<HotelDoc> = model<HotelDoc>('Hotel', HotelSchema);
-
-export default Hotel;
+export default HotelSchema;

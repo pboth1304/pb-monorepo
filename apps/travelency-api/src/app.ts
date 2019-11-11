@@ -3,6 +3,7 @@ import * as cors from 'cors';
 import { environment } from './environments/environment';
 import { Application } from 'express';
 import { corsOptions } from './app/config/cors.config';
+import { Server } from 'http';
 
 class App {
   private readonly app: Application;
@@ -51,8 +52,8 @@ class App {
   /**
    * Initialize the Server to listen on the given port.
    */
-  public listen(): void {
-    this.app.listen(this.port, () => {
+  public listen(): Server {
+    return this.app.listen(this.port, () => {
       console.log(`App listening on the port ${this.port}`);
     });
   }

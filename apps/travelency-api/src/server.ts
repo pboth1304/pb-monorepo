@@ -31,33 +31,37 @@ mongoose
   .then(() => console.log('DB Connection successful!'));
 
 /**
- * Initialize the server.
+ * Initialize the app.
  */
 const port = process.env.port || 3333;
 
-const server = new App(
+const app = new App(
   [
-    new HotelsController(),
+    new HotelsController()
   ],
-  port,
+  port
 );
 
-server.listen();
+const server = app.listen();
+
 
 /**
  * If an `unhandledRejection` appears close the server with exit code 1.
  */
-// process.on('unhandledRejection', err => {
-//   console.log('Unhandled Rejection! Shutting down...');
-//   console.log(err.name, err.message);
-//   server.getApp().close(() => {
-//     process.exit(1);
-//   });
-// });
-//
-// process.on('SIGTERM', () => {
-//   console.log('SIGTERM RECIEVED. Shutting down gracefully!');
-//   server.close(() => {
-//     console.log('Process terminated!');
-//   });
-// });
+process.on('unhandledRejection', err => {
+  console.log('Unhandled Rejection! Shutting down...');
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
+});
+
+/**
+ * If `SIGTERM` recieved then close the server gracefully.
+ */
+process.on('SIGTERM', () => {
+  console.log('SIGTERM RECIEVED. Shutting down gracefully!');
+  server.close(() => {
+    console.log('Process terminated!');
+  });
+});
