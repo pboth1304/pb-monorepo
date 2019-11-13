@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 import { environment } from './environments/environment';
 import { Application } from 'express';
-import { corsOptions } from './app/config/cors.config';
+import { corsOptions } from './app/configs/cors.config';
 import { Server } from 'http';
 
 class App {

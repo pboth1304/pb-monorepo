@@ -1,6 +1,7 @@
-import { Request, Response, Router } from 'express';
-import Hotel from '../classes/hotel.class';
+import { NextFunction, Request, Response, Router } from 'express';
+import Hotel from '../classes/Hotel.class';
 import slugify from 'slugify';
+import QueryUtils from '../utils/QueryUtils.class';
 
 class HotelsController {
   public path = '/hotels';
@@ -25,7 +26,8 @@ class HotelsController {
     this.router
       .route('/:hotelId')
       .get(this.getHotelById)
-      .patch(this.updateHotelById);
+      .patch(this.updateHotelById)
+      .delete(this.deleteHotelById);
   }
 
   /**
@@ -33,8 +35,14 @@ class HotelsController {
    * @param req - Request Object
    * @param res - Response Object
    */
-  getAllHotels = async (req: Request, res: Response): Promise<void> => {
-    const hotels = await this.hotel.getHotelModel().find();
+  getAllHotels = async ({ query }: Request, res: Response): Promise<void> => {
+    const queryUtils = new QueryUtils(this.hotel.getHotelModel(), query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const hotels = await queryUtils.model;
 
     /**
      * Send Response
@@ -114,6 +122,31 @@ class HotelsController {
     res.status(200).json({
       status: 'success',
       data: { updatedHotel }
+    });
+  };
+
+  /**
+   *
+   * @param hotelId - Desctructured `hotelId` of the `Request.params` object.
+   * @param res - Response Object
+   * @param next - Express next function
+   */
+  deleteHotelById = async (
+    { params: { hotelId } }: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const hotel = await this.hotel.getHotelModel().findByIdAndDelete(hotelId);
+
+    if (!hotel) {
+      res
+        .status(404)
+        .json({ status: 'error', message: 'No Hotel with this id found!' });
+    }
+
+    res.status(204).json({
+      status: 'success',
+      data: null
     });
   };
 }
