@@ -32,6 +32,8 @@ class HotelsController {
 
   /**
    * GET all hotels.
+   * The data can be filtered, sorted, fields limited and
+   * paginated. This functionality is provided by the `QueryUtils` Class.
    * @param req - Request Object
    * @param res - Response Object
    */
@@ -56,14 +58,14 @@ class HotelsController {
 
   /**
    * GET one hotel by it's id.
-   * @param params - destructured params object of the Express Request Object.
+   * @param hotelId - destructured hotelId object of the `Request.params` Object.
    * @param res - Response Object
    */
-  getHotelById = async ({ params }: Request, res: Response): Promise<void> => {
-    const { hotelId } = params;
-
-    // return Hotel.findById(hotelId).populate('rooms');
-    const hotel = await this.hotel.getHotelModel().findById(hotelId);
+  getHotelById = async ({ params: { hotelId } }: Request, res: Response): Promise<void> => {
+    const hotel = await this.hotel
+      .getHotelModel()
+      .findById(hotelId)
+      .populate('rooms');
 
     /**
      * Send Response
@@ -126,7 +128,7 @@ class HotelsController {
   };
 
   /**
-   *
+   * DELETE one Hotel by it's id.
    * @param hotelId - Desctructured `hotelId` of the `Request.params` object.
    * @param res - Response Object
    * @param next - Express next function

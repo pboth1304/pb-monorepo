@@ -1,6 +1,7 @@
 import App from './app';
 import * as mongoose from 'mongoose';
 import HotelsController from './app/controllers/hotels.controller';
+import RoomsController from './app/controllers/rooms.controller';
 
 /**
  * If an `uncaughtException` appears shut down the server.
@@ -35,15 +36,9 @@ mongoose
  */
 const port = process.env.port || 3333;
 
-const app = new App(
-  [
-    new HotelsController()
-  ],
-  port
-);
+const app = new App([new HotelsController(), new RoomsController()], port);
 
 const server = app.listen();
-
 
 /**
  * If an `unhandledRejection` appears close the server with exit code 1.
