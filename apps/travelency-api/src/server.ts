@@ -2,6 +2,8 @@ import App from './app';
 import * as mongoose from 'mongoose';
 import HotelsController from './app/controllers/hotels.controller';
 import RoomsController from './app/controllers/rooms.controller';
+import UsersController from './app/controllers/users.controller';
+import AuthController from './app/controllers/auth.controller';
 
 /**
  * If an `uncaughtException` appears shut down the server.
@@ -36,7 +38,15 @@ mongoose
  */
 const port = process.env.port || 3333;
 
-const app = new App([new HotelsController(), new RoomsController()], port);
+const app = new App(
+  [
+    new HotelsController(),
+    new RoomsController(),
+    new UsersController(),
+    new AuthController()
+  ],
+  port
+);
 
 const server = app.listen();
 
