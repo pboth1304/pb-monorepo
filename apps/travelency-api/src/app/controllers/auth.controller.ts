@@ -1,6 +1,8 @@
 import { Request, Response, Router } from 'express';
 import User from '../classes/User.class';
 import { UserDoc } from '@pb-monorepo/travelency/models';
+import { environment } from '../../environments/environment';
+import * as jwt from 'jsonwebtoken';
 
 class AuthController {
   public path = '/auth';
@@ -26,7 +28,35 @@ class AuthController {
     this.router.route('/updatePassword').patch(this.updatePassword);
   }
 
-  login = async (req: Request, res: Response) => {};
+  login = async ({ body }: Request, res: Response) => {
+    if (!body.email || !body.password) {
+      res.status(401).json({
+        status: 'error',
+        msg: 'You have to provide a email and a password.'
+      });
+    }
+    const user = await this.user.validateUser(body.email);
+
+    if (!user) {
+      res.status(401).json({
+        status: 'error',
+        msg: 'This user does not exist.'
+      });
+    }
+
+    if (!(await user.checkPasswordIsCorrect(body.password, user.password))) {
+      res.status(401).json({
+        status: 'error',
+        msg: 'You have to provide the correct email and password.'
+      });
+    }
+
+    const token = this.signToken(user['_id']);
+
+    user.password = undefined;
+
+    res.status(200).json({ status: 'success', data: { token, user } });
+  };
 
   signUp = async ({ body }: Request, res: Response) => {
     const newUser = await this.user.getUserModel().create(body);
@@ -41,15 +71,10 @@ class AuthController {
 
   updatePassword = async (req: Request, res: Response) => {};
 
-  /**
-   * Validates the existance of the given User.
-   * @param userData
-   */
-  private async validateUser(email: string): Promise<UserDoc> {
-    return this.user
-      .getUserModel()
-      .findOne(email)
-      .select('+password');
+  private signToken(userId: string): string {
+    return jwt.sign({ userId }, environment.JWT_SECRET_KEY, {
+      expiresIn: environment.JWT_EXPIRES_IN
+    });
   }
 }
 

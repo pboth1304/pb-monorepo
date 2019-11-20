@@ -61,7 +61,10 @@ class HotelsController {
    * @param hotelId - destructured hotelId object of the `Request.params` Object.
    * @param res - Response Object
    */
-  getHotelById = async ({ params: { hotelId } }: Request, res: Response): Promise<void> => {
+  getHotelById = async (
+    { params: { hotelId } }: Request,
+    res: Response
+  ): Promise<void> => {
     const hotel = await this.hotel
       .getHotelModel()
       .findById(hotelId)

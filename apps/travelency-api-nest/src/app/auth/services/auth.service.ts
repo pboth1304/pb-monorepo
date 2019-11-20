@@ -18,7 +18,7 @@ export class AuthService {
    * @param userData
    */
   private async validateUser({ email }: { email: string }): Promise<UserDoc> {
-    return await this.userService
+    return this.userService
       .getUserModel()
       .findOne({ email })
       .select('+password');

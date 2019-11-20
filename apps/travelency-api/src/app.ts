@@ -4,6 +4,7 @@ import { environment } from './environments/environment';
 import { Application } from 'express';
 import { corsOptions } from './app/configs/cors.config';
 import { Server } from 'http';
+import * as passport from 'passport';
 
 class App {
   private readonly app: Application;
@@ -36,6 +37,11 @@ class App {
      */
     this.app.use(express.json({ limit: '10kb' }));
     this.app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+
+    /**
+     * Init passport.js
+     */
+    this.app.use(passport.initialize());
   }
 
   /**
@@ -44,8 +50,11 @@ class App {
    */
   private initControllers(controllers: any[]): void {
     // TODO add interface for controller type
-    controllers.forEach((controller) => {
-      this.app.use(`${environment.basePath}${controller.path}`, controller.router);
+    controllers.forEach(controller => {
+      this.app.use(
+        `${environment.basePath}${controller.path}`,
+        controller.router
+      );
     });
   }
 

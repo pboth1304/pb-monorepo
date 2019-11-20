@@ -19,6 +19,14 @@ class User {
   public getUserModel(): Model<UserDoc> {
     return this.model;
   }
+
+  /**
+   * Validates the existance of the given User.
+   * @param userData
+   */
+  public async validateUser(email: string): Promise<UserDoc> {
+    return this.model.findOne({ email }).select('+password');
+  }
 }
 
 export default User;
