@@ -130,10 +130,7 @@ class RoomsController {
         .json({ status: 'error', message: 'No Room with this id found!' });
     }
 
-    res.status(204).json({
-      status: 'success',
-      data: null
-    });
+    res.status(204);
   };
 }
 

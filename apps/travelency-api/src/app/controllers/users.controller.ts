@@ -1,14 +1,18 @@
 import { Request, Response, Router } from 'express';
 import User from '../classes/User.class';
 import QueryUtils from '../utils/QueryUtils.class';
+import { Auth } from '../classes/Auth.class';
 
 class UsersController {
   public path = '/users';
   public router = Router();
   private readonly user: User;
+  private readonly auth: Auth;
 
   constructor() {
     this.user = new User();
+    this.auth = new Auth();
+
     this.initializeRoutes();
   }
 
@@ -17,6 +21,8 @@ class UsersController {
    * of the `UserController`.
    */
   public initializeRoutes() {
+    this.router.use(this.auth.grantRouteAccess);
+
     this.router
       .route('')
       .get(this.getAllUsers)
@@ -60,14 +66,30 @@ class UsersController {
    * @param userId
    * @param res
    */
-  getUserById = async ({ params: { userId } }: Request, res: Response) => {};
+  getUserById = async ({ params: { userId } }: Request, res: Response) => {
+    const user = await this.user.getUserModel().findById(userId);
+
+    if (!user) {
+      res
+        .status(404)
+        .json({ status: 'error', message: 'No User with this id found!' });
+    }
+
+    res.status(200).json({ status: 'success', data: { user } });
+  };
 
   /**
    * POST create new User.
-   * @param body
-   * @param res
+   * @param body - newUserDto
+   * @param res - Response Object
    */
-  createNewUser = async ({ body }: Request, res: Response) => {};
+  createNewUser = async ({ body }: Request, res: Response) => {
+    const newUser = await this.user.getUserModel().create(body);
+
+    newUser.password = undefined;
+
+    res.status(201).json({ status: 'success', data: { user: newUser } });
+  };
 
   /**
    * PATCH update existing User by it's id.
@@ -78,7 +100,36 @@ class UsersController {
   updateUserById = async (
     { params: { userId }, body }: Request,
     res: Response
-  ) => {};
+  ) => {
+    const updateUserData = body;
+
+    /**
+     * Delete password and passwordConfirm
+     * properties from body if present.
+     * Passwords can only be updated via the
+     * `updatePassword` endpoint.
+     */
+    if (body.password) {
+      delete updateUserData.password;
+    }
+
+    if (body.passwordConfirm) {
+      delete updateUserData.passwordConfirm;
+    }
+
+    const updatedUser = await this.user
+      .getUserModel()
+      .findByIdAndUpdate(userId, body, {
+        new: true,
+        runValidators: false
+      });
+
+    if (!updatedUser) {
+      res.status(404).json({ status: 'error', msg: 'No matching User found!' });
+    }
+
+    res.status(201).json({ status: 'success', data: { user: updatedUser } });
+  };
 
   /**
    * DELETE one User by it's id.
@@ -86,7 +137,17 @@ class UsersController {
    * @param res - Response Object
    * @param next - Express next function
    */
-  deleteUserById = async ({ params: { userId } }: Request, res: Response) => {};
+  deleteUserById = async ({ params: { userId } }: Request, res: Response) => {
+    const user = await this.user.getUserModel().findByIdAndDelete(userId);
+
+    if (!user) {
+      res
+        .status(404)
+        .json({ status: 'error', message: 'No User with this id found!' });
+    }
+
+    res.status(204).json();
+  };
 }
 
 export default UsersController;

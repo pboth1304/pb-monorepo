@@ -25,7 +25,9 @@ class AuthController {
 
     this.router.route('/logout').post(this.logout);
 
-    this.router.route('/updatePassword').patch(this.updatePassword);
+    this.router
+      .route('/updatePassword')
+      .patch(this.auth.grantRouteAccess, this.updatePassword);
   }
 
   login = async ({ body }: Request, res: Response) => {
@@ -68,15 +70,53 @@ class AuthController {
   signUp = async ({ body }: Request, res: Response) => {
     const newUser = await this.user.getUserModel().create(body);
 
+    const token = this.auth.signToken(newUser['_id']);
+
+    /** Remove password from response obj */
+    newUser.password = undefined;
+
     res.status(201).json({
       status: 'success',
-      data: { user: newUser }
+      data: { token, user: newUser }
     });
   };
 
   logout = async (req: Request, res: Response) => {};
 
-  updatePassword = async (req: Request, res: Response) => {};
+  updatePassword = async (req: Request, res: Response) => {
+    const user = await this.user
+      .getUserModel()
+      .findById(req['user']._id)
+      .select('password');
+
+    /** Check if given password is correct */
+    if (
+      !(await user.checkPasswordIsCorrect(
+        req.body['currentPassword'],
+        user.password
+      ))
+    ) {
+      res
+        .send(401)
+        .json({ status: 'fail', msg: 'Your current password is wrong.' });
+
+      return;
+    }
+
+    /** If given password is correct update password */
+    user.password = req.body.newPassword;
+    user.passwordConfirm = req.body.newPasswordConfirm;
+
+    await user.save();
+
+    /** Log user in and send jwt token */
+    const token = this.auth.signToken(user['_id']);
+
+    res.status(200).json({
+      status: 'success',
+      data: { token, user }
+    });
+  };
 }
 
 export default AuthController;

@@ -8,11 +8,9 @@ class HotelsController {
   public path = '/hotels';
   public router = Router();
   private readonly hotel: Hotel;
-  private readonly auth: Auth;
 
   constructor() {
     this.hotel = new Hotel();
-    this.auth = new Auth();
     this.initializeRoutes();
   }
 
@@ -23,7 +21,7 @@ class HotelsController {
   public initializeRoutes() {
     this.router
       .route('')
-      .get(this.auth.grantRouteAccess, this.getAllHotels)
+      .get(this.getAllHotels)
       .post(this.createNewHotel);
 
     this.router
@@ -152,10 +150,7 @@ class HotelsController {
         .json({ status: 'error', message: 'No Hotel with this id found!' });
     }
 
-    res.status(204).json({
-      status: 'success',
-      data: null
-    });
+    res.status(204);
   };
 }
 
