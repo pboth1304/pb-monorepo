@@ -2,14 +2,17 @@ import { NextFunction, Request, Response, Router } from 'express';
 import Hotel from '../classes/Hotel.class';
 import slugify from 'slugify';
 import QueryUtils from '../utils/QueryUtils.class';
+import { Auth } from '../classes/Auth.class';
 
 class HotelsController {
   public path = '/hotels';
   public router = Router();
   private readonly hotel: Hotel;
+  private readonly auth: Auth;
 
   constructor() {
     this.hotel = new Hotel();
+    this.auth = new Auth();
     this.initializeRoutes();
   }
 
@@ -20,7 +23,7 @@ class HotelsController {
   public initializeRoutes() {
     this.router
       .route('')
-      .get(this.getAllHotels)
+      .get(this.auth.grantRouteAccess, this.getAllHotels)
       .post(this.createNewHotel);
 
     this.router

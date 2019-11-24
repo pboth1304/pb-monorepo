@@ -1,16 +1,16 @@
 import { Request, Response, Router } from 'express';
+import { Auth } from '../classes/Auth.class';
 import User from '../classes/User.class';
-import { UserDoc } from '@pb-monorepo/travelency/models';
-import { environment } from '../../environments/environment';
-import * as jwt from 'jsonwebtoken';
 
 class AuthController {
   public path = '/auth';
   public router = Router();
   private readonly user: User;
+  private readonly auth: Auth;
 
   constructor() {
     this.user = new User();
+    this.auth = new Auth();
     this.initializeRoutes();
   }
 
@@ -34,7 +34,10 @@ class AuthController {
         status: 'error',
         msg: 'You have to provide a email and a password.'
       });
+
+      return;
     }
+
     const user = await this.user.validateUser(body.email);
 
     if (!user) {
@@ -42,6 +45,8 @@ class AuthController {
         status: 'error',
         msg: 'This user does not exist.'
       });
+
+      return;
     }
 
     if (!(await user.checkPasswordIsCorrect(body.password, user.password))) {
@@ -49,11 +54,13 @@ class AuthController {
         status: 'error',
         msg: 'You have to provide the correct email and password.'
       });
+
+      return;
     }
 
-    const token = this.signToken(user['_id']);
+    const token = this.auth.signToken(user['_id']);
 
-    user.password = undefined;
+    user.password = undefined; // Delete password from response
 
     res.status(200).json({ status: 'success', data: { token, user } });
   };
@@ -70,12 +77,6 @@ class AuthController {
   logout = async (req: Request, res: Response) => {};
 
   updatePassword = async (req: Request, res: Response) => {};
-
-  private signToken(userId: string): string {
-    return jwt.sign({ userId }, environment.JWT_SECRET_KEY, {
-      expiresIn: environment.JWT_EXPIRES_IN
-    });
-  }
 }
 
 export default AuthController;
