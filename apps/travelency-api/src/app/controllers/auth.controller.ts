@@ -1,16 +1,21 @@
 import { Request, Response, Router } from 'express';
 import { Auth } from '../classes/Auth.class';
 import User from '../classes/User.class';
+import Validator from '../classes/Validator.class';
+import { UpdatePasswordDto } from '../dtos/update-password.dto';
 
 class AuthController {
   public path = '/auth';
   public router = Router();
   private readonly user: User;
   private readonly auth: Auth;
+  private readonly validator: Validator;
 
   constructor() {
     this.user = new User();
     this.auth = new Auth();
+    this.validator = new Validator();
+
     this.initializeRoutes();
   }
 
@@ -27,7 +32,11 @@ class AuthController {
 
     this.router
       .route('/updatePassword')
-      .patch(this.auth.grantRouteAccess, this.updatePassword);
+      .patch(
+        this.auth.grantRouteAccess,
+        this.validator.validationMiddleware(UpdatePasswordDto),
+        this.updatePassword
+      );
   }
 
   login = async ({ body }: Request, res: Response) => {
