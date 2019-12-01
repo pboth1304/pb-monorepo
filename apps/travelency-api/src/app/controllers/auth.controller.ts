@@ -34,12 +34,21 @@ class AuthController {
       .route('/updatePassword')
       .patch(
         this.auth.grantRouteAccess,
-        this.validator.validationMiddleware(UpdatePasswordDto),
+        this.validator.validationMiddleware<UpdatePasswordDto>(
+          UpdatePasswordDto
+        ),
         this.updatePassword
       );
   }
 
+  /**
+   * Login Handler function. If the correct password and email
+   * are provided, a JWT will be send to the client.
+   * @param body - email and password
+   * @param res - Response Object with JWT token and user data.
+   */
   login = async ({ body }: Request, res: Response) => {
+    /** If there is no email or password return an error. */
     if (!body.email || !body.password) {
       res.status(401).json({
         status: 'error',
@@ -51,6 +60,7 @@ class AuthController {
 
     const user = await this.user.validateUser(body.email);
 
+    /** If there is no user found on DB return an error. */
     if (!user) {
       res.status(401).json({
         status: 'error',
@@ -60,6 +70,7 @@ class AuthController {
       return;
     }
 
+    /** If the provided password is not matching with the one on the DB return an error. */
     if (!(await user.checkPasswordIsCorrect(body.password, user.password))) {
       res.status(401).json({
         status: 'error',
@@ -69,13 +80,20 @@ class AuthController {
       return;
     }
 
+    /** Sign JWT */
     const token = this.auth.signToken(user['_id']);
 
-    user.password = undefined; // Delete password from response
+    /** Remove password from the response object */
+    user.password = undefined;
 
     res.status(200).json({ status: 'success', data: { token, user } });
   };
 
+  /**
+   * Sign Up handler. Registers a new user if the provided data is valid.
+   * @param body
+   * @param res
+   */
   signUp = async ({ body }: Request, res: Response) => {
     const newUser = await this.user.getUserModel().create(body);
 
@@ -92,6 +110,11 @@ class AuthController {
 
   logout = async (req: Request, res: Response) => {};
 
+  /**
+   * Update Password handler. Updates the current user's password.
+   * @param req - Request object with user and updatePasswordDto in it.
+   * @param res - Response Object.
+   */
   updatePassword = async (req: Request, res: Response) => {
     const user = await this.user
       .getUserModel()

@@ -2,16 +2,21 @@ import { Request, Response, Router } from 'express';
 import User from '../classes/User.class';
 import QueryUtils from '../utils/QueryUtils.class';
 import { Auth } from '../classes/Auth.class';
+import Validator from '../classes/Validator.class';
+import { CreateUserDto } from '../dtos/create-user.dto';
+import { UpdateUserDto } from '../dtos/update-user.dto';
 
 class UsersController {
   public path = '/users';
   public router = Router();
   private readonly user: User;
   private readonly auth: Auth;
+  private readonly validator: Validator;
 
   constructor() {
     this.user = new User();
     this.auth = new Auth();
+    this.validator = new Validator();
 
     this.initializeRoutes();
   }
@@ -21,17 +26,24 @@ class UsersController {
    * of the `UserController`.
    */
   public initializeRoutes() {
+    /** Protect all users route */
     this.router.use(this.auth.grantRouteAccess);
 
     this.router
       .route('')
       .get(this.getAllUsers)
-      .post(this.createNewUser);
+      .post(
+        this.validator.validationMiddleware<CreateUserDto>(CreateUserDto),
+        this.createNewUser
+      );
 
     this.router
       .route('/:userId')
       .get(this.getUserById)
-      .patch(this.updateUserById)
+      .patch(
+        this.validator.validationMiddleware<UpdateUserDto>(UpdateUserDto),
+        this.updateUserById
+      )
       .delete(this.deleteUserById);
   }
 

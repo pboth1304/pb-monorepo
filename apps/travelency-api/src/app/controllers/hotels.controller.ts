@@ -2,15 +2,20 @@ import { NextFunction, Request, Response, Router } from 'express';
 import Hotel from '../classes/Hotel.class';
 import slugify from 'slugify';
 import QueryUtils from '../utils/QueryUtils.class';
-import { Auth } from '../classes/Auth.class';
+import Validator from '../classes/Validator.class';
+import { CreateHotelDto } from '../dtos/create-hotel.dto';
+import { UpdateHotelDto } from '../dtos/update-hotel.dto';
 
 class HotelsController {
   public path = '/hotels';
   public router = Router();
   private readonly hotel: Hotel;
+  private readonly validator: Validator;
 
   constructor() {
     this.hotel = new Hotel();
+    this.validator = new Validator();
+
     this.initializeRoutes();
   }
 
@@ -22,12 +27,18 @@ class HotelsController {
     this.router
       .route('')
       .get(this.getAllHotels)
-      .post(this.createNewHotel);
+      .post(
+        this.validator.validationMiddleware<CreateHotelDto>(CreateHotelDto),
+        this.createNewHotel
+      );
 
     this.router
       .route('/:hotelId')
       .get(this.getHotelById)
-      .patch(this.updateHotelById)
+      .patch(
+        this.validator.validationMiddleware<UpdateHotelDto>(UpdateHotelDto),
+        this.updateHotelById
+      )
       .delete(this.deleteHotelById);
   }
 
