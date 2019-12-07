@@ -1,6 +1,6 @@
 import nodeFetch from 'node-fetch';
 import * as cheerio from 'cheerio';
-import { IWebsite } from '../models/website.model';
+import { IWebsite } from '@pb-monorepo/shared/models';
 import Website from '../schemas/website.schema';
 import DocumentParser from './documentParser';
 
