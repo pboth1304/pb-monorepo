@@ -5,6 +5,7 @@ import { Auth } from '../classes/Auth.class';
 import Validator from '../classes/Validator.class';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UpdateUserDto } from '../dtos/update-user.dto';
+import { catchAsyncFunction } from '../utils/CatchAsyncFunctionUtil.class';
 
 class UsersController {
   public path = '/users';
@@ -85,6 +86,8 @@ class UsersController {
       res
         .status(404)
         .json({ status: 'error', message: 'No User with this id found!' });
+
+      return;
     }
 
     res.status(200).json({ status: 'success', data: { user } });
