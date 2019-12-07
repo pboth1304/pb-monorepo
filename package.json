@@ -17,6 +17,7 @@
     "start:crawler": "npm start -- crawler",
     "start:portfolio-page-api": "npm start -- portfolio-page-api",
     "start:search-engine-api": "npm start -- search-engine-api",
+    "build:admin-app": "ng build admin-app --prod && ng build admin-app-api",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
