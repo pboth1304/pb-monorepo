@@ -146,13 +146,8 @@ class HotelsController {
    * DELETE one Hotel by it's id.
    * @param hotelId - Desctructured `hotelId` of the `Request.params` object.
    * @param res - Response Object
-   * @param next - Express next function
    */
-  deleteHotelById = async (
-    { params: { hotelId } }: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
+  deleteHotelById = async ({ params: { hotelId } }: Request, res: Response) => {
     const hotel = await this.hotel.getHotelModel().findByIdAndDelete(hotelId);
 
     if (!hotel) {
