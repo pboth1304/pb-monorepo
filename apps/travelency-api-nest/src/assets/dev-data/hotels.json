@@ -1,0 +1,18 @@
+[
+  {
+    "name": "The Grand Hotel Amsterdam",
+    "description": "Luxury Hotel, beneath the canals.",
+    "imageCover": "grand-hotel-amsterdam-cover.jpg",
+    "images": [
+      "grand-hotel-amsterdam-1.jpg",
+      "grand-hotel-amsterdam-2.jpg",
+      "grand-hotel-amsterdam-3.jpg"
+    ],
+    "amenities": [
+      { "type": "Wifi" },
+      { "type": "Hair dryer" },
+      { "type": "Air Condition" }
+    ],
+    "rooms": ["roomid123", "roomid234"]
+  }
+]

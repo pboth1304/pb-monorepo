@@ -18,6 +18,8 @@
     "start:portfolio-page-api": "npm start -- portfolio-page-api",
     "start:search-engine-api": "npm start -- search-engine-api",
     "build:admin-app": "ng build admin-app --prod && ng build admin-app-api",
+    "start:travelency-api": "npm start -- travelency-api",
+    "start:travelency-api-nest": "npm start -- travelency-api-nest",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",

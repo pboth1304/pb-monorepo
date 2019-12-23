@@ -1,0 +1,12 @@
+[
+  {
+    "hotelId": "1234",
+    "name": "Double Bed room",
+    "size": "25",
+    "description": "Nice and cozy room with a queen size bed and a modern bath room.",
+    "amenities": [{ "type": "Air condition" }],
+    "isAvailable": true,
+    "coverImage": "hotel-room-1-cover.jpg",
+    "images": ["room-1.jpg"]
+  }
+]
