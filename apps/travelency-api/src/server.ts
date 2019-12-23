@@ -1,10 +1,9 @@
 import App from './app';
 import * as mongoose from 'mongoose';
-import RoomsController from './app/controllers/rooms.controller';
-import UsersController from './app/controllers/users.controller';
-import AuthController from './app/controllers/auth.controller';
 import HotelRoutes from './app/routes/hotel.routes';
 import RoomRoutes from './app/routes/room.routes';
+import UserRoutes from './app/routes/user.routes';
+import AuthRoutes from './app/routes/auth.routes';
 
 /**
  * If an `uncaughtException` appears shut down the server.
@@ -43,8 +42,8 @@ const app = new App(
   [
     new HotelRoutes(),
     new RoomRoutes(),
-    // new UsersController(),
-    // new AuthController()
+    new UserRoutes(),
+    new AuthRoutes()
   ],
   port
 );

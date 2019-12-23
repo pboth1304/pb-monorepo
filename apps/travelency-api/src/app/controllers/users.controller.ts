@@ -1,51 +1,15 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import User from '../classes/User.class';
 import QueryUtils from '../utils/QueryUtils.class';
-import { Auth } from '../classes/Auth.class';
 import Validator from '../classes/Validator.class';
-import { CreateUserDto } from '../dtos/create-user.dto';
-import { UpdateUserDto } from '../dtos/update-user.dto';
-import { catchAsyncFunction } from '../utils/CatchAsyncFunctionUtil.class';
 
 class UsersController {
-  public path = '/users';
-  public router = Router();
   private readonly user: User;
-  private readonly auth: Auth;
   private readonly validator: Validator;
 
   constructor() {
-    this.user = new User();
-    this.auth = new Auth();
     this.validator = new Validator();
-
-    this.initializeRoutes();
-  }
-
-  /**
-   * Function which initializes all routes
-   * of the `UserController`.
-   */
-  public initializeRoutes() {
-    /** Protect all users route */
-    this.router.use(this.auth.grantRouteAccess);
-
-    this.router
-      .route('')
-      .get(this.getAllUsers)
-      .post(
-        this.validator.validationMiddleware<CreateUserDto>(CreateUserDto),
-        this.createNewUser
-      );
-
-    this.router
-      .route('/:userId')
-      .get(this.getUserById)
-      .patch(
-        this.validator.validationMiddleware<UpdateUserDto>(UpdateUserDto),
-        this.updateUserById
-      )
-      .delete(this.deleteUserById);
+    this.user = new User();
   }
 
   /**
