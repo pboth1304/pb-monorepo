@@ -1,44 +1,14 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import { Auth } from '../classes/Auth.class';
 import User from '../classes/User.class';
-import Validator from '../classes/Validator.class';
-import { UpdatePasswordDto } from '../dtos/update-password.dto';
 
 class AuthController {
-  public path = '/auth';
-  public router = Router();
   private readonly user: User;
   private readonly auth: Auth;
-  private readonly validator: Validator;
 
   constructor() {
     this.user = new User();
     this.auth = new Auth();
-    this.validator = new Validator();
-
-    this.initializeRoutes();
-  }
-
-  /**
-   * Function which initializes all routes
-   * of the `AuthController`.
-   */
-  public initializeRoutes() {
-    this.router.route('/login').post(this.login);
-
-    this.router.route('/signup').post(this.signUp);
-
-    this.router.route('/logout').post(this.logout);
-
-    this.router
-      .route('/updatePassword')
-      .patch(
-        this.auth.grantRouteAccess,
-        this.validator.validationMiddleware<UpdatePasswordDto>(
-          UpdatePasswordDto
-        ),
-        this.updatePassword
-      );
   }
 
   /**
@@ -95,7 +65,7 @@ class AuthController {
    * @param res
    */
   signUp = async ({ body }: Request, res: Response) => {
-    const newUser = await this.user.getUserModel().create(body);
+    const newUser = await this.user.getUserModel().create(body); // TODO: add check if user already exists
 
     const token = this.auth.signToken(newUser['_id']);
 
