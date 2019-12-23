@@ -9,12 +9,12 @@ class App {
   private readonly app: Application;
   private readonly port: string | number;
 
-  constructor(controllers: any[], port: number | string) {
+  constructor(routes: any[], port: number | string) {
     this.app = express();
     this.port = port;
 
     this.initMiddleware();
-    this.initControllers(controllers);
+    this.initRoutes(routes);
   }
 
   /**
@@ -42,13 +42,10 @@ class App {
    * Initialize all given Controllers.
    * @param controllers
    */
-  private initControllers(controllers: any[]): void {
-    // TODO add interface for controller type
-    controllers.forEach(controller => {
-      this.app.use(
-        `${environment.basePath}${controller.path}`,
-        controller.router
-      );
+  private initRoutes(routes: any[]): void {
+    // TODO add interface for routes class type
+    routes.forEach(route => {
+      this.app.use(`${environment.basePath}${route.path}`, route.router);
     });
   }
 

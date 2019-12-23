@@ -1,9 +1,9 @@
 import App from './app';
 import * as mongoose from 'mongoose';
-import HotelsController from './app/controllers/hotels.controller';
 import RoomsController from './app/controllers/rooms.controller';
 import UsersController from './app/controllers/users.controller';
 import AuthController from './app/controllers/auth.controller';
+import HotelRoutes from './app/routes/hotel.routes';
 
 /**
  * If an `uncaughtException` appears shut down the server.
@@ -40,7 +40,7 @@ const port = process.env.port || 3333;
 
 const app = new App(
   [
-    new HotelsController(),
+    new HotelRoutes(),
     new RoomsController(),
     new UsersController(),
     new AuthController()

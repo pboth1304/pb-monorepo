@@ -1,45 +1,13 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import Hotel from '../classes/Hotel.class';
 import slugify from 'slugify';
 import QueryUtils from '../utils/QueryUtils.class';
-import Validator from '../classes/Validator.class';
-import { CreateHotelDto } from '../dtos/create-hotel.dto';
-import { UpdateHotelDto } from '../dtos/update-hotel.dto';
 
 class HotelsController {
-  public path = '/hotels';
-  public router = Router();
   private readonly hotel: Hotel;
-  private readonly validator: Validator;
 
   constructor() {
     this.hotel = new Hotel();
-    this.validator = new Validator();
-
-    this.initializeRoutes();
-  }
-
-  /**
-   * Function which initializes all routes
-   * of the `HotelController`.
-   */
-  public initializeRoutes() {
-    this.router
-      .route('')
-      .get(this.getAllHotels)
-      .post(
-        this.validator.validationMiddleware<CreateHotelDto>(CreateHotelDto),
-        this.createNewHotel
-      );
-
-    this.router
-      .route('/:hotelId')
-      .get(this.getHotelById)
-      .patch(
-        this.validator.validationMiddleware<UpdateHotelDto>(UpdateHotelDto),
-        this.updateHotelById
-      )
-      .delete(this.deleteHotelById);
   }
 
   /**
@@ -149,14 +117,16 @@ class HotelsController {
    */
   deleteHotelById = async ({ params: { hotelId } }: Request, res: Response) => {
     const hotel = await this.hotel.getHotelModel().findByIdAndDelete(hotelId);
-
+    console.log('hotel', hotel);
     if (!hotel) {
       res
         .status(404)
         .json({ status: 'error', message: 'No Hotel with this id found!' });
+
+      return;
     }
 
-    res.status(204);
+    res.status(204).json({});
   };
 }
 
