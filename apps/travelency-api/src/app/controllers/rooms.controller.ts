@@ -1,40 +1,12 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import Room from '../classes/Room.class';
 import QueryUtils from '../utils/QueryUtils.class';
-import Validator from '../classes/Validator.class';
-import { CreateRoomDto } from '../dtos/create-room.dto';
 
 class RoomsController {
-  public path = '/rooms';
-  public router = Router();
   private readonly room: Room;
-  private readonly validator: Validator;
 
   constructor() {
     this.room = new Room();
-    this.validator = new Validator();
-
-    this.initializeRoutes();
-  }
-
-  /**
-   * Function which initializes all routes
-   * of the `RoomController`.
-   */
-  public initializeRoutes() {
-    this.router
-      .route('')
-      .get(this.getAllRooms)
-      .post(
-        this.validator.validationMiddleware<CreateRoomDto>(CreateRoomDto),
-        this.createNewRoom
-      );
-
-    this.router
-      .route('/:roomId')
-      .get(this.getRoomById)
-      .patch(this.updateRoomById)
-      .delete(this.deleteRoomById);
   }
 
   /**

@@ -4,12 +4,13 @@ import { environment } from './environments/environment';
 import { Application } from 'express';
 import { corsOptions } from './app/configs/cors.config';
 import { Server } from 'http';
+import { Route } from '@pb-monorepo/travelency/models';
 
 class App {
   private readonly app: Application;
   private readonly port: string | number;
 
-  constructor(routes: any[], port: number | string) {
+  constructor(routes: Route[], port: number | string) {
     this.app = express();
     this.port = port;
 
@@ -42,10 +43,13 @@ class App {
    * Initialize all given Controllers.
    * @param controllers
    */
-  private initRoutes(routes: any[]): void {
+  private initRoutes(routes: Route[]): void {
     // TODO add interface for routes class type
     routes.forEach(route => {
-      this.app.use(`${environment.basePath}${route.path}`, route.router);
+      this.app.use(
+        `${environment.basePath}${route.getRoutePath()}`,
+        route.getRouter()
+      );
     });
   }
 

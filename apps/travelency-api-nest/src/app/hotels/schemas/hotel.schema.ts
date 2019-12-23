@@ -55,7 +55,6 @@ HotelSchema.virtual('rooms', {
  */
 HotelSchema.pre('save', function(next) {
   const hotel = this as any; // set this as any because of tslint errors
-  console.log('save');
 
   hotel.slug = slugify(hotel.name, { lower: true });
   next();

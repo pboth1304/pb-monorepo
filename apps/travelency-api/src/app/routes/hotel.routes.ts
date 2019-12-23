@@ -3,11 +3,12 @@ import { CreateHotelDto } from '../dtos/create-hotel.dto';
 import { UpdateHotelDto } from '../dtos/update-hotel.dto';
 import HotelsController from '../controllers/hotels.controller';
 import Validator from '../classes/Validator.class';
+import { Route } from '@pb-monorepo/travelency/models';
 
 /**
- * Put's together all Routes of the Hotel Ressource.
+ * Put's together all Routes of the Hotel Resource.
  */
-class HotelRoutes {
+class HotelRoutes implements Route {
   private path = '/hotels';
   private hotelsController: HotelsController;
   private validator: Validator;
@@ -37,13 +38,13 @@ class HotelRoutes {
   /**
    * Getter for the router.
    */
-  public getHotelRouter() {
+  public getRouter() {
     return this.router;
   }
 
   /**
    * Function which initializes all routes
-   * which belongs to the Hotel Ressource.
+   * which belongs to the Hotel Resource.
    */
   public initializeRoutes() {
     this.router

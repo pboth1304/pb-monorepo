@@ -3,6 +3,10 @@ import Hotel from '../classes/Hotel.class';
 import slugify from 'slugify';
 import QueryUtils from '../utils/QueryUtils.class';
 
+/**
+ * Contains all Endpoints of the
+ * `hotels` Resource.
+ */
 class HotelsController {
   private readonly hotel: Hotel;
 

@@ -4,6 +4,7 @@ import RoomsController from './app/controllers/rooms.controller';
 import UsersController from './app/controllers/users.controller';
 import AuthController from './app/controllers/auth.controller';
 import HotelRoutes from './app/routes/hotel.routes';
+import RoomRoutes from './app/routes/room.routes';
 
 /**
  * If an `uncaughtException` appears shut down the server.
@@ -41,9 +42,9 @@ const port = process.env.port || 3333;
 const app = new App(
   [
     new HotelRoutes(),
-    new RoomsController(),
-    new UsersController(),
-    new AuthController()
+    new RoomRoutes(),
+    // new UsersController(),
+    // new AuthController()
   ],
   port
 );
