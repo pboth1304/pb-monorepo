@@ -69,6 +69,8 @@ class UserRoutes implements Route {
         this.usersController.updateUserById
       )
       .delete(this.usersController.deleteUserById);
+
+    this.router.route('/me').get(this.usersController.getMe);
   }
 }
 

@@ -127,6 +127,12 @@ class UsersController {
 
     res.status(204).json();
   };
+
+  getMe = (req: Request, res: Response) => {
+    console.log('test');
+
+    console.log('req', req.user);
+  };
 }
 
 export default UsersController;
