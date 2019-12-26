@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import User from '../classes/User.class';
 import QueryUtils from '../utils/QueryUtils.class';
 import Validator from '../classes/Validator.class';
@@ -128,10 +128,11 @@ class UsersController {
     res.status(204).json();
   };
 
-  getMe = (req: Request, res: Response) => {
-    console.log('test');
+  getMe = (req: Request, res: Response, next: NextFunction) => {
+    /** Set the _id of the current user as userId param and call next function */
+    req.params['userId'] = req['user']._id;
 
-    console.log('req', req.user);
+    next();
   };
 }
 

@@ -54,6 +54,10 @@ class UserRoutes implements Route {
     this.router.use(this.auth.grantRouteAccess);
 
     this.router
+      .route('/me')
+      .get(this.usersController.getMe, this.usersController.getUserById);
+
+    this.router
       .route('')
       .get(this.usersController.getAllUsers)
       .post(
@@ -69,8 +73,6 @@ class UserRoutes implements Route {
         this.usersController.updateUserById
       )
       .delete(this.usersController.deleteUserById);
-
-    this.router.route('/me').get(this.usersController.getMe);
   }
 }
 

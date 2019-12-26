@@ -43,7 +43,7 @@ export class Auth {
       token,
       environment.JWT_SECRET_KEY
     );
-
+    console.log('decoded', decodedToken['userId']);
     /** Check if user still exists with userId from decoded token */
     const currentUser = await this.user
       .getUserModel()
