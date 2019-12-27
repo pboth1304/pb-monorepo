@@ -55,7 +55,8 @@ class UserRoutes implements Route {
 
     this.router
       .route('/me')
-      .get(this.usersController.getMe, this.usersController.getUserById);
+      .get(this.usersController.getMe, this.usersController.getUserById)
+      .delete(this.usersController.deleteMe);
 
     this.router
       .route('')
