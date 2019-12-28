@@ -130,7 +130,7 @@ class UsersController {
   /**
    * GET the current logged in user.
    * @param req - Request Object.
-   * @param res - Response Object
+   * @param res - Response Object.
    * @param next - Express next Function.
    */
   getMe = async (req: Request, res: Response, next: NextFunction) => {
@@ -141,7 +141,7 @@ class UsersController {
   };
 
   /**
-   * DELETE user, only set user inactive.
+   * DELETE current logged in user by doing set user as inactive.
    * @param req - Request Object.
    * @param res - Response Object.
    */
@@ -155,6 +155,27 @@ class UsersController {
       status: 'success',
       data: null
     });
+  };
+
+  /**
+   * PATCH current logged in user.
+   * @param req - Request Object.
+   * @param res - Response Object.
+   * @param next - Express next Function.
+   */
+  updateMe = async (req: Request, res: Response, next: NextFunction) => {
+    /** Set the _id of the current user as userId param and call next function */
+    if (req.body.password) {
+      res.status(400).json({
+        status: 'success',
+        msg:
+          'Do not use this route for updating passwords. Use /updatePassword instead.'
+      });
+    }
+
+    req.params['userId'] = req['user']._id;
+
+    next();
   };
 }
 
