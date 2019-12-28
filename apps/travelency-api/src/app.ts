@@ -1,27 +1,26 @@
 import * as express from 'express';
+import { Application } from 'express';
 import * as cors from 'cors';
 import { environment } from './environments/environment';
-import { Application } from 'express';
 import { corsOptions } from './app/configs/cors.config';
 import { Server } from 'http';
 import { Route } from '@pb-monorepo/travelency/models';
 import * as morgan from 'morgan';
+import { connect, connection } from 'mongoose';
 
 class App {
   private readonly app: Application;
   private readonly port: string | number;
 
-  constructor(routes: Route[], port: number | string) {
+  constructor(routes: Route[], port: number | string, mongoURI: string) {
     this.app = express();
     this.port = port;
 
     this.initMiddleware();
     this.initRoutes(routes);
+    this.initMongoDB(mongoURI);
   }
 
-  /**
-   * Getter / Setter
-   */
   public getApp(): Application {
     return this.app;
   }
@@ -55,6 +54,61 @@ class App {
         route.getRouter()
       );
     });
+  }
+
+  /**
+   * Initialize the Mongo DB.
+   */
+  private initMongoDB(mongoURI: string): void {
+    const dbConnection = connection;
+    const baseConfig = {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false
+    };
+
+    dbConnection.on('connected', () => {
+      console.log('Mongo DB Connection Established');
+    });
+    dbConnection.on('reconnected', () => {
+      console.log('Mongo DB Connection Reestablished');
+    });
+    dbConnection.on('disconnected', () => {
+      console.log('Mongo DB Connection Disconnected');
+      console.log('Trying to reconnect to Mongo DB ...');
+      setTimeout(() => {
+        connect(
+          mongoURI,
+          {
+            autoReconnect: true,
+            keepAlive: true,
+            socketTimeoutMS: 3000,
+            connectTimeoutMS: 3000,
+            ...baseConfig
+          }
+        );
+      }, 3000);
+    });
+    dbConnection.on('close', () => {
+      console.log('Mongo DB Connection Closed');
+    });
+    dbConnection.on('error', (error: Error) => {
+      console.log(`Mongo DB Connection ERROR: ${error}`);
+    });
+
+    /** Connect to Database. */
+    const connectToDB = async () => {
+      await connect(
+        mongoURI,
+        {
+          autoReconnect: true,
+          keepAlive: true,
+          ...baseConfig
+        }
+      );
+    };
+
+    connectToDB().catch(error => console.error(error));
   }
 
   /**
