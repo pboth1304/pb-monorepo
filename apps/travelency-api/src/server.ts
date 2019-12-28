@@ -1,5 +1,4 @@
 import App from './app';
-import * as mongoose from 'mongoose';
 import HotelRoutes from './app/routes/hotel.routes';
 import RoomRoutes from './app/routes/room.routes';
 import UserRoutes from './app/routes/user.routes';
@@ -20,32 +19,16 @@ process.on('uncaughtException', err => {
 // dotenv.config({ path: './config.env' });
 
 /**
- * Initialize DB connection.
- */
-mongoose
-  .connect(
-    `mongodb+srv://admin:peMWXy1HHUnzZcr0a@travelency-cluster-9wswh.mongodb.net/travelency?retryWrites=true&w=majority`,
-    {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false
-    }
-  )
-  .then(() => console.log('DB Connection successful!'));
-
-/**
  * Initialize the app.
  */
 const port = process.env.port || 3333;
+const mongoURI =
+  'mongodb+srv://admin:peMWXy1HHUnzZcr0a@travelency-cluster-9wswh.mongodb.net/travelency?retryWrites=true&w=majority';
 
 const app = new App(
-  [
-    new HotelRoutes(),
-    new RoomRoutes(),
-    new UserRoutes(),
-    new AuthRoutes()
-  ],
-  port
+  [new HotelRoutes(), new RoomRoutes(), new UserRoutes(), new AuthRoutes()],
+  port,
+  mongoURI
 );
 
 const server = app.listen();
