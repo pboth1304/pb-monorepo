@@ -54,6 +54,19 @@ class UserRoutes implements Route {
     this.router.use(this.auth.grantRouteAccess);
 
     this.router
+      .route('/me')
+      .get(
+        this.validator.validationMiddleware<UpdateUserDto>(UpdateUserDto),
+        this.usersController.getMe,
+        this.usersController.getUserById
+      )
+      .delete(this.usersController.deleteMe)
+      .patch(
+        this.usersController.updateMe,
+        this.usersController.updateUserById
+      );
+
+    this.router
       .route('')
       .get(this.usersController.getAllUsers)
       .post(

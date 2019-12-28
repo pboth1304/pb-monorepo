@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import User from '../classes/User.class';
 import QueryUtils from '../utils/QueryUtils.class';
 import Validator from '../classes/Validator.class';
@@ -114,7 +114,6 @@ class UsersController {
    * DELETE one User by it's id.
    * @param userId - Desctructured `userId` of the `Request.params` object.
    * @param res - Response Object
-   * @param next - Express next function
    */
   deleteUserById = async ({ params: { userId } }: Request, res: Response) => {
     const user = await this.user.getUserModel().findByIdAndDelete(userId);
@@ -125,7 +124,58 @@ class UsersController {
         .json({ status: 'error', message: 'No User with this id found!' });
     }
 
-    res.status(204).json();
+    res.status(204).json({});
+  };
+
+  /**
+   * GET the current logged in user.
+   * @param req - Request Object.
+   * @param res - Response Object.
+   * @param next - Express next Function.
+   */
+  getMe = async (req: Request, res: Response, next: NextFunction) => {
+    /** Set the _id of the current user as userId param and call next function */
+    req.params['userId'] = req['user']._id;
+
+    next();
+  };
+
+  /**
+   * DELETE current logged in user by doing set user as inactive.
+   * @param req - Request Object.
+   * @param res - Response Object.
+   */
+  deleteMe = async (req: Request, res: Response) => {
+    /** 'Delete' User and set active to false */
+    await this.user
+      .getUserModel()
+      .findByIdAndUpdate(req['user']._id, { active: false });
+
+    res.status(204).json({
+      status: 'success',
+      data: null
+    });
+  };
+
+  /**
+   * PATCH current logged in user.
+   * @param req - Request Object.
+   * @param res - Response Object.
+   * @param next - Express next Function.
+   */
+  updateMe = async (req: Request, res: Response, next: NextFunction) => {
+    /** Set the _id of the current user as userId param and call next function */
+    if (req.body.password) {
+      res.status(400).json({
+        status: 'success',
+        msg:
+          'Do not use this route for updating passwords. Use /updatePassword instead.'
+      });
+    }
+
+    req.params['userId'] = req['user']._id;
+
+    next();
   };
 }
 
