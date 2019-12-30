@@ -7,8 +7,9 @@ import { Server } from 'http';
 import { Route } from '@pb-monorepo/travelency/models';
 import * as morgan from 'morgan';
 import { connect, connection } from 'mongoose';
+import { globalErrorHandlingMiddleware } from './app/utils/error-handling.utils';
 
-class App {
+class TravelencyApp {
   private readonly app: Application;
   private readonly port: string | number;
 
@@ -18,6 +19,8 @@ class App {
 
     this.initMiddleware();
     this.initRoutes(routes);
+    /** Has to be initialized after initRoutes() */
+    this.initErrorHandlingMiddleware();
     this.initMongoDB(mongoURI);
   }
 
@@ -40,6 +43,13 @@ class App {
     if (process.env.NODE_ENV === 'development') {
       this.app.use(morgan('dev'));
     }
+  }
+
+  /**
+   * Initializes central Error Handling.
+   */
+  private initErrorHandlingMiddleware(): void {
+    this.app.use(globalErrorHandlingMiddleware);
   }
 
   /**
@@ -121,4 +131,4 @@ class App {
   }
 }
 
-export default App;
+export default TravelencyApp;

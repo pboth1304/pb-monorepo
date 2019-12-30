@@ -1,6 +1,7 @@
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 import { RequestHandler } from 'express';
+import { ErrorHandler } from './ErrorHandler.class';
 
 class Validator {
   public validationMiddleware<T>(type: any): RequestHandler {
@@ -10,7 +11,7 @@ class Validator {
           const message = errors
             .map(error => Object.values(error.constraints))
             .join(', ');
-          next(new Error(message));
+          next(new ErrorHandler(null, message));
         } else {
           next();
         }
