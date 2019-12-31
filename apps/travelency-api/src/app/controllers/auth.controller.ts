@@ -1,6 +1,8 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Auth } from '../classes/Auth.class';
 import User from '../classes/User.class';
+import { wrapAsync } from '../utils/error-handling.utils';
+import { ErrorHandler } from '../classes/ErrorHandler.class';
 
 class AuthController {
   private readonly user: User;
@@ -16,55 +18,55 @@ class AuthController {
    * are provided, a JWT will be send to the client.
    * @param body - email and password
    * @param res - Response Object with JWT token and user data.
+   * @param next - Express next Function.
    */
-  login = async ({ body }: Request, res: Response) => {
-    /** If there is no email or password return an error. */
-    if (!body.email || !body.password) {
-      res.status(401).json({
-        status: 'error',
-        msg: 'You have to provide a email and a password.'
-      });
+  login = wrapAsync(
+    async ({ body }: Request, res: Response, next: NextFunction) => {
+      /** If there is no email or password return an error. */
+      if (!body.email || !body.password) {
+        return next(
+          new ErrorHandler(401, 'You have to provide a email and a password.')
+        );
+      }
 
-      return;
+      const user = await this.user.validateUser(body.email);
+
+      /** If there is no user found on DB return an error. */
+      if (!user) {
+        return next(
+          new ErrorHandler(
+            401,
+            'You have to provide the correct email and password.'
+          )
+        );
+      }
+
+      /** If the provided password is not matching with the one on the DB return an error. */
+      if (!(await user.checkPasswordIsCorrect(body.password, user.password))) {
+        return next(
+          new ErrorHandler(
+            401,
+            'You have to provide the correct email and password.'
+          )
+        );
+      }
+
+      /** Sign JWT */
+      const token = this.auth.signToken(user['_id']);
+
+      /** Remove password from the response object */
+      user.password = undefined;
+
+      res.status(200).json({ status: 'success', data: { token, user } });
     }
-
-    const user = await this.user.validateUser(body.email);
-
-    /** If there is no user found on DB return an error. */
-    if (!user) {
-      res.status(401).json({
-        status: 'error',
-        msg: 'This user does not exist.'
-      });
-
-      return;
-    }
-
-    /** If the provided password is not matching with the one on the DB return an error. */
-    if (!(await user.checkPasswordIsCorrect(body.password, user.password))) {
-      res.status(401).json({
-        status: 'error',
-        msg: 'You have to provide the correct email and password.'
-      });
-
-      return;
-    }
-
-    /** Sign JWT */
-    const token = this.auth.signToken(user['_id']);
-
-    /** Remove password from the response object */
-    user.password = undefined;
-
-    res.status(200).json({ status: 'success', data: { token, user } });
-  };
+  );
 
   /**
    * Sign Up handler. Registers a new user if the provided data is valid.
    * @param body
    * @param res
    */
-  signUp = async ({ body }: Request, res: Response) => {
+  signUp = wrapAsync(async ({ body }: Request, res: Response) => {
     const newUser = await this.user.getUserModel().create(body); // TODO: add check if user already exists
 
     const token = this.auth.signToken(newUser['_id']);
@@ -76,49 +78,50 @@ class AuthController {
       status: 'success',
       data: { token, user: newUser }
     });
-  };
-
-  logout = async (req: Request, res: Response) => {};
+  });
 
   /**
    * Update Password handler. Updates the current user's password.
    * @param req - Request object with user and updatePasswordDto in it.
    * @param res - Response Object.
+   * @param next - Express next Function.
    */
-  updatePassword = async (req: Request, res: Response) => {
-    const user = await this.user
-      .getUserModel()
-      .findById(req['user']._id)
-      .select('password');
+  updatePassword = wrapAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const user = await this.user
+        .getUserModel()
+        .findById(req['user']._id)
+        .select('password');
 
-    /** Check if given password is correct */
-    if (
-      !(await user.checkPasswordIsCorrect(
-        req.body['currentPassword'],
-        user.password
-      ))
-    ) {
-      res
-        .send(401)
-        .json({ status: 'fail', msg: 'Your current password is wrong.' });
+      /** Check if given password is correct */
+      if (
+        !(await user.checkPasswordIsCorrect(
+          req.body['currentPassword'],
+          user.password
+        ))
+      ) {
+        return next(
+          new ErrorHandler(401, 'You have to provide the correct password.')
+        );
+      }
 
-      return;
+      /** If given password is correct update password */
+      user.password = req.body.newPassword;
+      user.passwordConfirm = req.body.newPasswordConfirm;
+
+      await user.save();
+
+      /** Log user in and send jwt */
+      const token = this.auth.signToken(user['_id']);
+
+      res.status(200).json({
+        status: 'success',
+        data: { token, user }
+      });
     }
+  );
 
-    /** If given password is correct update password */
-    user.password = req.body.newPassword;
-    user.passwordConfirm = req.body.newPasswordConfirm;
-
-    await user.save();
-
-    /** Log user in and send jwt token */
-    const token = this.auth.signToken(user['_id']);
-
-    res.status(200).json({
-      status: 'success',
-      data: { token, user }
-    });
-  };
+  logout = async (req: Request, res: Response) => {};
 }
 
 export default AuthController;
