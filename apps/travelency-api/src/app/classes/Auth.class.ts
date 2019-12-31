@@ -25,8 +25,9 @@ export class Auth {
 
       if (authHeader && authHeader.startsWith('Bearer')) {
         token = authHeader.split(' ')[1]; // Split token, to get token only
+      } else if (req.cookies.jwt) {
+        token = req.cookies.jwt;
       }
-      // else, get jwt from cookie
 
       if (!token) {
         return next(new ErrorHandler(401, 'You are not logged in!'));

@@ -53,7 +53,7 @@ class AuthRoutes implements Route {
 
     this.router.route('/signup').post(this.authController.signUp);
 
-    this.router.route('/logout').post(this.authController.logout);
+    this.router.route('/logout').get(this.authController.logout);
 
     this.router
       .route('/updatePassword')

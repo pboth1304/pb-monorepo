@@ -3,6 +3,7 @@ import { Auth } from '../classes/Auth.class';
 import User from '../classes/User.class';
 import { wrapAsync } from '../utils/error-handling.utils';
 import { ErrorHandler } from '../classes/ErrorHandler.class';
+import { UserDoc } from '@pb-monorepo/travelency/models';
 
 class AuthController {
   private readonly user: User;
@@ -21,7 +22,7 @@ class AuthController {
    * @param next - Express next Function.
    */
   login = wrapAsync(
-    async ({ body }: Request, res: Response, next: NextFunction) => {
+    async ({ body, secure }: Request, res: Response, next: NextFunction) => {
       /** If there is no email or password return an error. */
       if (!body.email || !body.password) {
         return next(
@@ -51,13 +52,7 @@ class AuthController {
         );
       }
 
-      /** Sign JWT */
-      const token = this.auth.signToken(user['_id']);
-
-      /** Remove password from the response object */
-      user.password = undefined;
-
-      res.status(200).json({ status: 'success', data: { token, user } });
+      this.createTokenWithCookieToSend(user, 200, secure, res);
     }
   );
 
@@ -66,18 +61,10 @@ class AuthController {
    * @param body
    * @param res
    */
-  signUp = wrapAsync(async ({ body }: Request, res: Response) => {
+  signUp = wrapAsync(async ({ body, secure }: Request, res: Response) => {
     const newUser = await this.user.getUserModel().create(body); // TODO: add check if user already exists
 
-    const token = this.auth.signToken(newUser['_id']);
-
-    /** Remove password from response obj */
-    newUser.password = undefined;
-
-    res.status(201).json({
-      status: 'success',
-      data: { token, user: newUser }
-    });
+    this.createTokenWithCookieToSend(newUser, 201, secure, res);
   });
 
   /**
@@ -111,17 +98,64 @@ class AuthController {
 
       await user.save();
 
-      /** Log user in and send jwt */
-      const token = this.auth.signToken(user['_id']);
-
-      res.status(200).json({
-        status: 'success',
-        data: { token, user }
-      });
+      this.createTokenWithCookieToSend(user, 200, req.secure, res);
     }
   );
 
-  logout = async (req: Request, res: Response) => {};
+  /**
+   * Log's current user out by overriding the current
+   * jwt cookie with a new expiration time.
+   * @param req
+   * @param res
+   */
+  logout = (req: Request, res: Response) => {
+    const JWT_COOKIE_EXPIRES_IN = 90; //TODO: set to env variables
+
+    res.cookie('jwt', 'loggedout', {
+      expires: new Date(Date.now() + JWT_COOKIE_EXPIRES_IN + 10 * 1000),
+      httpOnly: true
+    });
+
+    res.status(200).json({ status: 'success' });
+  };
+
+  /**
+   * Creates the response with of type cookie with the jwt on it.
+   * @param user
+   * @param statusCode
+   * @param secure - Is protocol https
+   * @param res
+   */
+  private createTokenWithCookieToSend(
+    user: UserDoc,
+    statusCode: number,
+    secure: boolean,
+    res: Response
+  ): void {
+    const JWT_COOKIE_EXPIRES_IN = 90; //TODO: set to env variables
+
+    /** Sign jwt */
+    const token = this.auth.signToken(user._id);
+
+    res.cookie('jwt', token, {
+      expires: new Date(
+        Date.now() + JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+      ),
+      httpOnly: true,
+      secure
+    });
+
+    /** Remove password from output */
+    user.password = undefined;
+
+    res.status(statusCode).json({
+      status: 'success',
+      token,
+      data: {
+        user
+      }
+    });
+  }
 }
 
 export default AuthController;

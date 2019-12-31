@@ -8,6 +8,7 @@ import { Route } from '@pb-monorepo/travelency/models';
 import * as morgan from 'morgan';
 import { connect, connection } from 'mongoose';
 import { globalErrorHandlingMiddleware } from './app/utils/error-handling.utils';
+import * as cookieParser from 'cookie-parser';
 
 class TravelencyApp {
   private readonly app: Application;
@@ -43,6 +44,9 @@ class TravelencyApp {
     if (process.env.NODE_ENV === 'development') {
       this.app.use(morgan('dev'));
     }
+
+    /** Cookie parser */
+    this.app.use(cookieParser());
   }
 
   /**
