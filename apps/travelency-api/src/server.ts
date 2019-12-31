@@ -1,4 +1,4 @@
-import App from './app';
+import TravelencyApp from './app';
 import HotelRoutes from './app/routes/hotel.routes';
 import RoomRoutes from './app/routes/room.routes';
 import UserRoutes from './app/routes/user.routes';
@@ -25,7 +25,7 @@ const port = process.env.port || 3333;
 const mongoURI =
   'mongodb+srv://admin:peMWXy1HHUnzZcr0a@travelency-cluster-9wswh.mongodb.net/travelency?retryWrites=true&w=majority';
 
-const app = new App(
+const app = new TravelencyApp(
   [new HotelRoutes(), new RoomRoutes(), new UserRoutes(), new AuthRoutes()],
   port,
   mongoURI

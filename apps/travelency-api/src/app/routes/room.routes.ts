@@ -3,6 +3,7 @@ import Validator from '../classes/Validator.class';
 import RoomsController from '../controllers/rooms.controller';
 import { Route } from '@pb-monorepo/travelency/models';
 import { CreateRoomDto } from '../dtos/create-room.dto';
+import { Auth } from '../classes/Auth.class';
 
 /**
  * Put's together all Routes of the Rooms Resource.
@@ -11,12 +12,14 @@ class RoomRoutes implements Route {
   private path = '/rooms';
   private roomsController: RoomsController;
   private validator: Validator;
+  private auth: Auth;
   private readonly router: Router;
 
   constructor() {
     this.router = Router();
     this.roomsController = new RoomsController();
     this.validator = new Validator();
+    this.auth = new Auth();
     this.initializeRoutes();
   }
 
@@ -57,8 +60,8 @@ class RoomRoutes implements Route {
     this.router
       .route('/:roomId')
       .get(this.roomsController.getRoomById)
-      .patch(this.roomsController.updateRoomById)
-      .delete(this.roomsController.deleteRoomById);
+      .patch(this.roomsController.updateRoomById) // TODO: update room dto
+      .delete(this.auth.grantRouteAccess, this.roomsController.deleteRoomById);
   }
 }
 

@@ -1,7 +1,9 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import Hotel from '../classes/Hotel.class';
 import slugify from 'slugify';
 import QueryUtils from '../utils/QueryUtils.class';
+import { wrapAsync } from '../utils/error-handling.utils';
+import { ErrorHandler } from '../classes/ErrorHandler.class';
 
 /**
  * Contains all Endpoints of the
@@ -21,54 +23,64 @@ class HotelsController {
    * @param req - Request Object
    * @param res - Response Object
    */
-  getAllHotels = async ({ query }: Request, res: Response): Promise<void> => {
-    const queryUtils = new QueryUtils(this.hotel.getHotelModel(), query)
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
+  getAllHotels = wrapAsync(
+    async ({ query }: Request, res: Response): Promise<void> => {
+      const queryUtils = new QueryUtils(this.hotel.getHotelModel(), query)
+        .filter()
+        .sort()
+        .limitFields()
+        .paginate();
 
-    const hotels = await queryUtils.model;
+      const hotels = await queryUtils.model;
 
-    /**
-     * Send Response
-     */
-    res.status(200).json({
-      status: 'success',
-      results: hotels.length,
-      data: { hotels }
-    });
-  };
+      /**
+       * Send Response
+       */
+      res.status(200).json({
+        status: 'success',
+        results: hotels.length,
+        data: { hotels }
+      });
+    }
+  );
 
   /**
    * GET one hotel by it's id.
    * @param hotelId - destructured hotelId object of the `Request.params` Object.
    * @param res - Response Object
+   * @param next - Express next function.
    */
-  getHotelById = async (
-    { params: { hotelId } }: Request,
-    res: Response
-  ): Promise<void> => {
-    const hotel = await this.hotel
-      .getHotelModel()
-      .findById(hotelId)
-      .populate('rooms');
+  getHotelById = wrapAsync(
+    async (
+      { params: { hotelId } }: Request,
+      res: Response,
+      next: NextFunction
+    ): Promise<void> => {
+      const hotel = await this.hotel
+        .getHotelModel()
+        .findById(hotelId)
+        .populate('rooms');
 
-    /**
-     * Send Response
-     */
-    res.status(200).json({
-      status: 'success',
-      data: { hotel }
-    });
-  };
+      if (!hotel) {
+        return next(new ErrorHandler(404, 'No hotel with this Id found.'));
+      }
+
+      /**
+       * Send Response
+       */
+      res.status(200).json({
+        status: 'success',
+        data: { hotel }
+      });
+    }
+  );
 
   /**
    * POST create new Hotel.
    * @param body - Body Property of Request Object of type `CreateHotelDto`.
    * @param res - Response Object
    */
-  createNewHotel = async ({ body }: Request, res: Response) => {
+  createNewHotel = wrapAsync(async ({ body }: Request, res: Response) => {
     const newHotel = await this.hotel.getHotelModel().create(body); // TODO: add dto
 
     /**
@@ -78,60 +90,71 @@ class HotelsController {
       status: 'success',
       data: { newHotel }
     });
-  };
+  });
 
   /**
    * PATCH update existing Hotel by it's id.
    * @param body - Body Property of Request Object of type `CreateHotelDto`.
    * @param hotelId - Desctructured `hotelId` of the `Request.params` object.
    * @param res - Response Object
+   * @param next - Express next function.
    */
-  updateHotelById = async (
-    { body, params: { hotelId } }: Request,
-    res: Response
-  ) => {
-    let hotelToUpdate = body;
+  updateHotelById = wrapAsync(
+    async (
+      { body, params: { hotelId } }: Request,
+      res: Response,
+      next: NextFunction
+    ) => {
+      let hotelToUpdate = body;
 
-    // If the given data has a property ´name´ then set the new slug based on the name property.
-    if (hotelToUpdate['name']) {
-      const newSlug = slugify(hotelToUpdate.name, { lower: true });
-      hotelToUpdate = { ...hotelToUpdate, slug: newSlug };
-    }
+      /** If the given data has a property ´name´ then set the new slug based on the name property. */
+      if (hotelToUpdate['name']) {
+        const newSlug = slugify(hotelToUpdate.name, { lower: true });
+        hotelToUpdate = { ...hotelToUpdate, slug: newSlug };
+      }
 
-    const updatedHotel = await this.hotel
-      .getHotelModel()
-      .findByIdAndUpdate(hotelId, hotelToUpdate, {
-        new: true,
-        runValidators: true
+      const updatedHotel = await this.hotel
+        .getHotelModel()
+        .findByIdAndUpdate(hotelId, hotelToUpdate, {
+          new: true,
+          runValidators: true
+        });
+
+      if (!updatedHotel) {
+        return next(new ErrorHandler(404, 'No hotel with this Id found.'));
+      }
+
+      /**
+       * Send Response
+       */
+      res.status(200).json({
+        status: 'success',
+        data: { updatedHotel }
       });
-
-    /**
-     * Send Response
-     */
-    res.status(200).json({
-      status: 'success',
-      data: { updatedHotel }
-    });
-  };
+    }
+  );
 
   /**
    * DELETE one Hotel by it's id.
    * @param hotelId - Desctructured `hotelId` of the `Request.params` object.
    * @param res - Response Object
+   * @param next - Express next function.
    */
-  deleteHotelById = async ({ params: { hotelId } }: Request, res: Response) => {
-    const hotel = await this.hotel.getHotelModel().findByIdAndDelete(hotelId);
-    console.log('hotel', hotel);
-    if (!hotel) {
-      res
-        .status(404)
-        .json({ status: 'error', message: 'No Hotel with this id found!' });
+  deleteHotelById = wrapAsync(
+    async (
+      { params: { hotelId } }: Request,
+      res: Response,
+      next: NextFunction
+    ) => {
+      const hotel = await this.hotel.getHotelModel().findByIdAndDelete(hotelId);
 
-      return;
+      if (!hotel) {
+        return next(new ErrorHandler(404, 'No hotel with this Id found.'));
+      }
+
+      res.status(204).json({});
     }
-
-    res.status(204).json({});
-  };
+  );
 }
 
 export default HotelsController;
