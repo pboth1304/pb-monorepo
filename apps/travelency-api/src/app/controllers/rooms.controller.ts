@@ -41,7 +41,7 @@ class RoomsController {
    * GET one room by it's id.
    * @param roomId
    * @param res - Response Object.
-   * @param next - Expess next function.
+   * @param next - Express next function.
    */
   getRoomById = wrapAsync(
     async (
@@ -87,6 +87,7 @@ class RoomsController {
    * @param body - Body Property of Request Object of type `CreateRoomDto`.
    * @param roomId - Desctructured `roomId` of the `Request.params` object.
    * @param res - Response Object
+   * @param next - Express next function.
    */
   updateRoomById = wrapAsync(
     async (
