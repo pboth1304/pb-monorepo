@@ -1,6 +1,8 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import Room from '../classes/Room.class';
 import QueryUtils from '../utils/QueryUtils.class';
+import { wrapAsync } from '../utils/error-handling.utils';
+import { ErrorHandler } from '../classes/ErrorHandler.class';
 
 class RoomsController {
   private readonly room: Room;
@@ -16,7 +18,7 @@ class RoomsController {
    * @param query
    * @param res
    */
-  getAllRooms = async ({ query }: Request, res: Response) => {
+  getAllRooms = wrapAsync(async ({ query }: Request, res: Response) => {
     const queryUtils = new QueryUtils(this.room.getRoomModel(), query)
       .filter()
       .sort()
@@ -33,32 +35,43 @@ class RoomsController {
       results: rooms.length,
       data: { rooms }
     });
-  };
+  });
 
   /**
    * GET one room by it's id.
    * @param roomId
-   * @param res
+   * @param res - Response Object.
+   * @param next - Expess next function.
    */
-  getRoomById = async ({ params: { roomId } }: Request, res: Response) => {
-    const room = await this.room.getRoomModel().findById(roomId);
+  getRoomById = wrapAsync(
+    async (
+      { params: { roomId } }: Request,
+      res: Response,
+      next: NextFunction
+    ) => {
+      const room = await this.room.getRoomModel().findById(roomId);
 
-    /**
-     * Send Response
-     */
-    res.status(200).json({
-      status: 'success',
-      data: { room }
-    });
-  };
+      if (!room) {
+        return next(new ErrorHandler(404, 'No room with this Id found.'));
+      }
+
+      /**
+       * Send Response
+       */
+      res.status(200).json({
+        status: 'success',
+        data: { room }
+      });
+    }
+  );
 
   /**
    * POST create new Room.
    * @param body
    * @param res
    */
-  createNewRoom = async ({ body }: Request, res: Response) => {
-    const newRoom = await this.room.getRoomModel().create(body); // TODO: add dto
+  createNewRoom = wrapAsync(async ({ body }: Request, res: Response) => {
+    const newRoom = await this.room.getRoomModel().create(body); // TODO: extract only properties of createRoomDto to create param of create function
 
     /**
      * Send Response
@@ -67,7 +80,7 @@ class RoomsController {
       status: 'success',
       data: { newRoom }
     });
-  };
+  });
 
   /**
    * PATCH update existing Room by it's id.
@@ -75,25 +88,32 @@ class RoomsController {
    * @param roomId - Desctructured `roomId` of the `Request.params` object.
    * @param res - Response Object
    */
-  updateRoomById = async (
-    { params: { roomId }, body }: Request,
-    res: Response
-  ) => {
-    const updatedRoom = await this.room
-      .getRoomModel()
-      .findByIdAndUpdate(roomId, body, {
-        new: true,
-        runValidators: true
-      });
+  updateRoomById = wrapAsync(
+    async (
+      { params: { roomId }, body }: Request,
+      res: Response,
+      next: NextFunction
+    ) => {
+      const updatedRoom = await this.room
+        .getRoomModel()
+        .findByIdAndUpdate(roomId, body, {
+          new: true,
+          runValidators: true
+        });
 
-    /**
-     * Send Response
-     */
-    res.status(200).json({
-      status: 'success',
-      data: { updatedRoom }
-    });
-  };
+      if (!updatedRoom) {
+        return next(new ErrorHandler(404, 'No room with this Id found.'));
+      }
+
+      /**
+       * Send Response
+       */
+      res.status(200).json({
+        status: 'success',
+        data: { updatedRoom }
+      });
+    }
+  );
 
   /**
    * DELETE one Room by it's id.
@@ -101,17 +121,21 @@ class RoomsController {
    * @param res - Response Object
    * @param next - Express next function
    */
-  deleteRoomById = async ({ params: { roomId } }: Request, res: Response) => {
-    const room = await this.room.getRoomModel().findByIdAndDelete(roomId);
+  deleteRoomById = wrapAsync(
+    async (
+      { params: { roomId } }: Request,
+      res: Response,
+      next: NextFunction
+    ) => {
+      const room = await this.room.getRoomModel().findByIdAndDelete(roomId);
 
-    if (!room) {
-      res
-        .status(404)
-        .json({ status: 'error', message: 'No Room with this id found!' });
+      if (!room) {
+        return next(new ErrorHandler(404, 'No room with this Id found.'));
+      }
+
+      res.status(204).json({});
     }
-
-    res.status(204);
-  };
+  );
 }
 
 export default RoomsController;
