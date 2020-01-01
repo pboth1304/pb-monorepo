@@ -88,6 +88,7 @@ class TravelencyApp {
       console.log('Mongo DB Connection Reestablished');
     });
     dbConnection.on('disconnected', () => {
+      // TODO: solve infinite loop, because of 2 connect calls
       console.log('Mongo DB Connection Disconnected');
       console.log('Trying to reconnect to Mongo DB ...');
       setTimeout(() => {
@@ -112,6 +113,7 @@ class TravelencyApp {
 
     /** Connect to Database. */
     const connectToDB = async () => {
+      // TODO: solve infinite loop, because of 2 connect calls
       await connect(
         mongoURI,
         {

@@ -6,4 +6,6 @@ export interface UserDoc extends User, Document {
     candiatePassword: string,
     usersPassword: string
   ): Promise<boolean>;
+
+  createPasswordResetToken(): string;
 }

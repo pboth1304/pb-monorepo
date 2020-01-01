@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 import { isEmail } from 'validator';
 import { UserDoc } from '@pb-monorepo/travelency/models';
 import * as bcrypt from 'bcryptjs';
+import * as crypto from 'crypto';
 
 const UserSchema = new Schema<UserDoc>({
   name: { type: String, required: [true, 'Please tell us your name!'] },
@@ -65,6 +66,19 @@ UserSchema.method('checkPasswordIsCorrect', async function(
   userPassword
 ) {
   return bcrypt.compare(candidatePassword, userPassword);
+});
+
+UserSchema.method('createPasswordResetToken', function() {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
 });
 
 // UserSchema.pre('/^find/', function(next) {
