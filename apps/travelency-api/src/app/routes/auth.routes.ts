@@ -64,6 +64,14 @@ class AuthRoutes implements Route {
         ),
         this.authController.updatePassword
       );
+
+    this.router
+      .route('/forgotPassword')
+      .post(this.authController.forgotPassword);
+
+    this.router
+      .route('/resetPassword/:resetToken')
+      .patch(this.authController.resetPassword);
   }
 }
 

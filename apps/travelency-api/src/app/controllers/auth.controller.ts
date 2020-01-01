@@ -4,6 +4,7 @@ import User from '../classes/User.class';
 import { wrapAsync } from '../utils/error-handling.utils';
 import { ErrorHandler } from '../classes/ErrorHandler.class';
 import { UserDoc } from '@pb-monorepo/travelency/models';
+import * as crypto from 'crypto';
 
 class AuthController {
   private readonly user: User;
@@ -96,9 +97,100 @@ class AuthController {
       user.password = req.body.newPassword;
       user.passwordConfirm = req.body.newPasswordConfirm;
 
+      /** Set the current timestamp as passwordChangedAt prop of the user */
+      user.passwordChangedAt = new Date();
+
       await user.save();
 
       this.createTokenWithCookieToSend(user, 200, req.secure, res);
+    }
+  );
+
+  /**
+   * Generate reset token and put it on user schema
+   */
+  forgotPassword = wrapAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+      /** Get user, based on the provided email */
+      const user = await this.user
+        .getUserModel()
+        .findOne({ email: req.body.email });
+
+      if (!user) {
+        return next(
+          new ErrorHandler(404, 'No user found with this Email Address.')
+        );
+      }
+
+      /** Generate reset token */
+      const resetToken = user.createPasswordResetToken();
+
+      await user.save({ validateBeforeSave: false });
+
+      /** TODO: add email provider and send reset token as email */
+      const resetURL = `${req.protocol}://${req.get(
+        'host'
+      )}/api/v1/auth/resetPassword/${resetToken}`;
+
+      res.status(200).json({
+        status: 'success',
+        message: 'Token sent to email!',
+        resetURL,
+        resetToken
+      });
+    }
+  );
+
+  /**
+   * Get reset token, validate if provided token is correct then set new password based on given body
+   */
+  resetPassword = wrapAsync(
+    async (
+      { params: { resetToken }, body, secure }: Request,
+      res: Response,
+      next: NextFunction
+    ) => {
+      if (!body.newPassword || !body.newPasswordConfirm) {
+        return next(
+          new ErrorHandler(
+            400,
+            'Please provide a new Password and a Password Confirm.'
+          )
+        );
+      }
+
+      /** Get user based on the provided reset token */
+      const hashedToken = crypto
+        .createHash('sha256')
+        .update(resetToken)
+        .digest('hex');
+
+      const user = await this.user.getUserModel().findOne({
+        passwordResetToken: hashedToken,
+        passwordResetExpires: { $gt: Date.now() }
+      });
+
+      if (!user) {
+        return next(
+          new ErrorHandler(400, 'Reset Token is invalid or has expired.')
+        );
+      }
+
+      /** Set new Passwords */
+      user.password = body.newPassword;
+      user.passwordConfirm = body.newPasswordConfirm;
+
+      /** Set the current timestamp as passwordChangedAt prop of the user */
+      user.passwordChangedAt = new Date();
+
+      /** Remove reset Tokens from Document */
+      user.passwordResetToken = undefined;
+      user.passwordResetExpires = undefined;
+
+      await user.save();
+
+      /** After setting the new password log user in */
+      this.createTokenWithCookieToSend(user, 200, secure, res);
     }
   );
 
@@ -146,7 +238,10 @@ class AuthController {
     });
 
     /** Remove password from output */
-    user.password = undefined;
+    if (user.password || user.passwordConfirm) {
+      user.password = undefined;
+      user.passwordConfirm = undefined;
+    }
 
     res.status(statusCode).json({
       status: 'success',
