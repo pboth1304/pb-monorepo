@@ -5,6 +5,7 @@ import { wrapAsync } from '../utils/error-handling.utils';
 import { ErrorHandler } from '../classes/ErrorHandler.class';
 import { UserDoc } from '@pb-monorepo/travelency/models';
 import * as crypto from 'crypto';
+import { environment } from '../../environments/environment';
 
 class AuthController {
   private readonly user: User;
@@ -201,10 +202,10 @@ class AuthController {
    * @param res
    */
   logout = (req: Request, res: Response) => {
-    const JWT_COOKIE_EXPIRES_IN = 90; //TODO: set to env variables
-
     res.cookie('jwt', 'loggedout', {
-      expires: new Date(Date.now() + JWT_COOKIE_EXPIRES_IN + 10 * 1000),
+      expires: new Date(
+        Date.now() + environment.JWT_COOKIE_EXPIRES_IN + 10 * 1000
+      ),
       httpOnly: true
     });
 
@@ -224,14 +225,12 @@ class AuthController {
     secure: boolean,
     res: Response
   ): void {
-    const JWT_COOKIE_EXPIRES_IN = 90; //TODO: set to env variables
-
     /** Sign jwt */
     const token = this.auth.signToken(user._id);
 
     res.cookie('jwt', token, {
       expires: new Date(
-        Date.now() + JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        Date.now() + environment.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
       ),
       httpOnly: true,
       secure

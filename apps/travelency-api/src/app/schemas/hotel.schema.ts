@@ -26,7 +26,22 @@ const HotelSchema = new Schema<HotelDoc>(
       required: [true, 'A hotel must have a cover image']
     },
     images: [String],
-    amenities: [String]
+    amenities: [String],
+    ratingsAverage: {
+      type: Number,
+      default: 4.5,
+      min: [1, 'Rating must be above 1.0'],
+      max: [5, 'Rating must be below 5.0'],
+      set: val => Math.round(val * 10) / 10
+    },
+    ratingsQuantity: { type: Number, default: 0 },
+    location: {
+      // GeoJSON
+      type: { type: String, default: 'Point', enum: ['Point'] },
+      coordinates: [Number],
+      address: String,
+      description: String
+    },
   },
   {
     toJSON: { virtuals: true },
