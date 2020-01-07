@@ -8,4 +8,7 @@ export interface Hotel {
   imageCover: string;
   images: string[];
   amenities: Amenity[];
+  ratingsAverage: number;
+  ratingsQuantity: number;
+  location: any;
 }
