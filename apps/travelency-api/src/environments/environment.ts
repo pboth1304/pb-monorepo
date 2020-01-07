@@ -6,5 +6,6 @@ export const environment = {
   production: false,
   basePath: '/api/v1/travelency',
   JWT_SECRET_KEY: 'wgj82363135nrcoxjj32',
-  JWT_EXPIRES_IN: '90d'
+  JWT_EXPIRES_IN: '90d',
+  JWT_COOKIE_EXPIRES_IN: 90
 };
