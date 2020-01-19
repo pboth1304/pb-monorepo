@@ -36,37 +36,31 @@
       "tags": []
     },
     "shared-terminus": {
-      "tags": [
-        "scope:shared"
-      ]
+      "tags": ["scope:shared"]
     },
     "travelency-api": {
-      "tags": [
-        "scope:travelency"
-      ]
+      "tags": ["scope:travelency"]
     },
     "travelency-api-nest": {
-      "tags": [
-        "scope:travelency"
-      ]
+      "tags": ["scope:travelency"]
     },
     "travelency-models": {
-      "tags": [
-        "scope:travelency"
-      ]
+      "tags": ["scope:travelency"]
     },
     "search-engine-e2e": {
       "tags": []
     },
     "search-engine": {
-      "tags": [
-        "scope:search-engine"
-      ]
+      "tags": ["scope:search-engine"]
     },
     "search-engine-api": {
-      "tags": [
-        "scope:search-engine"
-      ]
+      "tags": ["scope:search-engine"]
+    },
+    "travelency-e2e": {
+      "tags": []
+    },
+    "travelency": {
+      "tags": ["scope:travelency"]
     }
   }
 }
