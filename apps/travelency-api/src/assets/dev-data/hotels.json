@@ -1,0 +1,19 @@
+[
+  {
+    "name": "The Grand Hotel Amsterdam",
+    "description": "Luxury Hotel, beneath the canals.",
+    "imageCover": "grand-hotel-amsterdam-cover.jpg",
+    "images": [
+      "grand-hotel-amsterdam-1.jpg",
+      "grand-hotel-amsterdam-2.jpg",
+      "grand-hotel-amsterdam-3.jpg"
+    ],
+    "amenities": ["Wifi", "Hair dryer", "Air Condition"],
+    "rooms": ["roomid123", "roomid234"],
+    "location": {
+      "coordinates": [52.374452, 4.899255],
+      "address": "Oudezijds Voorburgwal",
+      "description": "Amsterdam, NL"
+    }
+  }
+]

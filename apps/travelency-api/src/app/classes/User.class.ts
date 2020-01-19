@@ -1,6 +1,6 @@
 import { model, Model } from 'mongoose';
 import { UserDoc } from '@pb-monorepo/travelency/models';
-import UserSchema from '../models/user.schema';
+import UserSchema from '../schemas/user.schema';
 
 class User {
   private model: Model<UserDoc>;

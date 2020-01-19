@@ -14,11 +14,6 @@ process.on('uncaughtException', err => {
 });
 
 /**
- * Get the `dotenv` config file.
- */
-// dotenv.config({ path: './config.env' });
-
-/**
  * Initialize the app.
  */
 const port = process.env.port || 3333;

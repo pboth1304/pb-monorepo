@@ -1,6 +1,6 @@
 import { model, Model } from 'mongoose';
 import { RoomDoc } from '@pb-monorepo/travelency/models';
-import RoomSchema from '../models/room.schema';
+import RoomSchema from '../schemas/room.schema';
 
 class Room {
   private model: Model<RoomDoc>;
