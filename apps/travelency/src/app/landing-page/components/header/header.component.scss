@@ -1,0 +1,31 @@
+.header {
+  text-align: center;
+  height: 100vh;
+
+  &--top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &--top,
+  &--bottom {
+    height: 50%;
+  }
+}
+
+.heading {
+  &-primary {
+    font-size: 8.5rem;
+    font-weight: 300;
+    line-height: 140%;
+    text-transform: uppercase;
+  }
+
+  &-secondary {
+    font-size: 5rem;
+    font-weight: 200;
+    letter-spacing: 2px;
+    line-height: 100%;
+  }
+}
