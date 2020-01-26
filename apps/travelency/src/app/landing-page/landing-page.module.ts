@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LandingPageGlobalSearchComponent } from './components/landing-page-global-search/landing-page-global-search.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,7 @@ import { LandingPageGlobalSearchComponent } from './components/landing-page-glob
     LandingPageComponent,
     LandingPageGlobalSearchComponent
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, SharedModule],
   exports: [LandingPageComponent]
 })
 export class LandingPageModule {}

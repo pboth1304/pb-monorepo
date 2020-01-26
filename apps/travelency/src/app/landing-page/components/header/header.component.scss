@@ -1,5 +1,4 @@
 .header {
-  text-align: center;
   height: 100vh;
 
   &--top {
@@ -14,6 +13,7 @@
       url('/assets/img/hero-img.jpg');
     background-position: center 80%;
     background-size: cover;
+    text-align: center;
   }
 
   &--top,
@@ -38,5 +38,14 @@
     letter-spacing: 2px;
     line-height: 100%;
     margin-bottom: 9rem;
+  }
+}
+
+.header--bottom {
+  padding: 8rem 24rem 0rem 24rem;
+
+  .cards {
+    display: flex;
+    justify-content: space-between;
   }
 }
