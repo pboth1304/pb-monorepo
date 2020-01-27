@@ -3,9 +3,17 @@
 :root {
   --color-white: #fff;
   --color-primary: #eb2f64;
+  --color-primary-light: #ff3366;
+  --color-primary-dark: #ba265d;
   --color-secondary: #404040;
+  --color-grey-light-1: #faf9f9;
+  --color-grey-light-2: #f4f2f2;
+  --color-grey-light-3: #f0eeee;
+  --color-grey-light-4: #ccc;
+  --color-grey-dark-1: #333;
+  --color-grey-dark-2: #777;
+  --color-grey-dark-3: #999;
   --font-primary: 'Montserrat', sans-serif;
-  --color-light-grey: #777777;
 }
 
 *,
@@ -32,4 +40,53 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.btn {
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  border-radius: 100px;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  padding: 1.7rem 6rem;
+  transition: all 0.4s ease;
+  letter-spacing: 1px;
+  display: inline-block;
+  text-decoration: none;
+
+  &-primary {
+    background-image: linear-gradient(
+      to right,
+      var(--color-primary-light),
+      var(--color-primary-dark)
+    );
+    color: #fff;
+  }
+
+  &::after {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s;
+    background-color: var(--color-primary);
+  }
+
+  &:hover,
+  &:active {
+    transform: translateY(0px) scale(1.1);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.8);
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
 }

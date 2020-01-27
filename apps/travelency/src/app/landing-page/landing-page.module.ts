@@ -4,12 +4,14 @@ import { HeaderComponent } from './components/header/header.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LandingPageGlobalSearchComponent } from './components/landing-page-global-search/landing-page-global-search.component';
 import { SharedModule } from '../shared/shared.module';
+import { SpotlightSectionComponent } from './components/spotlight-section/spotlight-section.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     LandingPageComponent,
-    LandingPageGlobalSearchComponent
+    LandingPageGlobalSearchComponent,
+    SpotlightSectionComponent
   ],
   imports: [CommonModule, SharedModule],
   exports: [LandingPageComponent]

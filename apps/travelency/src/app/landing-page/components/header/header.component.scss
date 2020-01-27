@@ -1,5 +1,5 @@
 .header {
-  height: 100vh;
+  height: 100%;
 
   &--top {
     display: flex;
@@ -16,9 +16,8 @@
     text-align: center;
   }
 
-  &--top,
-  &--bottom {
-    height: 50%;
+  &--top {
+    height: 50vh;
   }
 }
 
@@ -42,10 +41,11 @@
 }
 
 .header--bottom {
-  padding: 8rem 24rem 0rem 24rem;
+  padding: 8rem 24rem 8rem 24rem;
 
   .cards {
     display: flex;
     justify-content: space-between;
+    padding: 4rem 0;
   }
 }

@@ -1,7 +1,10 @@
 <span class="subtitle">{{ titleConfig.subtitle }}</span>
 <div class="section-heading">
   <h2 class="section-title">{{ titleConfig.title }}</h2>
-  <a [routerLink]="[titleConfig.link]" class="link-see-more"
+  <a
+    [routerLink]="[titleConfig.link]"
+    class="link-see-more"
+    *ngIf="titleConfig.link"
     >See more <span class="arrow">&rarr;</span></a
   >
 </div>
