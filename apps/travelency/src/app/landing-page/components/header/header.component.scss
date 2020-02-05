@@ -1,10 +1,12 @@
 .header {
   height: 100%;
+  grid-template-rows: 50vh minmax(50vh, auto);
 
   &--top {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    grid-column: 1 / -1;
+
+    grid-template-rows: 1fr min-content 1fr;
+
     background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.5),
@@ -36,16 +38,30 @@
     font-weight: 200;
     letter-spacing: 2px;
     line-height: 100%;
-    margin-bottom: 9rem;
+    margin-bottom: 7rem;
+  }
+
+  &-container {
+    grid-row: 2 / 3;
+    grid-column: center-start / center-end;
   }
 }
 
 .header--bottom {
-  padding: 8rem 24rem 8rem 24rem;
+  grid-column: 1 / -1;
+
+  grid-template-rows: minmax(9rem, 1fr) min-content min-content minmax(9rem, 1fr);
+
+  .section-title {
+    grid-row: 2 / 3;
+    grid-column: center-start / center-end;
+  }
 
   .cards {
+    grid-row: 3 / 4;
+    grid-column: center-start / center-end;
     display: flex;
     justify-content: space-between;
-    padding: 4rem 0;
+    padding-top: 2rem;
   }
 }

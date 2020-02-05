@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600&display=swap');
+@import 'assets/sass/main';
 
 :root {
   --color-white: #fff;
@@ -40,53 +41,4 @@ body {
 a {
   text-decoration: none;
   color: inherit;
-}
-
-.btn {
-  font-size: 1.5rem;
-  font-weight: 300;
-  text-transform: uppercase;
-  border-radius: 100px;
-  border: none;
-  position: relative;
-  cursor: pointer;
-  padding: 1.7rem 6rem;
-  transition: all 0.4s ease;
-  letter-spacing: 1px;
-  display: inline-block;
-  text-decoration: none;
-
-  &-primary {
-    background-image: linear-gradient(
-      to right,
-      var(--color-primary-light),
-      var(--color-primary-dark)
-    );
-    color: #fff;
-  }
-
-  &::after {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-    border-radius: 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    transition: all 0.4s;
-    background-color: var(--color-primary);
-  }
-
-  &:hover,
-  &:active {
-    transform: translateY(0px) scale(1.1);
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.8);
-
-    &::after {
-      transform: scaleX(1.4) scaleY(1.6);
-      opacity: 0;
-    }
-  }
 }

@@ -5,13 +5,15 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { LandingPageGlobalSearchComponent } from './components/landing-page-global-search/landing-page-global-search.component';
 import { SharedModule } from '../shared/shared.module';
 import { SpotlightSectionComponent } from './components/spotlight-section/spotlight-section.component';
+import { BeachDestinationsSectionComponent } from './components/beach-destinations-section/beach-destinations-section.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     LandingPageComponent,
     LandingPageGlobalSearchComponent,
-    SpotlightSectionComponent
+    SpotlightSectionComponent,
+    BeachDestinationsSectionComponent
   ],
   imports: [CommonModule, SharedModule],
   exports: [LandingPageComponent]
