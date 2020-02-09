@@ -1,0 +1,19 @@
+.container-grid {
+  grid-row-gap: 2rem;
+  grid-template-rows: 5rem min-content min-content 5rem;
+}
+
+.section-title {
+  grid-column: center-start / center-end;
+  grid-row: 2 / 3;
+}
+
+.cards {
+  grid-column: center-start / center-end;
+  grid-row: 3 / 4;
+  height: 27rem;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 5rem;
+}

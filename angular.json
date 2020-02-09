@@ -820,7 +820,7 @@
             "polyfills": "apps/travelency/src/polyfills.ts",
             "tsConfig": "apps/travelency/tsconfig.app.json",
             "assets": [
-              "apps/travelency/src/favicon.ico",
+              "apps/travelency/src/favicon.png",
               "apps/travelency/src/assets"
             ],
             "styles": ["apps/travelency/src/styles.scss"],

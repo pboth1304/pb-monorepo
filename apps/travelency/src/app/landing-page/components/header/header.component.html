@@ -6,49 +6,10 @@
       <trav-landing-page-global-search></trav-landing-page-global-search>
     </div>
   </div>
-  <div class="header--bottom container-grid">
-    <div class="section-title">
-      <trav-title
-        [titleConfig]="{
-          title: 'Some of our favorites',
-          subtitle: 'Cities',
-          link: '#'
-        }"
-      ></trav-title>
-    </div>
-    <div class="cards">
-      <trav-card-upright
-        [cardConfig]="{
-          title: 'Lisbon',
-          ctaText: 'View Properties',
-          backgroundImagePath: '/assets/img/card/lisbon.jpg',
-          link: ''
-        }"
-      ></trav-card-upright>
-      <trav-card-upright
-        [cardConfig]="{
-          title: 'Lisbon',
-          ctaText: 'View Properties',
-          backgroundImagePath: '/assets/img/card/lisbon.jpg',
-          link: ''
-        }"
-      ></trav-card-upright>
-      <trav-card-upright
-        [cardConfig]="{
-          title: 'Lisbon',
-          ctaText: 'View Properties',
-          backgroundImagePath: '/assets/img/card/lisbon.jpg',
-          link: ''
-        }"
-      ></trav-card-upright>
-      <trav-card-upright
-        [cardConfig]="{
-          title: 'Lisbon',
-          ctaText: 'View Properties',
-          backgroundImagePath: '/assets/img/card/lisbon.jpg',
-          link: ''
-        }"
-      ></trav-card-upright>
-    </div>
+  <div class="header--bottom">
+    <trav-cards-section
+      [titleConfig]="titleConfig"
+      [cards]="citiesCardConfigs"
+    ></trav-cards-section>
   </div>
 </header>

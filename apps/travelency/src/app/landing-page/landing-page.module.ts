@@ -5,7 +5,7 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { LandingPageGlobalSearchComponent } from './components/landing-page-global-search/landing-page-global-search.component';
 import { SharedModule } from '../shared/shared.module';
 import { SpotlightSectionComponent } from './components/spotlight-section/spotlight-section.component';
-import { BeachDestinationsSectionComponent } from './components/beach-destinations-section/beach-destinations-section.component';
+import { CardsSectionComponent } from './components/cards-section/cards-section.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { BeachDestinationsSectionComponent } from './components/beach-destinatio
     LandingPageComponent,
     LandingPageGlobalSearchComponent,
     SpotlightSectionComponent,
-    BeachDestinationsSectionComponent
+    CardsSectionComponent
   ],
   imports: [CommonModule, SharedModule],
   exports: [LandingPageComponent]
