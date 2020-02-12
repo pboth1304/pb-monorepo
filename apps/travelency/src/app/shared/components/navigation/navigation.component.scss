@@ -1,0 +1,37 @@
+.navigation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 3rem 7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__logo {
+    height: 5rem;
+    width: auto;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+  }
+
+  &__items {
+    color: #ffffff;
+    padding: 0 2rem;
+    font-size: 1.6rem;
+  }
+
+  &__link {
+    transition: color 0.2s ease-out;
+
+    &:hover,
+    &:active,
+    &--active {
+      color: var(--color-primary);
+    }
+  }
+}
