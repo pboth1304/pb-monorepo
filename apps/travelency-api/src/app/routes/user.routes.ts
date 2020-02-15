@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import Validator from '../classes/Validator.class';
-import { Route } from '@pb-monorepo/travelency/models';
+import { Roles, Route } from '@pb-monorepo/travelency/models';
 import UsersController from '../controllers/users.controller';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UpdateUserDto } from '../dtos/update-user.dto';
@@ -65,6 +65,9 @@ class UserRoutes implements Route {
         this.usersController.updateMe,
         this.usersController.updateUserById
       );
+
+    /** Following routes are only accessible with Role ADMIN */
+    this.router.use(this.auth.restrictTo(Roles.ADMIN));
 
     this.router
       .route('')
