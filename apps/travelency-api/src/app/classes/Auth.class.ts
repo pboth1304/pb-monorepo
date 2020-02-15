@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import User from './User.class';
 import { wrapAsync } from '../utils/error-handling.utils';
 import { ErrorHandler } from './ErrorHandler.class';
+import { Roles } from '@pb-monorepo/travelency/models';
 
 export class Auth {
   private readonly user: User;
@@ -59,6 +60,29 @@ export class Auth {
     }
   );
 
+  /**
+   * Middleware to restrict the access of a route to the given Roles.
+   * @param roles
+   */
+  public restrictTo(...roles: Roles[]) {
+    return (req: Request, res: Response, next: NextFunction) => {
+      if (!roles.includes(req['user'].role.toUpperCase())) {
+        return next(
+          new ErrorHandler(
+            403,
+            'You do not have permission to perform this action.'
+          )
+        );
+      }
+
+      next();
+    };
+  }
+
+  /**
+   * Sign's a JWT Token by the given User Id.
+   * @param userId
+   */
   public signToken(userId: string): string {
     return jwt.sign({ userId }, environment.JWT_SECRET_KEY, {
       expiresIn: environment.JWT_EXPIRES_IN

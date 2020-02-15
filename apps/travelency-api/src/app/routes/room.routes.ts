@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import Validator from '../classes/Validator.class';
 import RoomsController from '../controllers/rooms.controller';
-import { Route } from '@pb-monorepo/travelency/models';
+import { Roles, Route } from '@pb-monorepo/travelency/models';
 import { CreateRoomDto } from '../dtos/create-room.dto';
 import { Auth } from '../classes/Auth.class';
 
@@ -53,6 +53,8 @@ class RoomRoutes implements Route {
       .route('')
       .get(this.roomsController.getAllRooms)
       .post(
+        this.auth.grantRouteAccess,
+        this.auth.restrictTo(Roles.ADMIN),
         this.validator.validationMiddleware<CreateRoomDto>(CreateRoomDto),
         this.roomsController.createNewRoom
       );
@@ -60,8 +62,16 @@ class RoomRoutes implements Route {
     this.router
       .route('/:roomId')
       .get(this.roomsController.getRoomById)
-      .patch(this.roomsController.updateRoomById) // TODO: update room dto
-      .delete(this.auth.grantRouteAccess, this.roomsController.deleteRoomById);
+      .patch(
+        this.auth.grantRouteAccess,
+        this.auth.restrictTo(Roles.ADMIN),
+        this.roomsController.updateRoomById
+      ) // TODO: update room dto
+      .delete(
+        this.auth.grantRouteAccess,
+        this.auth.restrictTo(Roles.ADMIN),
+        this.roomsController.deleteRoomById
+      );
   }
 }
 
