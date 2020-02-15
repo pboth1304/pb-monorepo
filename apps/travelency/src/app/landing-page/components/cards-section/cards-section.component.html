@@ -1,0 +1,10 @@
+<section class="container-grid">
+  <trav-title class="section-title" [titleConfig]="titleConfig"></trav-title>
+
+  <div class="cards">
+    <trav-card-upright
+      *ngFor="let cardConfig of cards"
+      [cardConfig]="cardConfig"
+    ></trav-card-upright>
+  </div>
+</section>

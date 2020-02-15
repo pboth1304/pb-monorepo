@@ -1,0 +1,16 @@
+<header class="header container-grid">
+  <div class="header--top container-grid">
+
+    <div class="heading-container">
+      <h1 class="heading-primary">Travelency</h1>
+      <h1 class="heading-secondary">your online travel agency</h1>
+      <trav-landing-page-global-search></trav-landing-page-global-search>
+    </div>
+  </div>
+  <div class="header--bottom">
+    <trav-cards-section
+      [titleConfig]="titleConfig"
+      [cards]="citiesCardConfigs"
+    ></trav-cards-section>
+  </div>
+</header>

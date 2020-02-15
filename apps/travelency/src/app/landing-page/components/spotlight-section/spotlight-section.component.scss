@@ -1,0 +1,22 @@
+.spotlight {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+
+  &--picture {
+    background-size: cover;
+    background-image: url('/assets/img/spotlight.jpg');
+    background-position: center center;
+  }
+
+  &-content {
+    padding: 5rem 7rem;
+    background-color: var(--color-grey-light-2);
+
+    &--text {
+      font-size: 1.8rem;
+      color: var(--color-grey-dark-3);
+      margin: 3rem 0;
+    }
+  }
+}

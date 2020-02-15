@@ -1,0 +1,16 @@
+<div
+  class="card card--upright"
+  [ngStyle]="{
+    'background-image':
+      LINEAR_GRADIENT_BLACK + 'url(' + cardConfig.backgroundImagePath + ')'
+  }"
+>
+  <h3 class="card--title">
+    {{ cardConfig.title }}
+  </h3>
+  <div class="card--cta">
+    <a [routerLink]="[cardConfig.link]" class="cta--link">{{
+      cardConfig.ctaText
+    }}</a>
+  </div>
+</div>

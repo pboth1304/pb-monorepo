@@ -1,0 +1,55 @@
+<nav class="navigation">
+  <a [routerLink]="['']" class="navigation__link">
+    <img
+      src="/assets/img/logo.png"
+      alt="Travelency Logo"
+      class="navigation__logo"
+    />
+  </a>
+  <ul class="navigation__list" *ngIf="mainNavIsShown">
+    <li class="navigation__items">
+      <a
+        href="#"
+        class="navigation__link"
+        [routerLink]="['accomodation']"
+        routerLinkActive="navigation__link--active"
+        >Accomodation</a
+      >
+    </li>
+    <li class="navigation__items">
+      <a
+        href="#"
+        class="navigation__link"
+        [routerLink]="['flights']"
+        routerLinkActive="navigation__link--active"
+        >Flights</a
+      >
+    </li>
+    <li class="navigation__items">
+      <a
+        href="#"
+        class="navigation__link"
+        [routerLink]="['tours']"
+        routerLinkActive="navigation__link--active"
+        >Tours</a
+      >
+    </li>
+  </ul>
+  <ul class="navigation__list navigation__list--user">
+    <ng-container *ngIf="!isLoggedIn">
+      <li class="navigation__items">
+        <a href="#" class="navigation__link" [routerLink]="['login']">Login</a>
+      </li>
+      <li class="navigation__items">
+        <a href="#" class="navigation__link" [routerLink]="['signUp']"
+          >Sign Up</a
+        >
+      </li>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn">
+      <li class="navigation__items navigation__items--user-icon">
+        Pascal Bothner
+      </li>
+    </ng-container>
+  </ul>
+</nav>

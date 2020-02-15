@@ -1,0 +1,67 @@
+.header {
+  height: 100%;
+  grid-template-rows: 50vh minmax(50vh, auto);
+
+  &--top {
+    grid-column: 1 / -1;
+
+    grid-template-rows: 1fr min-content 1fr;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url('/assets/img/hero-img.jpg');
+    background-position: center 80%;
+    background-size: cover;
+    text-align: center;
+  }
+
+  &--top {
+    height: 50vh;
+  }
+}
+
+.heading {
+  &-primary {
+    color: var(--color-primary);
+    font-size: 8rem;
+    font-weight: 300;
+    line-height: 140%;
+    text-transform: uppercase;
+  }
+
+  &-secondary {
+    color: #ffffff;
+    font-size: 4.5rem;
+    font-weight: 200;
+    letter-spacing: 2px;
+    line-height: 100%;
+    margin-bottom: 7rem;
+  }
+
+  &-container {
+    grid-row: 2 / 3;
+    grid-column: center-start / center-end;
+  }
+}
+
+.header--bottom {
+  grid-column: 1 / -1;
+
+  grid-template-rows: minmax(9rem, 1fr) min-content min-content minmax(9rem, 1fr);
+
+  .section-title {
+    grid-row: 2 / 3;
+    grid-column: center-start / center-end;
+  }
+
+  .cards {
+    grid-row: 3 / 4;
+    grid-column: center-start / center-end;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2rem;
+  }
+}
