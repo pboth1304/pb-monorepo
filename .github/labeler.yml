@@ -1,0 +1,37 @@
+# Add 'repo' label to any root file changes
+   repo:
+     - ./*
+
+  admin-app:
+     - apps/admin-app/*
+     - apps/admin-app-e2e/*
+     - libs/admin-app/*
+
+  crawler:
+    - apps/crawler/*
+    - libs/crawler/*
+
+  portfolio-page:
+    - apps/portfolio-page/*
+    - apps/portfolio-page-api/*
+    - apps/portfolio-page-e2e/*
+    - libs/portfolio-page/*
+    - libs/portfolio-page-api/*
+
+  search-engine:
+    - apps/search-engine/*
+    - apps/search-engine-api/*
+    - apps/search-engine-e2e/*
+    - libs/search-engine/*
+    - libs/search-engine-api/*
+
+  travelency:
+    - apps/travelency/*
+    - apps/travelency-api/*
+    - apps/travelency-e2e/*
+    - libs/travelency/*
+    - libs/travelency-api/*
+
+# Add 'test' label to any change to *.spec.ts files
+   test:
+     - ./**/*.spec.ts
