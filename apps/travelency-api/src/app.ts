@@ -78,7 +78,8 @@ class TravelencyApp {
     const baseConfig = {
       useNewUrlParser: true,
       useCreateIndex: true,
-      useFindAndModify: false
+      useFindAndModify: false,
+      useUnifiedTopology: true
     };
 
     dbConnection.on('connected', () => {
@@ -92,16 +93,12 @@ class TravelencyApp {
       console.log('Mongo DB Connection Disconnected');
       console.log('Trying to reconnect to Mongo DB ...');
       setTimeout(() => {
-        connect(
-          mongoURI,
-          {
-            autoReconnect: true,
-            keepAlive: true,
-            socketTimeoutMS: 3000,
-            connectTimeoutMS: 3000,
-            ...baseConfig
-          }
-        );
+        connect(mongoURI, {
+          keepAlive: true,
+          socketTimeoutMS: 3000,
+          connectTimeoutMS: 3000,
+          ...baseConfig
+        });
       }, 3000);
     });
     dbConnection.on('close', () => {
@@ -114,14 +111,10 @@ class TravelencyApp {
     /** Connect to Database. */
     const connectToDB = async () => {
       // TODO: solve infinite loop, because of 2 connect calls
-      await connect(
-        mongoURI,
-        {
-          autoReconnect: true,
-          keepAlive: true,
-          ...baseConfig
-        }
-      );
+      await connect(mongoURI, {
+        keepAlive: true,
+        ...baseConfig
+      });
     };
 
     connectToDB().catch(error => console.error(error));

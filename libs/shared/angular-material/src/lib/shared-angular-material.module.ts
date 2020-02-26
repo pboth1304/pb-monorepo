@@ -7,7 +7,7 @@ import { DialogService } from './services/dialog.service';
   imports: [CommonModule, MatDialogModule]
 })
 export class SharedAngularMaterialModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<SharedAngularMaterialModule> {
     return {
       ngModule: SharedAngularMaterialModule,
       providers: [DialogService]

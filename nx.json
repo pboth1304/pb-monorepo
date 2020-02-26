@@ -9,7 +9,8 @@
   },
   "projects": {
     "admin-app-e2e": {
-      "tags": ["scope:admin", "scope:e2e"]
+      "tags": ["scope:admin", "scope:e2e"],
+      "implicitDependencies": ["admin-app"]
     },
     "admin-app": {
       "tags": ["scope:admin", "scope:angular"]
@@ -27,7 +28,8 @@
       "tags": []
     },
     "portfolio-page-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["portfolio-page"]
     },
     "portfolio-page": {
       "tags": []
@@ -48,7 +50,8 @@
       "tags": ["scope:travelency"]
     },
     "search-engine-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["search-engine"]
     },
     "search-engine": {
       "tags": ["scope:search-engine"]
@@ -57,7 +60,8 @@
       "tags": ["scope:search-engine"]
     },
     "travelency-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["travelency"]
     },
     "travelency": {
       "tags": ["scope:travelency"]

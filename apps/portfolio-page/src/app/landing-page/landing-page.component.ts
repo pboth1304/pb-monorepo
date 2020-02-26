@@ -12,7 +12,7 @@ import {
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
-  @ViewChild('main', { static: false }) mainEl: ElementRef;
+  @ViewChild('main') mainEl: ElementRef;
 
   scrollPositionBelowHeaderEl = false;
 
