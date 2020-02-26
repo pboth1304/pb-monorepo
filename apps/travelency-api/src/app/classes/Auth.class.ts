@@ -35,15 +35,16 @@ export class Auth {
       }
 
       /** Decode Jwt Token */
-      const decodedToken = await promisify(jwt.verify)(
-        token,
-        environment.JWT_SECRET_KEY
-      );
+      const decodedToken = jwt.verify(token, environment.JWT_SECRET_KEY) as {
+        userId: string;
+        iat: number;
+        exp: number;
+      };
 
       /** Check if user still exists with userId from decoded token */
       const currentUser = await this.user
         .getUserModel()
-        .findById(decodedToken['userId']);
+        .findById(decodedToken.userId);
 
       if (!currentUser) {
         return next(

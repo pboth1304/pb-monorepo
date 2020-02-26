@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/apps/admin-app",
             "index": "apps/admin-app/src/index.html",
             "main": "apps/admin-app/src/main.ts",
@@ -59,6 +60,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -88,7 +93,7 @@
               "apps/admin-app/tsconfig.app.json",
               "apps/admin-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/admin-app/**"]
           }
         },
         "test": {
@@ -122,7 +127,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "apps/admin-app-e2e/tsconfig.e2e.json"
+            "tsConfig": "apps/admin-app-e2e/tsconfig.e2e.json",
+            "exclude": ["!apps/admin-app-e2e/**"]
           }
         }
       }
@@ -169,7 +175,7 @@
               "apps/admin-app-api/tsconfig.app.json",
               "apps/admin-app-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/admin-app-api/**"]
           }
         },
         "test": {
@@ -194,7 +200,7 @@
               "libs\\shared\\models\\tsconfig.lib.json",
               "libs/shared/models/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/shared/models/**"]
           }
         },
         "test": {
@@ -219,7 +225,10 @@
               "libs/shared/angular-material/tsconfig.lib.json",
               "libs/shared/angular-material/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/angular-material/**"
+            ]
           }
         },
         "test": {
@@ -279,7 +288,7 @@
               "apps/crawler/tsconfig.app.json",
               "apps/crawler/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/crawler/**"]
           }
         },
         "test": {
@@ -324,6 +333,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/apps/portfolio-page",
             "index": "apps/portfolio-page/src/index.html",
             "main": "apps/portfolio-page/src/main.ts",
@@ -358,6 +368,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -388,7 +402,7 @@
               "apps/portfolio-page/tsconfig.app.json",
               "apps/portfolio-page/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/portfolio-page/**"]
           }
         },
         "test": {
@@ -422,7 +436,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "apps/portfolio-page-e2e/tsconfig.e2e.json"
+            "tsConfig": "apps/portfolio-page-e2e/tsconfig.e2e.json",
+            "exclude": ["!apps/portfolio-page-e2e/**"]
           }
         }
       }
@@ -469,7 +484,7 @@
               "apps/portfolio-page-api/tsconfig.app.json",
               "apps/portfolio-page-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/portfolio-page-api/**"]
           }
         },
         "test": {
@@ -494,7 +509,7 @@
               "libs\\shared\\terminus\\tsconfig.lib.json",
               "libs/shared/terminus/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/shared/terminus/**"]
           }
         },
         "test": {
@@ -548,7 +563,7 @@
               "apps/travelency-api-nest/tsconfig.app.json",
               "apps/travelency-api-nest/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/travelency-api-nest/**"]
           }
         },
         "test": {
@@ -570,7 +585,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["libs\\travelency\\models\\tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/travelency/models/**"]
           }
         }
       }
@@ -617,7 +632,7 @@
               "apps/travelency-api/tsconfig.app.json",
               "apps/travelency-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/travelency-api/**"]
           }
         },
         "test": {
@@ -643,6 +658,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/apps/search-engine",
             "index": "apps/search-engine/src/index.html",
             "main": "apps/search-engine/src/main.ts",
@@ -677,6 +693,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -707,7 +727,7 @@
               "apps/search-engine/tsconfig.app.json",
               "apps/search-engine/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/search-engine/**"]
           }
         },
         "test": {
@@ -741,7 +761,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "apps/search-engine-e2e/tsconfig.e2e.json"
+            "tsConfig": "apps/search-engine-e2e/tsconfig.e2e.json",
+            "exclude": ["!apps/search-engine-e2e/**"]
           }
         }
       }
@@ -788,7 +809,7 @@
               "apps/search-engine-api/tsconfig.app.json",
               "apps/search-engine-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/search-engine-api/**"]
           }
         },
         "test": {
@@ -814,6 +835,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/apps/travelency",
             "index": "apps/travelency/src/index.html",
             "main": "apps/travelency/src/main.ts",
@@ -848,6 +870,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -877,7 +903,7 @@
               "apps/travelency/tsconfig.app.json",
               "apps/travelency/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/travelency/**"]
           }
         },
         "test": {
@@ -911,7 +937,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "apps/travelency-e2e/tsconfig.e2e.json"
+            "tsConfig": "apps/travelency-e2e/tsconfig.e2e.json",
+            "exclude": ["!apps/travelency-e2e/**"]
           }
         }
       }
