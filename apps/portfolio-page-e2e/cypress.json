@@ -1,11 +1,12 @@
 {
-  "fileServerFolder": "./",
+  "fileServerFolder": ".",
   "fixturesFolder": "./src/fixtures",
   "integrationFolder": "./src/integration",
-  "pluginsFile": "./src/plugins/index.js",
-  "supportFile": false,
+  "modifyObstructiveCode": false,
+  "pluginsFile": "./src/plugins/index",
+  "supportFile": "./src/support/index.ts",
   "video": true,
-  "videosFolder": "../../dist/out-tsc/apps/portfolio-page-e2e/videos",
-  "screenshotsFolder": "../../dist/out-tsc/apps/portfolio-page-e2e/screenshots",
+  "videosFolder": "../../dist/cypress/apps/portfolio-page-e2e/videos",
+  "screenshotsFolder": "../../dist/cypress/apps/portfolio-page-e2e/screenshots",
   "chromeWebSecurity": false
 }

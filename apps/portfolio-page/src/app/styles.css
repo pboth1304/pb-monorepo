@@ -1,0 +1,37 @@
+:root {
+  --color-white: #fff;
+  --color-primary: #00d4da;
+  --color-secondary: #404040;
+  --font-primary: 'Montserrat', sans-serif;
+
+  --bp-largest: 75em;
+  --bp-large: 62.5em;
+  --bp-medium: 50em;
+  --bp-small: 37.5em;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-grey-dark-2);
+}
+
+@media screen and (max-width: 75em) {
+  html {
+    font-size: 50%;
+  }
+}

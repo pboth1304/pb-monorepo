@@ -300,7 +300,7 @@
         }
       }
     },
-    "portfolio-page": {
+    "portfolio-page-angular": {
       "projectType": "application",
       "schematics": {
         "@nrwl/workspace:class": {
@@ -326,32 +326,32 @@
           "skipTests": true
         }
       },
-      "root": "apps/portfolio-page",
-      "sourceRoot": "apps/portfolio-page/src",
+      "root": "apps/portfolio-page-angular",
+      "sourceRoot": "apps/portfolio-page-angular/src",
       "prefix": "pb",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/apps/portfolio-page",
-            "index": "apps/portfolio-page/src/index.html",
-            "main": "apps/portfolio-page/src/main.ts",
-            "polyfills": "apps/portfolio-page/src/polyfills.ts",
-            "tsConfig": "apps/portfolio-page/tsconfig.app.json",
+            "outputPath": "dist/apps/portfolio-page-angular",
+            "index": "apps/portfolio-page-angular/src/index.html",
+            "main": "apps/portfolio-page-angular/src/main.ts",
+            "polyfills": "apps/portfolio-page-angular/src/polyfills.ts",
+            "tsConfig": "apps/portfolio-page-angular/tsconfig.app.json",
             "assets": [
-              "apps/portfolio-page/src/favicon.ico",
-              "apps/portfolio-page/src/assets"
+              "apps/portfolio-page-angular/src/favicon.ico",
+              "apps/portfolio-page-angular/src/assets"
             ],
-            "styles": ["apps/portfolio-page/src/styles.scss"],
+            "styles": ["apps/portfolio-page-angular/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/portfolio-page/src/environments/environment.ts",
-                  "with": "apps/portfolio-page/src/environments/environment.prod.ts"
+                  "replace": "apps/portfolio-page-angular/src/environments/environment.ts",
+                  "with": "apps/portfolio-page-angular/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -380,64 +380,64 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "portfolio-page:build",
-            "proxyConfig": "apps/portfolio-page/proxy.conf.json"
+            "browserTarget": "portfolio-page-angular:build",
+            "proxyConfig": "apps/portfolio-page-angular/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "portfolio-page:build:production"
+              "browserTarget": "portfolio-page-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "portfolio-page:build"
+            "browserTarget": "portfolio-page-angular:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/portfolio-page/tsconfig.app.json",
-              "apps/portfolio-page/tsconfig.spec.json"
+              "apps/portfolio-page-angular/tsconfig.app.json",
+              "apps/portfolio-page-angular/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/portfolio-page/**"]
+            "exclude": ["**/node_modules/**", "!apps/portfolio-page-angular/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/portfolio-page/jest.config.js",
-            "tsConfig": "apps/portfolio-page/tsconfig.spec.json",
-            "setupFile": "apps/portfolio-page/src/test-setup.ts"
+            "jestConfig": "apps/portfolio-page-angular/jest.config.js",
+            "tsConfig": "apps/portfolio-page-angular/tsconfig.spec.json",
+            "setupFile": "apps/portfolio-page-angular/src/test-setup.ts"
           }
         }
       }
     },
-    "portfolio-page-e2e": {
-      "root": "apps/portfolio-page-e2e",
-      "sourceRoot": "apps/portfolio-page-e2e/src",
+    "portfolio-page-angular-e2e": {
+      "root": "apps/portfolio-page-angular-e2e",
+      "sourceRoot": "apps/portfolio-page-angular-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/portfolio-page-e2e/cypress.json",
-            "tsConfig": "apps/portfolio-page-e2e/tsconfig.e2e.json",
-            "devServerTarget": "portfolio-page:serve"
+            "cypressConfig": "apps/portfolio-pag-angular-e2e/cypress.json",
+            "tsConfig": "apps/portfolio-page-angular-e2e/tsconfig.e2e.json",
+            "devServerTarget": "portfolio-page-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "portfolio-page:serve:production"
+              "devServerTarget": "portfolio-page-angular:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "apps/portfolio-page-e2e/tsconfig.e2e.json",
-            "exclude": ["!apps/portfolio-page-e2e/**"]
+            "tsConfig": "apps/portfolio-page-angular-e2e/tsconfig.e2e.json",
+            "exclude": ["!apps/portfolio-page-angular-e2e/**"]
           }
         }
       }
@@ -942,6 +942,110 @@
           }
         }
       }
+    },
+    "portfolio-page": {
+      "root": "apps/portfolio-page",
+      "sourceRoot": "apps/portfolio-page/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/portfolio-page",
+            "index": "apps/portfolio-page/src/index.html",
+            "main": "apps/portfolio-page/src/main.tsx",
+            "polyfills": "apps/portfolio-page/src/polyfills.ts",
+            "tsConfig": "apps/portfolio-page/tsconfig.app.json",
+            "assets": [
+              "apps/portfolio-page/src/favicon.ico",
+              "apps/portfolio-page/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/portfolio-page/src/environments/environment.ts",
+                  "with": "apps/portfolio-page/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "portfolio-page:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "portfolio-page:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/portfolio-page/tsconfig.app.json",
+              "apps/portfolio-page/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/portfolio-page/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/portfolio-page/jest.config.js",
+            "tsConfig": "apps/portfolio-page/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "portfolio-page-e2e": {
+      "root": "apps/portfolio-page-e2e",
+      "sourceRoot": "apps/portfolio-page-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/portfolio-page-e2e/cypress.json",
+            "tsConfig": "apps/portfolio-page-e2e/tsconfig.e2e.json",
+            "devServerTarget": "portfolio-page:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "portfolio-page:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/portfolio-page-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/portfolio-page-e2e/**"]
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -958,6 +1062,20 @@
     },
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "tslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "tslint"
+      }
     }
   },
   "defaultProject": "admin-app"

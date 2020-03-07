@@ -27,11 +27,11 @@
     "crawler": {
       "tags": []
     },
-    "portfolio-page-e2e": {
+    "portfolio-page-angular-e2e": {
       "tags": [],
       "implicitDependencies": ["portfolio-page"]
     },
-    "portfolio-page": {
+    "portfolio-page-angular": {
       "tags": []
     },
     "portfolio-page-api": {
@@ -65,6 +65,13 @@
     },
     "travelency": {
       "tags": ["scope:travelency"]
+    },
+    "portfolio-page": {
+      "tags": []
+    },
+    "portfolio-page-e2e": {
+      "tags": [],
+      "implicitDependencies": ["portfolio-page"]
     }
   }
 }
