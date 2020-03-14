@@ -52,7 +52,7 @@ export const TechStackTechList = styled.div`
 
   display: grid;
   grid-template-rows: 1fr min-content 1fr;
-  grid-template-columns: 1fr repeat(5, 19rem) 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-column-gap: 1rem;
 
   border-radius: 1.5rem;
@@ -60,8 +60,16 @@ export const TechStackTechList = styled.div`
 `;
 
 export const TechStackTechListItem = styled.div`
-  grid-column: ${(props: { gridColStart: number; gridColEnd: number }) =>
-      props.gridColStart} /
-    ${(props: { gridColStart: number; gridColEnd: number }) => props.gridColEnd};
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  .tech-stack-list__item-img {
+    width: 7rem;
+  }
+
+  @media only screen and (max-width: 900px) {
+    padding: 2rem 1rem;
+  }
 `;
