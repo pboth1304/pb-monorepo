@@ -5,7 +5,7 @@ export const TechStackContainer = styled.section`
   grid-row: 3 / 4;
 
   display: grid;
-  grid-template-rows: repeat(8, 5rem);
+  grid-template-rows: repeat(7, minmax(min-content, 5rem));
   grid-template-columns:
     [full-start] minmax(6rem, 1fr)
     [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
